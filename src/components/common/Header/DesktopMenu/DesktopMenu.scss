@@ -1,0 +1,30 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__option {
+    padding: 1rem;
+    color: variables.$orange;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 2rem;
+    transition: 0.5s;
+
+    &:hover {
+      color: variables.$blue-dark;
+    }
+
+    &--colorful {
+      background-color: variables.$orange;
+      color: variables.$white;
+      padding: 1rem 2rem;
+      margin-left: 1rem;
+
+      &:hover {
+        background-color: variables.$blue-dark;
+        color: variables.$white;
+      }
+    }
+  }
+}

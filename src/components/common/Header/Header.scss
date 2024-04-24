@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+
+  background-color: variables.$white;
+  width: 100%;
+  gap: 2rem;
+  padding: 0 1.75rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+
+  .header__logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__desktop {
+    display: none;
+  }
+
+  .header__mobile {
+    display: flex;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 0 6rem;
+    margin-bottom: 2rem;
+
+    .header__desktop {
+      display: flex;
+    }
+
+    .header__mobile {
+      display: none;
+    }
+  }
+}

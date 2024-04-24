@@ -1,0 +1,33 @@
+.containerHome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: variables.$orange-light;
+  background-image: url('@/assets/images/background.png');
+  background-size: cover;
+  background-repeat: repeat;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 9rem 1.5rem 0;
+
+    min-height: 100vh;
+    color: variables.$white;
+    font-family: variables.$font-titles;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  }
+}

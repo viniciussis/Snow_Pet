@@ -1,0 +1,55 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    bottom: 0;
+    width: 100%;
+    background-color: variables.$white;
+    color: variables.$orange;
+    font-weight: 700;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
+    &__icons {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        li {
+            display: inline-block;
+            margin: 0px 5px;
+
+            a {
+                transition: 0.5s;
+
+                &:hover {
+                    color: variables.$blue-dark;
+                }
+            }
+
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    
+        background-color: variables.$white;
+        color: variables.$orange;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        padding: 1rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;    
+    }
+}
