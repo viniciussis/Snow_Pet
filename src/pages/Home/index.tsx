@@ -27,7 +27,7 @@ const Home = () => {
         <div className='content__options'>
           {options.map((option, index) => (
             <Link key={index} to={option.route} >
-              <img src={`src/assets/images/${option.icon}.png`} alt={option.label} className='options__icon'/>
+              <img src={`/assets/images/${option.icon}.png`} alt={option.label} className='options__icon'/>
             </Link>
           ))}
         </div>
