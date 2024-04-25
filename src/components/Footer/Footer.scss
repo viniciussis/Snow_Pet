@@ -35,7 +35,7 @@
         }
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: variables.$desktop-width) {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
@@ -48,7 +48,7 @@
         color: variables.$orange;
         font-weight: 700;
         margin-top: 2.5rem;
-        padding: 1rem;
+        padding: 0.5rem;
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;    
     }

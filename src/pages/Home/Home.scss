@@ -1,9 +1,4 @@
 .containerHome {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   background-color: variables.$orange-light;
   background-image: url('@/assets/images/background.png');
   background-size: cover;
@@ -12,22 +7,54 @@
   &__content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 9rem 1.5rem 0;
 
     min-height: 100vh;
+    padding: 7rem 2rem 0;
     color: variables.$white;
     font-family: variables.$font-titles;
 
-    h1 {
-      font-size: 2.5rem;
+    .content__title {
+      font-size: 2rem;
       font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
     }
 
-    h2 {
-      font-size: 2rem;
+    .content__subtitle {
+      font-size: 1.5rem;
+      text-align: center;
       font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    .content__options {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin-bottom: 2rem;
+
+      .options__icon {
+        width: 9rem;
+        height: 9rem;
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  @media screen and (min-width: variables.$desktop-width) {
+    &__content {
+      padding: 12rem 8rem 0;
+
+      .content__options {
+        padding: 0 10rem;
+
+        .options__icon {
+          width: 8.5rem;
+          height: 8.5rem;
+        }
+      }
     }
   }
 }

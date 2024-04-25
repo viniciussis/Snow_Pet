@@ -1,0 +1,26 @@
+.header {
+  background-color: variables.$white;
+  width: 100vw;
+  height: 15vh;
+  padding: 1rem 0;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+
+  .header__logo {
+    position: absolute;
+    left: 32%;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  @media screen and (min-width: variables.$desktop-width) {
+    position: fixed;
+    top: 0;
+
+    .header__logo {
+      left: 44%;
+    }
+  }
+}
