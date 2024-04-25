@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10rem 16rem;
+  gap: 2rem;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: variables.$white;
+  }
+
+  &__goBack {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+
+    button {
+      background-color: variables.$white;
+      border: 3px solid variables.$blue-light;
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      color: variables.$orange;
+      cursor: pointer;
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: 1s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
