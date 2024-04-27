@@ -4,7 +4,7 @@
   align-items: center;
 
   min-height: 100vh;
-  padding: 7rem 2rem 0;
+  padding: 5.5rem 2rem 0;
   color: variables.$white;
   font-family: variables.$font-titles;
 
@@ -18,7 +18,6 @@
   &__subtitle {
     font-size: 1.5rem;
     text-align: center;
-    font-weight: 500;
     margin-bottom: 2rem;
   }
 
@@ -42,7 +41,7 @@
   }
 
   @media screen and (min-width: variables.$desktop-width) {
-    padding: 12rem 8rem 0;
+    padding: 9rem 8rem 0;
 
     &__options {
       padding: 0 10rem;

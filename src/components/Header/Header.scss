@@ -1,14 +1,12 @@
 .header {
   background-color: variables.$white;
   width: 100vw;
-  height: 15vh;
-  padding: 1rem 0;
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  height: 12vh;
+  padding: 0.5rem 0;
 
   .header__logo {
     position: absolute;
-    left: 32%;
+    left: 35%;
 
     img {
       border-radius: 50%;
@@ -20,7 +18,7 @@
     top: 0;
 
     .header__logo {
-      left: 44%;
+      left: 45%;
     }
   }
 }
