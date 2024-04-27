@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding: 5.5rem 2rem 0;
+  min-height: 78vh;
+  padding: 5.5rem 2rem 3rem;
 
   &__title {
     font-size: 2rem;
@@ -14,7 +14,7 @@
   }
 
   @media screen and (min-width: variables.$desktop-width) {
-    padding: 9rem 8rem 0;
+    padding: 4rem 5rem;
   }
 
 }
