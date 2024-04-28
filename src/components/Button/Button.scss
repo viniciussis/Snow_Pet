@@ -1,0 +1,13 @@
+.button {
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  background-color: variables.$white;
+  color: variables.$black;
+  border: 2px solid variables.$blue-light;
+
+  &:hover {
+    outline: 1px solid variables.$blue-light;
+  }
+}

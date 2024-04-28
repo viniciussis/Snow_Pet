@@ -4,17 +4,31 @@
   align-items: center;
   min-height: 78vh;
   padding: 5.5rem 2rem 3rem;
+  gap: 1rem;
 
   &__title {
     font-size: 2rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 1.5rem;
     color: variables.$white;
   }
 
-  @media screen and (min-width: variables.$desktop-width) {
-    padding: 4rem 5rem;
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+    width: 100%;
   }
 
+  @media screen and (min-width: variables.$desktop-width) {
+    padding: 4rem 5rem 2rem;
+
+    &__actions {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
 }

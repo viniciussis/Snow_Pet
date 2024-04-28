@@ -1,0 +1,35 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-grow: 0.4;
+
+  &__input {
+    width: 100%;
+    padding: 0.5rem 2.5rem;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: variables.$black;
+    border: 2px solid variables.$blue-light;
+    caret-color: variables.$blue-light;
+    background: variables.$white;
+
+    &:focus {
+      outline: 1px solid variables.$blue-light;
+    }
+  }
+
+  &__button {
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 25%;
+    right: 5%;
+
+    .button__icon {
+      color: variables.$blue-light;
+    }
+  }
+}
