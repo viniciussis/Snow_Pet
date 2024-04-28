@@ -6,14 +6,14 @@ interface SearchBarProps {
   placeholder: string
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({placeholder}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ placeholder }) => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const handleSearch = () => {
     console.log('Pesquisar por:', searchTerm)
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
 
@@ -26,11 +26,8 @@ const SearchBar: React.FC<SearchBarProps> = ({placeholder}) => {
         value={searchTerm}
         onChange={handleChange}
       />
-      <button
-        className="searchBar__button"
-        onClick={handleSearch}
-      >
-        <FaSearch className="button__icon" size={20}/>
+      <button className="searchBar__button" onClick={handleSearch}>
+        <FaSearch className="button__icon" size={20} />
       </button>
     </div>
   )
