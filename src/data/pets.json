@@ -286,5 +286,77 @@
     "healthProblems": "Nenhum",
     "allergies": "Nenhuma",
     "additionalInfo": "Adora correr e precisa de muito exercício."
+  },
+  {
+    "id": 25,
+    "name": "Cleo",
+    "owner": "Rita Sousa",
+    "specie": "Gato",
+    "breed": "Sphynx",
+    "size": "Pequeno",
+    "gender": "Fêmea",
+    "healthProblems": "Nenhum",
+    "allergies": "Poeira",
+    "additionalInfo": "Adora se enrolar em cobertores."
+  },
+  {
+    "id": 26,
+    "name": "Lucky",
+    "owner": "Hugo Martins",
+    "specie": "Cachorro",
+    "breed": "Beagle",
+    "size": "Médio",
+    "gender": "Macho",
+    "healthProblems": "Nenhum",
+    "allergies": "Nenhuma",
+    "additionalInfo": "É muito brincalhão e adora buscar a bola."
+  },
+  {
+    "id": 27,
+    "name": "Milo",
+    "owner": "Catarina Pereira",
+    "specie": "Cachorro",
+    "breed": "Shiba Inu",
+    "size": "Médio",
+    "gender": "Macho",
+    "healthProblems": "Nenhum",
+    "allergies": "Nenhuma",
+    "additionalInfo": "É muito independente e adora explorar o ambiente."
+  },
+  {
+    "id": 28,
+    "name": "Lucy",
+    "owner": "Pedro Alves",
+    "specie": "Gato",
+    "breed": "British Shorthair",
+    "size": "Médio",
+    "gender": "Fêmea",
+    "healthProblems": "Nenhum",
+    "allergies": "Nenhuma",
+    "additionalInfo": "Adora dormir enrolada em uma bola."
+  },
+  {
+    "id": 29,
+    "name": "Charlie",
+    "owner": "Lara Santos",
+    "specie": "Cachorro",
+    "breed": "Bulldog Francês",
+    "size": "Pequeno",
+    "gender": "Macho",
+    "healthProblems": "Nenhum",
+    "allergies": "Nenhuma",
+    "additionalInfo": "Adora receber atenção e carinho."
+  },
+  {
+    "id": 30,
+    "name": "Bella",
+    "owner": "Diogo Fernandes",
+    "specie": "Cachorro",
+    "breed": "Pug",
+    "size": "Pequeno",
+    "gender": "Fêmea",
+    "healthProblems": "Problemas respiratórios",
+    "allergies": "Nenhuma",
+    "additionalInfo": "Gosta de ficar no colo e é muito companheira."
   }
 ]
