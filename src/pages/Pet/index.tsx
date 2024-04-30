@@ -3,18 +3,27 @@ import './Pet.scss'
 import Table from './Table'
 import SearchBar from '@/components/SearchBar'
 import Modal from '@/components/Modal'
-import { useState } from 'react'
-import RegisterPet from './RegisterPet'
+import { useEffect, useState } from 'react'
+import PetForm from './PetForm'
+import pets from '@/data/pets.json'
+import IPet from '@/interfaces/IPet'
 
 const Pet = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [petsList, setPetsList] = useState(pets)
+
+  useEffect(() => {
+  }, [petsList])
+  
+  const addPet = (newPet: IPet) => {
+    setPetsList([...petsList, newPet])
+  }
 
   const toggleModal = () => {
     setIsOpen(!isOpen)
   }
 
   const handleClick = () => {
-    console.log('Botão clicado')
   }
 
   return (
@@ -24,12 +33,12 @@ const Pet = () => {
         <SearchBar placeholder="Pesquisar Pet..." />
         <Button text="Novo Pet" onClick={toggleModal} />
       </div>
-      <Table />
+      <Table pets={petsList} />
       <div className="pet__reports">
         <Button onClick={handleClick} text="Relatórios" />
       </div>
-      <Modal isOpen={isOpen} onClose={toggleModal}>
-        <RegisterPet />
+      <Modal isOpen={isOpen}>
+        <PetForm onSubmit={addPet} onClose={toggleModal} />
       </Modal>
     </div>
   )

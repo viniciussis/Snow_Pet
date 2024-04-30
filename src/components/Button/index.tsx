@@ -3,12 +3,13 @@ import './Button.scss'
 
 interface ButtonProps {
   text: string
-  onClick: () => void
+  onClick?: () => void
+  type?: 'button' | 'reset' | 'submit'
 }
 
-const Button: React.FC<ButtonProps> = ({text, onClick}) => {
+const Button: React.FC<ButtonProps> = ({ text, onClick, type = 'button' }) => {
   return (
-    <button onClick={onClick} className='button'>
+    <button type={type} onClick={onClick} className="button">
       {text}
     </button>
   )

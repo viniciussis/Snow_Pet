@@ -10,10 +10,10 @@ import {
   TableRow,
 } from '@material-ui/core'
 import './Table.scss'
-import pets from '@/data/pets.json'
-import * as React from 'react'
+import React, { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
+import IPet from '@/interfaces/IPet'
 
 interface Column {
   id:
@@ -44,9 +44,13 @@ const columns: readonly Column[] = [
   { id: 'additionalInfo', label: 'Informações Adicionais', minWidth: 175 },
 ]
 
-const PetTable = () => {
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(10)
+interface PetTableProps {
+  pets: IPet[]
+}
+
+const PetTable: React.FC<PetTableProps> = ({ pets }) => {
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage)
@@ -98,7 +102,10 @@ const PetTable = () => {
                       return (
                         <TableCell
                           key={column.id}
-                          style={{ fontFamily: 'Montserrat', fontWeight: '500' }}
+                          style={{
+                            fontFamily: 'Montserrat',
+                            fontWeight: '500',
+                          }}
                           align={column.align}
                         >
                           {column.format && typeof value === 'number'
@@ -114,12 +121,13 @@ const PetTable = () => {
         </Table>
       </TableContainer>
       <TablePagination
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        count={pets.length}
+        labelRowsPerPage="Linhas por página:"
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={pets.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
