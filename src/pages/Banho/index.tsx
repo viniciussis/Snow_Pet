@@ -2,7 +2,9 @@ import './Banho.scss'
 
 const Banho = () => {
   return (
-    <div></div>
+    <div className='banho'>
+      <h1 className="banho__title">Banho e Tosa</h1>
+    </div>
   )
 }
 

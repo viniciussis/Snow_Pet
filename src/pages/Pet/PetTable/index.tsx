@@ -9,7 +9,7 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core'
-import './Table.scss'
+import './PetTable.scss'
 import React, { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
@@ -46,9 +46,10 @@ const columns: readonly Column[] = [
 
 interface PetTableProps {
   pets: IPet[]
+  remove: (id: number) => void
 }
 
-const PetTable: React.FC<PetTableProps> = ({ pets }) => {
+const PetTable: React.FC<PetTableProps> = ({ pets, remove }) => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -89,7 +90,11 @@ const PetTable: React.FC<PetTableProps> = ({ pets }) => {
                   <TableRow hover role="checkbox" tabIndex={-1} key={pet.id}>
                     <TableCell>
                       <div style={{ display: 'flex' }}>
-                        <IconButton color="error" aria-label="deletar">
+                        <IconButton
+                          onClick={() => remove(pet.id)}
+                          color="error"
+                          aria-label="deletar"
+                        >
                           <FaTrash size={20} />
                         </IconButton>
                         <IconButton color="warning" aria-label="editar">

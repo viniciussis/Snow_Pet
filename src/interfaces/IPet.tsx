@@ -4,8 +4,8 @@ export default interface IPet {
   owner: string
   specie: string
   breed: string
-  size: 'Pequeno' | 'Médio' | 'Grande'
-  gender: 'Macho' | 'Fêmea'
+  size: string
+  gender: string
   healthProblems: string
   allergies: string
   additionalInfo: string

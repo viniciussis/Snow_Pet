@@ -10,6 +10,7 @@ interface PetFormProps {
 
 const PetForm: React.FC<PetFormProps> = ({ onClose, onSubmit }) => {
   const [newPet, setNewPet] = useState<IPet>({
+    id: 0,
     name: '',
     owner: '',
     specie: '',
