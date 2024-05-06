@@ -1,26 +1,16 @@
 import IPet from '@/interfaces/IPet'
-import './PetForm.scss'
+import './UpdatePetForm.scss'
 import React, { useState } from 'react'
 import Button from '@/components/Button'
 
-interface PetFormProps {
-  onSubmit: (newPet: IPet ) => void
+interface UpdatePetFormProps {
+  onSubmit: (updatedPet: IPet ) => void
   onClose: () => void
+  updatingPet: IPet
 }
 
-const PetForm: React.FC<PetFormProps> = ({ onClose, onSubmit }) => {
-  const [newPet, setNewPet] = useState<IPet>({
-    id: 0,
-    name: '',
-    owner: '',
-    specie: '',
-    breed: '',
-    size: 'Pequeno',
-    gender: 'Macho',
-    healthProblems: '',
-    allergies: '',
-    additionalInfo: '',
-  })
+const UpdatePetForm: React.FC<UpdatePetFormProps> = ({ onClose, onSubmit, updatingPet }) => {
+  const [updatedPet, setUpdatedPet] = useState<IPet>(updatingPet)
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -28,54 +18,53 @@ const PetForm: React.FC<PetFormProps> = ({ onClose, onSubmit }) => {
     >,
   ) => {
     const { name, value } = e.target
-    setNewPet({
-      ...newPet,
+    setUpdatedPet({
+      ...updatedPet,
       [name]: value,
     })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitting = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    onSubmit(newPet)
+    onSubmit(updatedPet)
   }
 
   return (
-    <form className="petForm" onSubmit={handleSubmit}>
-      <h1 className="petForm__title">Cadastro de Pet</h1>
-      <div className="petForm__rows">
-        <label className="petForm__label">
+    <form className="UpdatePetForm" onSubmit={onSubmitting}>
+      <div className="UpdatePetForm__rows">
+        <label className="UpdatePetForm__label">
           Nome do Pet:
           <input
             placeholder="Informe o nome do pet..."
-            className="petForm__input"
+            className="UpdatePetForm__input"
             required
             type="text"
             name="name"
-            value={newPet.name}
+            value={updatedPet.name}
             onChange={handleInputChange}
           />
         </label>
-        <label className="petForm__label">
+        <label className="UpdatePetForm__label">
           Nome do Dono:
           <input
             placeholder="Informe o nome do dono do pet..."
-            className="petForm__input"
+            className="UpdatePetForm__input"
             required
             type="text"
             name="owner"
-            value={newPet.owner}
+            value={updatedPet.owner}
             onChange={handleInputChange}
           />
         </label>
       </div>
-      <div className="petForm__rows">
-        <label className="petForm__label">
+      <div className="UpdatePetForm__rows">
+        <label className="UpdatePetForm__label">
           Animal:
           <select
-            className="petForm__select"
+            className="UpdatePetForm__select"
             required
             name="specie"
-            value={newPet.specie}
+            value={updatedPet.specie}
             onChange={handleInputChange}
           >
             <option value="">Selecione</option>
@@ -83,13 +72,13 @@ const PetForm: React.FC<PetFormProps> = ({ onClose, onSubmit }) => {
             <option value="Gato">Gato</option>
           </select>
         </label>
-        <label className="petForm__label">
+        <label className="UpdatePetForm__label">
           Porte:
           <select
-            className="petForm__select"
+            className="UpdatePetForm__select"
             required
             name="size"
-            value={newPet.size}
+            value={updatedPet.size}
             onChange={handleInputChange}
           >
             <option value="">Selecione</option>
@@ -98,58 +87,58 @@ const PetForm: React.FC<PetFormProps> = ({ onClose, onSubmit }) => {
             <option value="Grande">Grande</option>
           </select>
         </label>
-        <label className="petForm__label">
+        <label className="UpdatePetForm__label">
           Raça:
           <input
             placeholder="informe a raça do pet..."
-            className="petForm__input"
+            className="UpdatePetForm__input"
             required
             type="text"
             name="breed"
-            value={newPet.breed}
+            value={updatedPet.breed}
             onChange={handleInputChange}
           />
         </label>
       </div>
-      <label className="petForm__label">
+      <label className="UpdatePetForm__label">
         Possui problemas de saúde?
         <input
           placeholder="Se sim, quais?"
-          className="petForm__input"
+          className="UpdatePetForm__input"
           type="text"
           name="healthProblems"
-          value={newPet.healthProblems}
+          value={updatedPet.healthProblems}
           onChange={handleInputChange}
         />
       </label>
-      <label className="petForm__label">
+      <label className="UpdatePetForm__label">
         Possuí alergias?
         <input
           placeholder="Se sim, quais?"
-          className="petForm__input"
+          className="UpdatePetForm__input"
           type="text"
           name="allergies"
-          value={newPet.allergies}
+          value={updatedPet.allergies}
           onChange={handleInputChange}
         />
       </label>
-      <label className="petForm__label">
+      <label className="UpdatePetForm__label">
         Informações adicionais:
         <input
-          className="petForm__input"
+          className="UpdatePetForm__input"
           type="text"
           placeholder="Coloque aqui informações adicionais sobre o pet..."
           name="additionalInfo"
-          value={newPet.additionalInfo}
+          value={updatedPet.additionalInfo}
           onChange={handleInputChange}
         />
       </label>
-      <div className="petForm__actions">
+      <div className="UpdatePetForm__actions">
         <Button text="Cancelar" onClick={onClose} />
-        <Button type="submit" text="Cadastrar" />
+        <Button type="submit" text="Atualizar" />
       </div>
     </form>
   )
 }
 
-export default PetForm
+export default UpdatePetForm

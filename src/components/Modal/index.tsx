@@ -4,10 +4,10 @@ import './Modal.scss'
 interface ModalProps {
   isModalOpen: boolean
   children: React.ReactNode
+  title: string
 }
 
-const Modal: React.FC<ModalProps> = ({ isModalOpen, children }) => {
-
+const Modal: React.FC<ModalProps> = ({ title, isModalOpen, children }) => {
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = 'hidden'
@@ -20,7 +20,10 @@ const Modal: React.FC<ModalProps> = ({ isModalOpen, children }) => {
 
   return (
     <div className="overlay">
-      <div className="modal">{children}</div>
+      <div className="modal">
+        <h1 className="modal__title">{title}</h1>
+        {children}
+      </div>
     </div>
   )
 }

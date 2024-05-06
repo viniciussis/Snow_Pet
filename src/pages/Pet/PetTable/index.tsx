@@ -47,9 +47,10 @@ const columns: readonly Column[] = [
 interface PetTableProps {
   pets: IPet[]
   remove: (id: number) => void
+  update: (id: number) => void
 }
 
-const PetTable: React.FC<PetTableProps> = ({ pets, remove }) => {
+const PetTable: React.FC<PetTableProps> = ({ pets, remove, update }) => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -97,7 +98,7 @@ const PetTable: React.FC<PetTableProps> = ({ pets, remove }) => {
                         >
                           <FaTrash size={20} />
                         </IconButton>
-                        <IconButton color="warning" aria-label="editar">
+                        <IconButton onClick={() => update(pet.id)} color="warning" aria-label="editar">
                           <FaPencil size={20} />
                         </IconButton>
                       </div>

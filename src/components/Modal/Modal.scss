@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   z-index: 2;
   position: fixed;
   top: 0;
@@ -12,9 +12,19 @@
   background-color: rgba(0, 0, 0, 0.5);
 
   .modal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
     background-color: variables.$white;
     border-radius: 1rem;
     padding: 2rem;
     border: 2px solid variables.$blue-light;
+
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+    }
   }
 }
