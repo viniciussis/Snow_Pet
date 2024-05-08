@@ -3,11 +3,34 @@
   border-radius: 1rem;
   font-size: 1.25rem;
   font-weight: 500;
-  background-color: variables.$white;
-  color: variables.$black;
-  border: 2px solid variables.$blue-light;
 
-  &:hover {
-    outline: 1px solid variables.$blue-light;
+  &__primary {
+    background-color: variables.$white;
+    color: variables.$black;
+    border: 2px solid variables.$blue-light;
+
+    &:hover {
+      outline: 1px solid variables.$blue-light;
+    }
+  }
+
+  &__success {
+    background-color: variables.$green-light;
+    color: variables.$black;
+    border: 2px solid variables.$green;
+
+    &:hover {
+      outline: 1px solid variables.$green;
+    }
+  }
+
+  &__fail {
+    background-color: variables.$red-light;
+    color: variables.$black;
+    border: 2px solid variables.$red;
+
+    &:hover {
+      outline: 1px solid variables.$red;
+    }
   }
 }

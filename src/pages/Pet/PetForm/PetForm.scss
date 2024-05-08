@@ -1,4 +1,4 @@
-.createPetForm {
+.petForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -32,4 +32,8 @@
     gap: 1rem;
     justify-content: end;
   }
+}
+
+.petFormContainer {
+  min-height: 78vh;
 }

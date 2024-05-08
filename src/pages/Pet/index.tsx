@@ -10,12 +10,8 @@ const Pet = () => {
   const [petsList, setPetsList] = useState(pets)
   const navigate = useNavigate()
 
-  const goTo = (id?: number) => {
-    if (id) {
-      navigate(`/pets/${id}`)
-    } else {
-      navigate('/relatorios/pets')
-    }
+  const updatePet = (id: number) => {
+    navigate(`/pets/${id}`)
   }
 
   const removePet = (id: number) => {
@@ -30,9 +26,12 @@ const Pet = () => {
         <SearchBar placeholder="Pesquisar Pet..." />
         <Button text="Novo Pet" onClick={() => navigate('/pets/novo')} />
       </div>
-      <PetTable remove={removePet} update={goTo} pets={petsList} />
+      <PetTable remove={removePet} update={updatePet} pets={petsList} />
       <div className="pet__reports">
-        <Button onClick={goTo} text="Relatórios" />
+        <Button
+          onClick={() => navigate('/relatorios/pets')}
+          text="Relatórios"
+        />
       </div>
     </div>
   )

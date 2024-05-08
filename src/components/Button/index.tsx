@@ -5,11 +5,12 @@ interface ButtonProps {
   text: string
   onClick?: () => void
   type?: 'button' | 'reset' | 'submit'
+  colorType?: 'primary' | 'success' | 'fail'
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick, type = 'button' }) => {
+const Button: React.FC<ButtonProps> = ({ text, onClick, colorType = 'primary', type = 'button' }) => {
   return (
-    <button type={type} onClick={onClick} className="button">
+    <button type={type} onClick={onClick} className={`button button__${colorType}`}>
       {text}
     </button>
   )

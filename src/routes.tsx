@@ -9,7 +9,7 @@ import NotFound from '@/pages/NotFound'
 import Cliente from './pages/Cliente'
 import Banho from './pages/Banho'
 import Pet from './pages/Pet'
-import CreatePetForm from './pages/Pet/CreatePetForm'
+import CreatePetForm from './pages/Pet/PetForm'
 
 const AppRoutes = () => {
   return (
