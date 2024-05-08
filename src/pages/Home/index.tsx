@@ -7,7 +7,7 @@ const options = [
   { icon: 'estoque', label: 'Estoque', route: '/estoque' },
   { icon: 'financeiro', label: 'Financeiro', route: '/financeiro' },
   { icon: 'funcionario', label: 'Funcionario', route: '/funcionario' },
-  { icon: 'pet', label: 'Pet', route: '/pet' },
+  { icon: 'pet', label: 'Pet', route: '/pets' },
   { icon: 'produto', label: 'Produto', route: '/produto' },
   { icon: 'relatorio', label: 'Relatorio', route: '/relatorio' },
   { icon: 'venda', label: 'Venda', route: '/venda' },

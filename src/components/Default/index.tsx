@@ -8,7 +8,9 @@ const Default = () => {
     <>
       <main className="mainContainer">
         <Header />
-        <Outlet />
+        <div className="mainContainer__content">
+          <Outlet />
+        </div>
         <Footer />
       </main>
     </>
