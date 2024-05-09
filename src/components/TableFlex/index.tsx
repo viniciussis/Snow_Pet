@@ -9,28 +9,12 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core'
-import './PetTable.scss'
 import React, { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
-import IPet from '@/interfaces/IPet'
 
-interface Column {
-  id:
-    | 'name'
-    | 'owner'
-    | 'specie'
-    | 'breed'
-    | 'size'
-    | 'gender'
-    | 'healthProblems'
-    | 'allergies'
-    | 'additionalInfo'
-  label: string
-  minWidth?: number
-  align?: 'right' | 'center'
-  format?: (value: string) => string
-}
+import IPet from '@/interfaces/IPet'
+import './FlexTable.scss'
 
 const columns: readonly Column[] = [
   { id: 'name', label: 'Nome', minWidth: 100 },
@@ -44,13 +28,13 @@ const columns: readonly Column[] = [
   { id: 'additionalInfo', label: 'Informações Adicionais', minWidth: 175 },
 ]
 
-interface PetTableProps {
-  pets: IPet[]
+interface TableFlexProps {
+  items: IPet[]
   remove: (id: number) => void
   update: (id: number) => void
 }
 
-const PetTable: React.FC<PetTableProps> = ({ pets, remove, update }) => {
+const FlexTable: React.FC<TableFlexProps> = ({ items, remove, update }) => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -84,27 +68,31 @@ const PetTable: React.FC<PetTableProps> = ({ pets, remove, update }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {pets
+            {items
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((pet) => {
+              .map((item) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={pet.id}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={item.id}>
                     <TableCell>
                       <div style={{ display: 'flex' }}>
                         <IconButton
-                          onClick={() => remove(pet.id)}
+                          onClick={() => remove(item.id)}
                           color="error"
                           aria-label="deletar"
                         >
                           <FaTrash size={20} />
                         </IconButton>
-                        <IconButton onClick={() => update(pet.id)} color="warning" aria-label="editar">
+                        <IconButton
+                          onClick={() => update(item.id)}
+                          color="warning"
+                          aria-label="editar"
+                        >
                           <FaPencil size={20} />
                         </IconButton>
                       </div>
                     </TableCell>
                     {columns.map((column) => {
-                      const value = pet[column.id]
+                      const value = item[column.id]
                       return (
                         <TableCell
                           key={column.id}
@@ -130,7 +118,7 @@ const PetTable: React.FC<PetTableProps> = ({ pets, remove, update }) => {
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}
-        count={pets.length}
+        count={items.length}
         labelRowsPerPage="Linhas por página:"
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
@@ -140,4 +128,4 @@ const PetTable: React.FC<PetTableProps> = ({ pets, remove, update }) => {
   )
 }
 
-export default PetTable
+export default FlexTable
