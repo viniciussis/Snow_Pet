@@ -1,15 +1,17 @@
-import './main.scss'
+import { Route, Routes } from 'react-router-dom'
+
+import './assets/styles/typography.scss'
 import './assets/styles/normalize.scss'
 import './assets/styles/reset.scss'
-import './assets/styles/typography.scss'
-import { Route, Routes } from 'react-router-dom'
-import Home from '@/pages/Home'
+import './main.scss'
+
 import Default from '@/components/Default'
+import PetForm from './pages/Pet/PetForm'
 import NotFound from '@/pages/NotFound'
-import Cliente from './pages/Cliente'
+import Cliente from './pages/Customer'
 import Banho from './pages/Banho'
+import Home from '@/pages/Home'
 import Pet from './pages/Pet'
-import CreatePetForm from './pages/Pet/PetForm'
 
 const AppRoutes = () => {
   return (
@@ -17,11 +19,15 @@ const AppRoutes = () => {
       <Route path="/" element={<Default />}>
         <Route index element={<Home />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="cliente" element={<Cliente />} />
-        <Route path="pets" element={<Pet />} />
-        <Route path="pets/novo" element={<CreatePetForm />} />
-        <Route path="pets/:id" element={<CreatePetForm />} />
         <Route path="banho_e_tosa" element={<Banho />} />
+        <Route path="banho_e_tosa/novo" element={<Banho />} />
+        <Route path="banho_e_tosa/:id" element={<Banho />} />
+        <Route path="cliente" element={<Cliente />} />
+        <Route path="cliente/novo" element={<Cliente />} />
+        <Route path="cliente/:id" element={<Cliente />} />
+        <Route path="pet" element={<Pet />} />
+        <Route path="pet/novo" element={<PetForm />} />
+        <Route path="pet/:id" element={<PetForm />} />
       </Route>
     </Routes>
   )

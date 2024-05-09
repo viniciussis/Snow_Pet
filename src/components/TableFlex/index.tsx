@@ -13,28 +13,25 @@ import React, { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
 
+import ICustomerColumn from '@/interfaces/ICustomerColumn'
+import ICustomer from '@/interfaces/ICustomer'
+import './TableFlex.scss'
+import IPetColumn from '@/interfaces/IPetColumn'
 import IPet from '@/interfaces/IPet'
-import './FlexTable.scss'
-
-const columns: readonly Column[] = [
-  { id: 'name', label: 'Nome', minWidth: 100 },
-  { id: 'owner', label: 'Dono', minWidth: 150 },
-  { id: 'specie', label: 'Espécie', align: 'center', minWidth: 50 },
-  { id: 'breed', label: 'Raça', align: 'center', minWidth: 100 },
-  { id: 'size', label: 'Porte', align: 'center', minWidth: 50 },
-  { id: 'gender', label: 'Sexo', align: 'center', minWidth: 50 },
-  { id: 'healthProblems', label: 'Problemas de Saúde', minWidth: 125 },
-  { id: 'allergies', label: 'Alergias', minWidth: 100 },
-  { id: 'additionalInfo', label: 'Informações Adicionais', minWidth: 175 },
-]
 
 interface TableFlexProps {
-  items: IPet[]
+  columns: ICustomerColumn[] | IPetColumn[]
+  items: ICustomer[] | IPet[]
   remove: (id: number) => void
   update: (id: number) => void
 }
 
-const FlexTable: React.FC<TableFlexProps> = ({ items, remove, update }) => {
+const TableFlex: React.FC<TableFlexProps> = ({
+  items,
+  columns,
+  remove,
+  update,
+}) => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -103,7 +100,7 @@ const FlexTable: React.FC<TableFlexProps> = ({ items, remove, update }) => {
                           align={column.align}
                         >
                           {column.format && typeof value === 'number'
-                            ? column.format(value)
+                            ? column.format(String(value))
                             : value}
                         </TableCell>
                       )
@@ -128,4 +125,4 @@ const FlexTable: React.FC<TableFlexProps> = ({ items, remove, update }) => {
   )
 }
 
-export default FlexTable
+export default TableFlex

@@ -63,7 +63,7 @@ const PetForm = () => {
 
   return (
     <>
-      <div className='petFormContainer'/>
+      <div className="petFormContainer" />
       <Modal title="Formulário de Pet">
         <form className="petForm" onSubmit={handleSubmit}>
           <div className="petForm__rows">
@@ -172,13 +172,13 @@ const PetForm = () => {
             <Button
               text="Cancelar"
               colorType="fail"
-              onClick={() => navigate('/pets')}
+              onClick={() => navigate('/pet')}
             />
             <Button
               type="submit"
               text="Cadastrar"
               colorType="success"
-              onClick={() => navigate('/pets')}
+              onClick={() => navigate('/pet')}
             />
           </div>
         </form>
