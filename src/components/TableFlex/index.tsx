@@ -9,25 +9,22 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
 
-import ICustomerColumn from '@/interfaces/ICustomerColumn'
-import ICustomer from '@/interfaces/ICustomer'
+import IColumn from '@/interfaces/IColumn'
 import './TableFlex.scss'
-import IPetColumn from '@/interfaces/IPetColumn'
-import IPet from '@/interfaces/IPet'
 
-interface TableFlexProps {
-  columns: ICustomerColumn[] | IPetColumn[]
-  items: ICustomer[] | IPet[]
+interface TableFlexProps<T> {
+  columns: IColumn<T>[]
+  data: T[] 
   remove: (id: number) => void
   update: (id: number) => void
 }
-
-const TableFlex: React.FC<TableFlexProps> = ({
-  items,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TableFlex: React.FC<TableFlexProps<any>> = ({
+  data,
   columns,
   remove,
   update,
@@ -53,9 +50,9 @@ const TableFlex: React.FC<TableFlexProps> = ({
           <TableHead>
             <TableRow>
               <TableCell />
-              {columns.map((column) => (
+              {columns.map((column, index) => (
                 <TableCell
-                  key={column.id}
+                  key={index}
                   align={column.align}
                   style={{ minWidth: column.minWidth, fontFamily: 'Poppins' }}
                 >
@@ -65,22 +62,22 @@ const TableFlex: React.FC<TableFlexProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {items
+            {data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((item) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={item.id}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={item._id}>
                     <TableCell>
                       <div style={{ display: 'flex' }}>
                         <IconButton
-                          onClick={() => remove(item.id)}
+                          onClick={() => remove(item._id)}
                           color="error"
                           aria-label="deletar"
                         >
                           <FaTrash size={20} />
                         </IconButton>
                         <IconButton
-                          onClick={() => update(item.id)}
+                          onClick={() => update(item._id)}
                           color="warning"
                           aria-label="editar"
                         >
@@ -88,11 +85,11 @@ const TableFlex: React.FC<TableFlexProps> = ({
                         </IconButton>
                       </div>
                     </TableCell>
-                    {columns.map((column) => {
+                    {columns.map((column, index) => {
                       const value = item[column.id]
                       return (
                         <TableCell
-                          key={column.id}
+                          key={index}
                           style={{
                             fontFamily: 'Montserrat',
                             fontWeight: '500',
@@ -115,7 +112,7 @@ const TableFlex: React.FC<TableFlexProps> = ({
         page={page}
         rowsPerPage={rowsPerPage}
         onPageChange={handleChangePage}
-        count={items.length}
+        count={data.length}
         labelRowsPerPage="Linhas por página:"
         rowsPerPageOptions={[10, 25, 100]}
         component="div"

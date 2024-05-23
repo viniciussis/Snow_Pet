@@ -1,7 +1,7 @@
 export default interface ICustomer {
-  id: number
+  _id: number
   name: string
-  address: string
+  address: string[]
   phoneNumber: string
   email?: string
 }

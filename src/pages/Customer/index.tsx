@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import ICustomerColumn from '@/interfaces/ICustomerColumn'
-import customersList from '@/data/customers.json'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
+import ICustomer from '@/interfaces/ICustomer'
+import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
+import http from '@/http'
 import './Customer.scss'
 
-const customersColumns: ICustomerColumn[] = [
+const customerColumns: IColumn<ICustomer>[] = [
   { id: 'name', label: 'Nome', minWidth: 100 },
   { id: 'address', label: 'Endereço', minWidth: 150 },
   { id: 'email', label: 'Email', minWidth: 125 },
@@ -16,15 +17,21 @@ const customersColumns: ICustomerColumn[] = [
 ]
 
 const Customer = () => {
-  const [customers, setCustomers] = useState(customersList)
+  const [customers, setCustomers] = useState<ICustomer[]>([])
   const navigate = useNavigate()
+
+  useEffect(() => {
+    http.get<ICustomer[]>('customers/').then((response) => {
+      setCustomers(response.data)
+    })
+  }, [])
 
   const updateCustomer = (id: number) => {
     navigate(`/cliente/${id}`)
   }
 
   const removeCustomer = (id: number) => {
-    const updatedCustomers = customers.filter((customer) => customer.id !== id)
+    const updatedCustomers = customers.filter((customer) => customer._id !== id)
     setCustomers(updatedCustomers)
   }
 
@@ -38,8 +45,8 @@ const Customer = () => {
       <TableFlex
         remove={removeCustomer}
         update={updateCustomer}
-        columns={customersColumns}
-        items={customers}
+        columns={customerColumns}
+        data={customers}
       />
       <div className="costumer__reports">
         <Button

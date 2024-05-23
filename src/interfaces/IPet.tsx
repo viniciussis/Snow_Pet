@@ -1,5 +1,5 @@
 export default interface IPet {
-  id: number
+  _id: number
   name: string
   owner: string
   specie: string

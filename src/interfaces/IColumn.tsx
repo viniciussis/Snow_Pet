@@ -1,9 +1,5 @@
-export default interface ICustomerColumn {
-  id:
-  | 'name'
-  | 'address'
-  | 'phoneNumber'
-  | 'email'
+export default interface IColumn<T> {
+  id: keyof T
   label: string
   minWidth?: number
   align?: 'right' | 'center'
