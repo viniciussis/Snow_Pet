@@ -2,13 +2,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import SearchBar from '@/components/SearchBar'
-import Button from '@/components/Button'
-import petsList from '@/data/pets.json'
-import './Pet.scss'
 import TableFlex from '@/components/TableFlex'
-import IPetColumn from '@/interfaces/IPetColumn'
+import IColumn from '@/interfaces/IColumn'
+import Button from '@/components/Button'
+import IPet from '@/interfaces/IPet'
+import './Pet.scss'
 
-const petColumns: IPetColumn[] = [
+import petsList from '@/data/pets.json'
+
+const petColumns: IColumn<IPet>[] = [
   { id: 'name', label: 'Nome', minWidth: 100 },
   { id: 'owner', label: 'Dono', minWidth: 150 },
   { id: 'specie', label: 'Espécie', align: 'center', minWidth: 50 },
@@ -43,7 +45,7 @@ const Pet = () => {
       <TableFlex
         remove={removePet}
         update={updatePet}
-        items={pets}
+        data={pets}
         columns={petColumns}
       />
       <div className="pet__reports">

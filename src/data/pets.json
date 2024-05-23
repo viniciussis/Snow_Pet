@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "_id": 1,
     "name": "Buddy",
     "owner": "João Silva",
     "specie": "Cachorro",
@@ -12,7 +12,7 @@
     "additionalInfo": "Adora longas caminhadas no parque."
   },
   {
-    "id": 2,
+    "_id": 2,
     "name": "Fluffy",
     "owner": "Maria Souza",
     "specie": "Gato",
@@ -24,7 +24,7 @@
     "additionalInfo": "Precisa de escovação regular."
   },
   {
-    "id": 3,
+    "_id": 3,
     "name": "Max",
     "owner": "José Oliveira",
     "specie": "Cachorro",
@@ -36,7 +36,7 @@
     "additionalInfo": "Adora brincar de buscar a bola."
   },
   {
-    "id": 4,
+    "_id": 4,
     "name": "Whiskers",
     "owner": "Ana Costa",
     "specie": "Gato",
@@ -48,7 +48,7 @@
     "additionalInfo": "Adora tomar sol na janela."
   },
   {
-    "id": 5,
+    "_id": 5,
     "name": "Rocky",
     "owner": "Carlos Ferreira",
     "specie": "Cachorro",
@@ -60,7 +60,7 @@
     "additionalInfo": "Adora nadar."
   },
   {
-    "id": 6,
+    "_id": 6,
     "name": "Mittens",
     "owner": "Patrícia Almeida",
     "specie": "Gato",
@@ -72,7 +72,7 @@
     "additionalInfo": "Adora perseguir ponteiros de laser."
   },
   {
-    "id": 7,
+    "_id": 7,
     "name": "Buster",
     "owner": "Marcos Santos",
     "specie": "Cachorro",
@@ -84,7 +84,7 @@
     "additionalInfo": "Adora brincar com brinquedos de mastigar."
   },
   {
-    "id": 8,
+    "_id": 8,
     "name": "Socks",
     "owner": "Fernanda Lima",
     "specie": "Gato",
@@ -96,7 +96,7 @@
     "additionalInfo": "Dorme a maior parte do dia."
   },
   {
-    "id": 9,
+    "_id": 9,
     "name": "Duke",
     "owner": "Ricardo Carvalho",
     "specie": "Cachorro",
@@ -108,7 +108,7 @@
     "additionalInfo": "Adora treinamento de agilidade."
   },
   {
-    "id": 10,
+    "_id": 10,
     "name": "Tiger",
     "owner": "Lúcia Pereira",
     "specie": "Gato",
@@ -120,7 +120,7 @@
     "additionalInfo": "Adora escalar árvores."
   },
   {
-    "id": 11,
+    "_id": 11,
     "name": "Whiskers",
     "owner": "Maria Silva",
     "specie": "Gato",
@@ -132,7 +132,7 @@
     "additionalInfo": "Gosta de brincar com bolinhas de papel."
   },
   {
-    "id": 12,
+    "_id": 12,
     "name": "Buddy",
     "owner": "Carlos Mendes",
     "specie": "Cachorro",
@@ -144,7 +144,7 @@
     "additionalInfo": "Adora nadar e buscar a bola."
   },
   {
-    "id": 13,
+    "_id": 13,
     "name": "Fluffy",
     "owner": "Ana Oliveira",
     "specie": "Gato",
@@ -156,7 +156,7 @@
     "additionalInfo": "Prefere lugares altos para descansar."
   },
   {
-    "id": 14,
+    "_id": 14,
     "name": "Max",
     "owner": "Ricardo Santos",
     "specie": "Cachorro",
@@ -168,7 +168,7 @@
     "additionalInfo": "É muito amigável com outros animais."
   },
   {
-    "id": 15,
+    "_id": 15,
     "name": "Luna",
     "owner": "Fernanda Costa",
     "specie": "Cachorro",
@@ -180,7 +180,7 @@
     "additionalInfo": "Adora receber carinho na barriga."
   },
   {
-    "id": 16,
+    "_id": 16,
     "name": "Rocky",
     "owner": "Paulo Ramos",
     "specie": "Cachorro",
@@ -192,7 +192,7 @@
     "additionalInfo": "É muito energético e adora correr."
   },
   {
-    "id": 17,
+    "_id": 17,
     "name": "Misty",
     "owner": "Sandra Almeida",
     "specie": "Gato",
@@ -204,7 +204,7 @@
     "additionalInfo": "Gosta de dormir no sol da tarde."
   },
   {
-    "id": 18,
+    "_id": 18,
     "name": "Simba",
     "owner": "Luís Gonçalves",
     "specie": "Cachorro",
@@ -216,7 +216,7 @@
     "additionalInfo": "É muito protetor da família."
   },
   {
-    "id": 19,
+    "_id": 19,
     "name": "Molly",
     "owner": "Patrícia Carvalho",
     "specie": "Cachorro",
@@ -228,7 +228,7 @@
     "additionalInfo": "Adora brincar de buscar o próprio rabo."
   },
   {
-    "id": 20,
+    "_id": 20,
     "name": "Oscar",
     "owner": "António Fernandes",
     "specie": "Cachorro",
@@ -240,7 +240,7 @@
     "additionalInfo": "É muito curioso e adora cavar buracos no jardim."
   },
   {
-    "id": 21,
+    "_id": 21,
     "name": "Snowball",
     "owner": "Margarida Marques",
     "specie": "Gato",
@@ -252,7 +252,7 @@
     "additionalInfo": "Adora brincar com plumas."
   },
   {
-    "id": 22,
+    "_id": 22,
     "name": "Teddy",
     "owner": "Manuel Oliveira",
     "specie": "Cachorro",
@@ -264,7 +264,7 @@
     "additionalInfo": "É muito afetuoso e adora um colo."
   },
   {
-    "id": 23,
+    "_id": 23,
     "name": "Chloe",
     "owner": "Isabel Rodrigues",
     "specie": "Cachorro",
@@ -276,7 +276,7 @@
     "additionalInfo": "É muito territorial e late para desconhecidos."
   },
   {
-    "id": 24,
+    "_id": 24,
     "name": "Shadow",
     "owner": "João Costa",
     "specie": "Cachorro",
@@ -288,7 +288,7 @@
     "additionalInfo": "Adora correr e precisa de muito exercício."
   },
   {
-    "id": 25,
+    "_id": 25,
     "name": "Cleo",
     "owner": "Rita Sousa",
     "specie": "Gato",
@@ -300,7 +300,7 @@
     "additionalInfo": "Adora se enrolar em cobertores."
   },
   {
-    "id": 26,
+    "_id": 26,
     "name": "Lucky",
     "owner": "Hugo Martins",
     "specie": "Cachorro",
@@ -312,7 +312,7 @@
     "additionalInfo": "É muito brincalhão e adora buscar a bola."
   },
   {
-    "id": 27,
+    "_id": 27,
     "name": "Milo",
     "owner": "Catarina Pereira",
     "specie": "Cachorro",
@@ -324,7 +324,7 @@
     "additionalInfo": "É muito independente e adora explorar o ambiente."
   },
   {
-    "id": 28,
+    "_id": 28,
     "name": "Lucy",
     "owner": "Pedro Alves",
     "specie": "Gato",
@@ -336,7 +336,7 @@
     "additionalInfo": "Adora dormir enrolada em uma bola."
   },
   {
-    "id": 29,
+    "_id": 29,
     "name": "Charlie",
     "owner": "Lara Santos",
     "specie": "Cachorro",
@@ -348,7 +348,7 @@
     "additionalInfo": "Adora receber atenção e carinho."
   },
   {
-    "id": 30,
+    "_id": 30,
     "name": "Bella",
     "owner": "Diogo Fernandes",
     "specie": "Cachorro",

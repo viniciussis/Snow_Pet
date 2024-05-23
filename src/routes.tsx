@@ -8,10 +8,11 @@ import './main.scss'
 import Default from '@/components/Default'
 import PetForm from './pages/Pet/PetForm'
 import NotFound from '@/pages/NotFound'
-import Cliente from './pages/Customer'
+import Customer from './pages/Customer'
 import Banho from './pages/Banho'
 import Home from '@/pages/Home'
 import Pet from './pages/Pet'
+import CustomerForm from './pages/Customer/CustomerForm'
 
 const AppRoutes = () => {
   return (
@@ -22,9 +23,9 @@ const AppRoutes = () => {
         <Route path="banho_e_tosa" element={<Banho />} />
         <Route path="banho_e_tosa/novo" element={<Banho />} />
         <Route path="banho_e_tosa/:id" element={<Banho />} />
-        <Route path="cliente" element={<Cliente />} />
-        <Route path="cliente/novo" element={<Cliente />} />
-        <Route path="cliente/:id" element={<Cliente />} />
+        <Route path="cliente" element={<Customer />} />
+        <Route path="cliente/novo" element={<CustomerForm />} />
+        <Route path="cliente/:id" element={<CustomerForm />} />
         <Route path="pet" element={<Pet />} />
         <Route path="pet/novo" element={<PetForm />} />
         <Route path="pet/:id" element={<PetForm />} />

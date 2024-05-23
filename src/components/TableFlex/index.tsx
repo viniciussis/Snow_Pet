@@ -18,10 +18,11 @@ import './TableFlex.scss'
 
 interface TableFlexProps<T> {
   columns: IColumn<T>[]
-  data: T[] 
-  remove: (id: number) => void
-  update: (id: number) => void
+  data: T[]
+  remove: (id: string) => void
+  update: (id: string) => void
 }
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TableFlex: React.FC<TableFlexProps<any>> = ({
   data,
@@ -96,9 +97,7 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                           }}
                           align={column.align}
                         >
-                          {column.format && typeof value === 'number'
-                            ? column.format(String(value))
-                            : value}
+                          {column.format ? column.format(value) : value}
                         </TableCell>
                       )
                     })}

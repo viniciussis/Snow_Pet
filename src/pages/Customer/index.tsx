@@ -4,16 +4,23 @@ import { useEffect, useState } from 'react'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import ICustomer from '@/interfaces/ICustomer'
+import IAddress from '@/interfaces/IAddress'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
 import http from '@/http'
 import './Customer.scss'
 
+const formatAddress = (address: IAddress) => {
+  const complement = address.complement ? ', ' + address.complement : ''
+  return `${address.street}, ${address.number}${complement} - ${address.neighborhood}`
+}
+
 const customerColumns: IColumn<ICustomer>[] = [
-  { id: 'name', label: 'Nome', minWidth: 100 },
-  { id: 'address', label: 'Endereço', minWidth: 150 },
-  { id: 'email', label: 'Email', minWidth: 125 },
-  { id: 'phoneNumber', label: 'Telefone', minWidth: 75, align: 'center' },
+  { id: 'name', label: 'Nome', minWidth: 125 },
+  { id: 'address', label: 'Endereço', minWidth: 150, format: formatAddress },
+  { id: 'email', label: 'Email', minWidth: 100 },
+  { id: 'phone_number', label: 'Telefone', minWidth: 75, align: 'center' },
+  { id: 'social_media', label: 'Instagram', minWidth: 75, align: 'center' },
 ]
 
 const Customer = () => {
@@ -26,11 +33,11 @@ const Customer = () => {
     })
   }, [])
 
-  const updateCustomer = (id: number) => {
+  const updateCustomer = (id: string) => {
     navigate(`/cliente/${id}`)
   }
 
-  const removeCustomer = (id: number) => {
+  const removeCustomer = (id: string) => {
     const updatedCustomers = customers.filter((customer) => customer._id !== id)
     setCustomers(updatedCustomers)
   }

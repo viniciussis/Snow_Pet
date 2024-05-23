@@ -1,7 +1,10 @@
+import IAddress from "./IAddress"
+
 export default interface ICustomer {
-  _id: number
+  _id?: string
   name: string
-  address: string[]
-  phoneNumber: string
+  address: IAddress
   email?: string
+  phone_number: string
+  social_media?: string
 }
