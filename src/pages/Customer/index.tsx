@@ -38,14 +38,21 @@ const Customer = () => {
   }
 
   const removeCustomer = (id: string) => {
-    const updatedCustomers = customers.filter((customer) => customer._id !== id)
-    setCustomers(updatedCustomers)
+    http
+      .delete(`customers/${id}`)
+      .then((resp) => {
+        console.log(resp.data.message)
+        setCustomers(customers.filter((customer) => customer._id !== id))
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
   }
 
   return (
-    <div className="costumer">
-      <h1 className="costumer__title">Gerenciamento de Clientes</h1>
-      <div className="costumer__actions">
+    <div className="customer">
+      <h1 className="customer__title">Gerenciamento de Clientes</h1>
+      <div className="customer__actions">
         <SearchBar placeholder="Pesquisar Clientes..." />
         <Button text="Novo Cliente" onClick={() => navigate('/cliente/novo')} />
       </div>
@@ -55,7 +62,7 @@ const Customer = () => {
         columns={customerColumns}
         data={customers}
       />
-      <div className="costumer__reports">
+      <div>
         <Button
           onClick={() => navigate('/relatorios/cliente')}
           text="Relatórios"

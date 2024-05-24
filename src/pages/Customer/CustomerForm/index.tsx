@@ -28,7 +28,7 @@ const CustomerForm = () => {
       http
         .get(`customers/${params.id}`)
         .then((resp) => setNewCustomer(resp.data))
-        .catch((err) => console.error(err))
+        .catch((err) => console.error(err.message))
     }
   }, [params])
 
@@ -71,7 +71,17 @@ const CustomerForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (params.id) {
-      // TODO: update customer
+      http
+        .put(`customers/${params.id}`, {
+          ...newCustomer
+        })
+        .then((resp) => {
+          navigate('/cliente')
+          console.log(resp.data.message)
+        })
+        .catch((err) => {
+          console.log(err.message)
+        })
     } else {
       http
         .post('customers/', {

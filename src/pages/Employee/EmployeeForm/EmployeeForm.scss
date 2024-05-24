@@ -1,0 +1,39 @@
+.employeeForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__rows {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__label {
+    width: 100%;
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  &__select {
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+
+  &__input {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    width: 100%;
+  }
+
+  &__actions {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    justify-content: end;
+  }
+}
+
+.employeeFormContainer {
+  min-height: 78vh;
+}

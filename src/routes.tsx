@@ -13,6 +13,8 @@ import Banho from './pages/Banho'
 import Home from '@/pages/Home'
 import Pet from './pages/Pet'
 import CustomerForm from './pages/Customer/CustomerForm'
+import Employee from './pages/Employee'
+import EmployeeForm from './pages/Employee/EmployeeForm'
 
 const AppRoutes = () => {
   return (
@@ -26,6 +28,9 @@ const AppRoutes = () => {
         <Route path="cliente" element={<Customer />} />
         <Route path="cliente/novo" element={<CustomerForm />} />
         <Route path="cliente/:id" element={<CustomerForm />} />
+        <Route path="funcionario" element={<Employee />} />
+        <Route path="funcionario/novo" element={<EmployeeForm />} />
+        <Route path="funcionario/:id" element={<EmployeeForm />} />
         <Route path="pet" element={<Pet />} />
         <Route path="pet/novo" element={<PetForm />} />
         <Route path="pet/:id" element={<PetForm />} />

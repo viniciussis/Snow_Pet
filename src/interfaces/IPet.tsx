@@ -1,12 +1,12 @@
 export default interface IPet {
-  _id: string
+  _id?: string
   name: string
-  owner: string
+  owner_id?: string
   specie: string
   breed: string
   size: string
   gender: string
-  healthProblems: string
-  allergies: string
-  additionalInfo: string
+  health_problems?: string
+  allergies?: string
+  additional_info?: string
 }

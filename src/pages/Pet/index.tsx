@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import SearchBar from '@/components/SearchBar'
@@ -6,33 +6,44 @@ import TableFlex from '@/components/TableFlex'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
 import IPet from '@/interfaces/IPet'
+import http from '@/http'
 import './Pet.scss'
 
-import petsList from '@/data/pets.json'
-
 const petColumns: IColumn<IPet>[] = [
-  { id: 'name', label: 'Nome', minWidth: 100 },
-  { id: 'owner', label: 'Dono', minWidth: 150 },
+  { id: 'name', label: 'Nome', minWidth: 50 },
   { id: 'specie', label: 'Espécie', align: 'center', minWidth: 50 },
-  { id: 'breed', label: 'Raça', align: 'center', minWidth: 100 },
+  { id: 'breed', label: 'Raça', align: 'center', minWidth: 75 },
   { id: 'size', label: 'Porte', align: 'center', minWidth: 50 },
   { id: 'gender', label: 'Sexo', align: 'center', minWidth: 50 },
-  { id: 'healthProblems', label: 'Problemas de Saúde', minWidth: 125 },
-  { id: 'allergies', label: 'Alergias', minWidth: 100 },
-  { id: 'additionalInfo', label: 'Informações Adicionais', minWidth: 175 },
+  { id: 'health_problems', label: 'Problemas de Saúde', minWidth: 100 },
+  { id: 'allergies', label: 'Alergias', minWidth: 75 },
+  { id: 'additional_info', label: 'Informações Adicionais', minWidth: 100 },
 ]
 
 const Pet = () => {
-  const [pets, setPets] = useState(petsList)
+  const [pets, setPets] = useState<IPet[]>([])
   const navigate = useNavigate()
 
-  const updatePet = (id: number) => {
+  useEffect(() => {
+    http.get<IPet[]>('pets/').then((response) => {
+      setPets(response.data)
+    })
+  }, [])
+
+  const updatePet = (id: string) => {
     navigate(`/pet/${id}`)
   }
 
-  const removePet = (id: number) => {
-    const updatedPets = pets.filter((pet) => pet.id !== id)
-    setPets(updatedPets)
+  const removePet = (id: string) => {
+    http
+      .delete(`pets/${id}`)
+      .then((resp) => {
+        console.log(resp.data.message)
+        setPets(pets.filter((pet) => pet._id !== id))
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
   }
 
   return (

@@ -1,36 +1,44 @@
-import IPet from '@/interfaces/IPet'
-import './PetForm.scss'
 import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import ICustomer from '@/interfaces/ICustomer'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
-import { useNavigate, useParams } from 'react-router-dom'
-import petsList from '@/data/pets.json'
+import IPet from '@/interfaces/IPet'
+import http from '@/http'
+import './PetForm.scss'
 
 const PetForm = () => {
   const params = useParams()
   const navigate = useNavigate()
-  const [pets, setPets] = useState(petsList)
+  const [ownerList, setOwnerList] = useState<ICustomer[]>([])
   const [newPet, setNewPet] = useState<IPet>({
-    id: 0,
     name: '',
-    owner: '',
+    owner_id: '',
     specie: '',
     breed: '',
     size: 'Pequeno',
     gender: 'Macho',
-    healthProblems: '',
+    health_problems: '',
     allergies: '',
-    additionalInfo: '',
+    additional_info: '',
   })
 
   useEffect(() => {
     if (params.id) {
-      const pet = pets.find((pet) => pet.id === Number(params.id))
-      if (pet) {
-        setNewPet(pet)
-      }
+      http
+        .get(`pets/${params.id}`)
+        .then((resp) => setNewPet(resp.data))
+        .catch((err) => console.log(err.message))
     }
-  }, [params, pets])
+  }, [params])
+
+  useEffect(() => {
+    http
+      .get('customers/')
+      .then((resp) => setOwnerList(resp.data))
+      .catch((err) => console.log(err.message))
+  }, [])
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -47,17 +55,27 @@ const PetForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (params.id) {
-      const updatedPetsList = petsList.map((pet) => {
-        if (pet.id === Number(params.id)) {
-          return newPet
-        } else {
-          return pet
-        }
-      })
-      setPets(updatedPetsList)
+      http
+        .put(`pets/${params.id}`, {
+          ...newPet,
+        })
+        .then((resp) => {
+          navigate('/pet')
+          console.log(resp.data.message)
+        })
+        .catch((err) => {
+          console.log(err.message)
+        })
     } else {
-      newPet.id = petsList[petsList.length - 1].id + 1
-      setPets([...petsList, newPet])
+      http
+        .post('pets/', {
+          ...newPet,
+        })
+        .then((resp) => {
+          console.log(resp)
+          navigate('/pet')
+        })
+        .catch((err) => console.log(err.message))
     }
   }
 
@@ -68,7 +86,7 @@ const PetForm = () => {
         <form className="petForm" onSubmit={handleSubmit}>
           <div className="petForm__rows">
             <label className="petForm__label">
-              Nome do Pet:
+              Nome do Pet*:
               <input
                 placeholder="Informe o nome do pet..."
                 className="petForm__input"
@@ -80,21 +98,26 @@ const PetForm = () => {
               />
             </label>
             <label className="petForm__label">
-              Nome do Dono:
-              <input
-                placeholder="Informe o nome do dono do pet..."
-                className="petForm__input"
+              Dono*:
+              <select
+                className="petForm__select"
                 required
-                type="text"
-                name="owner"
-                value={newPet.owner}
+                name="owner_id"
+                value={newPet.owner_id}
                 onChange={handleInputChange}
-              />
+              >
+                <option value="">Selecione o dono do pet...</option>
+                {ownerList.map((owner) => (
+                  <option key={owner._id} value={owner._id}>
+                    {owner.name}
+                  </option>
+                ))}
+              </select>
             </label>
           </div>
           <div className="petForm__rows">
             <label className="petForm__label">
-              Animal:
+              Animal*:
               <select
                 className="petForm__select"
                 required
@@ -108,7 +131,7 @@ const PetForm = () => {
               </select>
             </label>
             <label className="petForm__label">
-              Porte:
+              Porte*:
               <select
                 className="petForm__select"
                 required
@@ -123,7 +146,7 @@ const PetForm = () => {
               </select>
             </label>
             <label className="petForm__label">
-              Raça:
+              Raça*:
               <input
                 placeholder="informe a raça do pet..."
                 className="petForm__input"
@@ -138,18 +161,18 @@ const PetForm = () => {
           <label className="petForm__label">
             Possui problemas de saúde?
             <input
-              placeholder="Se sim, quais?"
+              placeholder="Se sim, quais? (opcional)"
               className="petForm__input"
               type="text"
-              name="healthProblems"
-              value={newPet.healthProblems}
+              name="health_problems"
+              value={newPet.health_problems}
               onChange={handleInputChange}
             />
           </label>
           <label className="petForm__label">
             Possuí alergias?
             <input
-              placeholder="Se sim, quais?"
+              placeholder="Se sim, quais? (opcional)"
               className="petForm__input"
               type="text"
               name="allergies"
@@ -162,9 +185,9 @@ const PetForm = () => {
             <input
               className="petForm__input"
               type="text"
-              placeholder="Coloque aqui informações adicionais sobre o pet..."
-              name="additionalInfo"
-              value={newPet.additionalInfo}
+              placeholder="Coloque aqui informações adicionais sobre o pet... (opcional)"
+              name="additional_info"
+              value={newPet.additional_info}
               onChange={handleInputChange}
             />
           </label>
@@ -174,12 +197,7 @@ const PetForm = () => {
               colorType="fail"
               onClick={() => navigate('/pet')}
             />
-            <Button
-              type="submit"
-              text="Cadastrar"
-              colorType="success"
-              onClick={() => navigate('/pet')}
-            />
+            <Button type="submit" text="Cadastrar" colorType="success" />
           </div>
         </form>
       </Modal>
