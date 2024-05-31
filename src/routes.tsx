@@ -5,16 +5,18 @@ import './assets/styles/normalize.scss'
 import './assets/styles/reset.scss'
 import './main.scss'
 
+import CustomerForm from './pages/Customer/CustomerForm'
+import EmployeeForm from './pages/Employee/EmployeeForm'
+import ProductForm from './pages/Product/ProductForm'
 import Default from '@/components/Default'
 import PetForm from './pages/Pet/PetForm'
-import NotFound from '@/pages/NotFound'
 import Customer from './pages/Customer'
+import Employee from './pages/Employee'
+import NotFound from '@/pages/NotFound'
+import Product from './pages/Product'
 import Banho from './pages/Banho'
 import Home from '@/pages/Home'
 import Pet from './pages/Pet'
-import CustomerForm from './pages/Customer/CustomerForm'
-import Employee from './pages/Employee'
-import EmployeeForm from './pages/Employee/EmployeeForm'
 
 const AppRoutes = () => {
   return (
@@ -34,6 +36,9 @@ const AppRoutes = () => {
         <Route path="pet" element={<Pet />} />
         <Route path="pet/novo" element={<PetForm />} />
         <Route path="pet/:id" element={<PetForm />} />
+        <Route path="produto" element={<Product />} />
+        <Route path="produto/novo" element={<ProductForm />} />
+        <Route path="produto/:id" element={<ProductForm />} />
       </Route>
     </Routes>
   )
