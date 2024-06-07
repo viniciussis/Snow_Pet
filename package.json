@@ -13,15 +13,19 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@material-ui/core": "^5.0.0-beta.5",
+    "@tanstack/react-query": "^5.40.1",
     "axios": "^1.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.3",
     "sass": "^1.71.1",
-    "vite-plugin-svgr": "^4.2.0"
+    "vite-plugin-svgr": "^4.2.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.35.6",
+    "@tanstack/react-query-devtools": "^5.40.1",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",

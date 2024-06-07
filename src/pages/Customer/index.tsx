@@ -1,6 +1,8 @@
+import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
+import useCustomers from '@/hooks/useCustomers'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import ICustomer from '@/interfaces/ICustomer'
@@ -9,6 +11,8 @@ import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
 import http from '@/http'
 import './Customer.scss'
+import { request } from '@/utils/axiosUtils'
+import { AxiosError, AxiosResponse } from 'axios'
 
 const formatAddress = (address: IAddress) => {
   const complement = address.complement ? ', ' + address.complement : ''
@@ -23,15 +27,22 @@ const customerColumns: IColumn<ICustomer>[] = [
   { id: 'social_media', label: 'Instagram', minWidth: 75, align: 'center' },
 ]
 
+const fetchCustomers = async (): Promise<ICustomer[]> => {
+  const data = await request({ url: 'customers/' })
+  return data
+}
+
 const Customer = () => {
-  const [customers, setCustomers] = useState<ICustomer[]>([])
+  const { setCustomers } = useCustomers()
+  const { isSuccess, data } = useQuery({
+    queryKey: ['customers'],
+    queryFn: fetchCustomers,
+  })
   const navigate = useNavigate()
 
-  useEffect(() => {
-    http.get<ICustomer[]>('customers/').then((response) => {
-      setCustomers(response.data)
-    })
-  }, [])
+  if (isSuccess) {
+    setCustomers(data)
+  }
 
   const updateCustomer = (id: string) => {
     navigate(`/cliente/${id}`)
@@ -60,7 +71,7 @@ const Customer = () => {
         remove={removeCustomer}
         update={updateCustomer}
         columns={customerColumns}
-        data={customers}
+        data={isSuccess ? data : customers}
       />
       <div>
         <Button
