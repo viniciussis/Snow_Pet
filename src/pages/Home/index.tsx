@@ -2,15 +2,13 @@ import './Home.scss'
 import { Link } from 'react-router-dom'
 
 const options = [
+  { icon: 'venda', label: 'Atendimento', route: '/atendimento' },
   { icon: 'banho_e_tosa', label: 'Banho e tosa', route: '/banho_e_tosa' },
   { icon: 'cliente', label: 'Cliente', route: '/cliente' },
   { icon: 'estoque', label: 'Estoque', route: '/estoque' },
-  { icon: 'financeiro', label: 'Financeiro', route: '/financeiro' },
-  { icon: 'funcionario', label: 'Funcionario', route: '/funcionario' },
   { icon: 'pet', label: 'Pet', route: '/pet' },
   { icon: 'produto', label: 'Produto', route: '/produto' },
   { icon: 'relatorio', label: 'Relatorio', route: '/relatorio' },
-  { icon: 'venda', label: 'Venda', route: '/venda' },
 ]
 
 const Home = () => {

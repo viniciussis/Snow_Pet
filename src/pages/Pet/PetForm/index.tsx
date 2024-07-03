@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
 
-import ICustomer from '@/interfaces/ICustomer'
+import useCustomers from '@/hooks/useCustomers'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
+import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
 import api from '@/api'
 import './PetForm.scss'
@@ -11,34 +13,53 @@ import './PetForm.scss'
 const PetForm = () => {
   const params = useParams()
   const navigate = useNavigate()
-  const [ownerList, setOwnerList] = useState<ICustomer[]>([])
+  const { getPetById } = usePets()
+  const { customers: ownerList } = useCustomers()
   const [newPet, setNewPet] = useState<IPet>({
     name: '',
-    owner_id: '',
     specie: '',
+    ownerId: '',
     breed: '',
-    size: 'Pequeno',
-    gender: 'Macho',
-    health_problems: '',
+    size: '',
+    gender: '',
+    healthProblems: '',
     allergies: '',
-    additional_info: '',
+    additionalInfo: '',
   })
 
   useEffect(() => {
     if (params.id) {
-      api
-        .get(`pets/${params.id}`)
-        .then((resp) => setNewPet(resp.data))
-        .catch((err) => console.log(err.message))
+      const pet = getPetById(params.id)
+      if (pet !== undefined) {
+        console.log(pet)
+        setNewPet(pet)
+      }
     }
-  }, [params])
+  }, [getPetById, params])
 
-  useEffect(() => {
-    api
-      .get('customers/')
-      .then((resp) => setOwnerList(resp.data))
-      .catch((err) => console.log(err.message))
-  }, [])
+  const addPet = useMutation({
+    mutationFn: () => {
+      return api.post<IPet>('pets/', newPet)
+    },
+    onSuccess: () => {
+      navigate('/pet')
+    },
+    onError: (err) => {
+      console.log(err.message)
+    },
+  })
+
+  const updatePet = useMutation({
+    mutationFn: () => {
+      return api.patch<IPet>(`pets/${params.id}`, newPet)
+    },
+    onSuccess: () => {
+      navigate('/pet')
+    },
+    onError: (err) => {
+      console.log(err.message)
+    },
+  })
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -55,27 +76,9 @@ const PetForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (params.id) {
-      api
-        .put(`pets/${params.id}`, {
-          ...newPet,
-        })
-        .then((resp) => {
-          navigate('/pet')
-          console.log(resp.data.message)
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
+      updatePet.mutate()
     } else {
-      api
-        .post('pets/', {
-          ...newPet,
-        })
-        .then((resp) => {
-          console.log(resp)
-          navigate('/pet')
-        })
-        .catch((err) => console.log(err.message))
+      addPet.mutate()
     }
   }
 
@@ -102,8 +105,8 @@ const PetForm = () => {
               <select
                 className="petForm__select"
                 required
-                name="owner_id"
-                value={newPet.owner_id}
+                name="ownerId"
+                value={newPet.ownerId}
                 onChange={handleInputChange}
               >
                 <option value="">Selecione o dono do pet...</option>
@@ -112,6 +115,20 @@ const PetForm = () => {
                     {owner.name}
                   </option>
                 ))}
+              </select>
+            </label>
+            <label className="petForm__label">
+              Sexo*:
+              <select
+                className="petForm__select"
+                required
+                name="gender"
+                value={newPet.gender}
+                onChange={handleInputChange}
+              >
+                <option value="">Selecione</option>
+                <option value="Macho">Macho</option>
+                <option value="Fêmea">Fêmea</option>
               </select>
             </label>
           </div>
@@ -164,8 +181,8 @@ const PetForm = () => {
               placeholder="Se sim, quais? (opcional)"
               className="petForm__input"
               type="text"
-              name="health_problems"
-              value={newPet.health_problems}
+              name="healthProblems"
+              value={newPet.healthProblems}
               onChange={handleInputChange}
             />
           </label>
@@ -186,8 +203,8 @@ const PetForm = () => {
               className="petForm__input"
               type="text"
               placeholder="Coloque aqui informações adicionais sobre o pet... (opcional)"
-              name="additional_info"
-              value={newPet.additional_info}
+              name="additionalInfo"
+              value={newPet.additionalInfo}
               onChange={handleInputChange}
             />
           </label>

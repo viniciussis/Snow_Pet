@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import IProduct from '@/interfaces/IProduct'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
-import api from '@/api'
 import './ProductForm.scss'
+import api from '@/api'
 
 const ProductForm = () => {
   const params = useParams()
@@ -13,11 +13,12 @@ const ProductForm = () => {
   const [newProduct, setNewProduct] = useState<IProduct>({
     name: '',
     brand: '',
-    category: '',
-    medida: '',
+    category: {
+      name: '',
+    },
+    measure: '',
     price: 0,
     description: '',
-    fornecedor: '',
   })
 
   useEffect(() => {
@@ -35,10 +36,31 @@ const ProductForm = () => {
     >,
   ) => {
     const { name, value } = e.target
-    setNewProduct({
-      ...newProduct,
-      [name]: value,
-    })
+    if (name.startsWith('address.')) {
+      const categoryField = name.split('.')[1]
+      setNewProduct((prevProduct) => ({
+        ...prevProduct,
+        address: {
+          ...prevProduct?.category,
+          [categoryField]: value,
+        },
+      }))
+    } else if (
+      name === 'name'
+    ) {
+      setNewProduct((prevCustomer) => ({
+        ...prevCustomer,
+        address: {
+          ...prevCustomer.category,
+          [name]: value,
+        },
+      }))
+    } else {
+      setNewProduct({
+        ...newProduct,
+        [name]: value,
+      })
+    }
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -105,8 +127,8 @@ const ProductForm = () => {
                 className="productForm__input"
                 required
                 type="text"
-                name="category"
-                value={newProduct.category}
+                name="category.name"
+                value={newProduct.category.name}
                 onChange={handleInputChange}
               />
             </label>
@@ -131,19 +153,8 @@ const ProductForm = () => {
                 className="productForm__input"
                 required
                 type="text"
-                name="medida"
-                value={newProduct.medida}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="productForm__label">
-              Fornecedor:
-              <input
-                placeholder="Informe o fornecedor... (opcional)"
-                className="productForm__input"
-                type="text"
-                name="fornecedor"
-                value={newProduct.fornecedor}
+                name="measure"
+                value={newProduct.measure}
                 onChange={handleInputChange}
               />
             </label>

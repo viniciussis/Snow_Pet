@@ -8,7 +8,7 @@ interface CustomerState {
   getCustomerById: (id: string) => ICustomer | undefined
   removeCustomer: (id: string) => void
 }
-
+  
 const useCustomers = create<CustomerState>()((set, get) => ({
   customers: [],
   setCustomers: (customers) => set({ customers }),

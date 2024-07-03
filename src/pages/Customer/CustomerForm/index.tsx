@@ -32,6 +32,7 @@ const CustomerForm = () => {
     },
     onSuccess: () => {
       navigate('/cliente')
+      
     },
     onError: (err) => {
       console.log(err.message)

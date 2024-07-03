@@ -1,4 +1,4 @@
-.banho {
+.grooming {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,22 @@
     color: variables.$white;
   }
 
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+    width: 100%;
+  }
+
   @media screen and (min-width: variables.$desktop-width) {
     padding: 4rem 5rem 2rem;
+
+    &__actions {
+      flex-direction: row;
+      gap: 1rem;
+    }
   }
 }

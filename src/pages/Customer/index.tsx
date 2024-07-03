@@ -15,13 +15,18 @@ import api from '@/api'
 
 const customerColumns: IColumn<ICustomer>[] = [
   { id: 'name', label: 'Nome', minWidth: 125 },
-  { id: 'address', label: 'Endereço', minWidth: 150, format: formatAddress },
+  {
+    id: 'address',
+    label: 'Endereço',
+    minWidth: 150,
+    formatAddress,
+  },
   { id: 'email', label: 'Email', minWidth: 100 },
   { id: 'phoneNumber', label: 'Telefone', minWidth: 75, align: 'center' },
   { id: 'socialMedia', label: 'Instagram', minWidth: 75, align: 'center' },
 ]
 
-const fetchCustomers = async (): Promise<ICustomer[]> => {
+const fetchCustomers = async () => {
   const resp = await api.get<ICustomer[]>('customers')
   return resp.data
 }
@@ -53,7 +58,7 @@ const Customer = () => {
       removeCustomer(id)
     },
     onError: (err) => {
-      console.log(err.message)
+      console.error(err.message)
     },
   })
 

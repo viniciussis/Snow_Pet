@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
 
+import formatAddress from '@/utils/formatAddress'
 import IColumn from '@/interfaces/IColumn'
 import './TableFlex.scss'
 
@@ -87,7 +88,10 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                       </div>
                     </TableCell>
                     {columns.map((column, index) => {
-                      const value = item[column.id]
+                      let value = item[column.id]
+                      if (column.formatAddress) {
+                        value = formatAddress(value)
+                      }
                       return (
                         <TableCell
                           key={index}
@@ -97,7 +101,7 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                           }}
                           align={column.align}
                         >
-                          {column.format ? column.format(value) : value}
+                          {value}
                         </TableCell>
                       )
                     })}
