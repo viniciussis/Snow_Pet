@@ -6,7 +6,7 @@ import TableFlex from '@/components/TableFlex'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
 import IPet from '@/interfaces/IPet'
-import http from '@/http'
+import api from '@/api'
 import './Pet.scss'
 
 const petColumns: IColumn<IPet>[] = [
@@ -25,7 +25,7 @@ const Pet = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    http.get<IPet[]>('pets/').then((response) => {
+    api.get<IPet[]>('pets/').then((response) => {
       setPets(response.data)
     })
   }, [])
@@ -35,11 +35,11 @@ const Pet = () => {
   }
 
   const removePet = (id: string) => {
-    http
+    api
       .delete(`pets/${id}`)
       .then((resp) => {
         console.log(resp.data.message)
-        setPets(pets.filter((pet) => pet._id !== id))
+        setPets(pets.filter((pet) => pet.id !== id))
       })
       .catch((err) => {
         console.log(err.message)

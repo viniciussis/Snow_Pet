@@ -6,11 +6,11 @@ import TableFlex from '@/components/TableFlex'
 import IProduct from '@/interfaces/IProduct'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
-import http from '@/http'
+import api from '@/api'
 import './Product.scss'
 
 const productColumns: IColumn<IProduct>[] = [
-  { id: '_id', label: 'Id', minWidth: 50 },
+  { id: 'id', label: 'Id', minWidth: 50 },
   { id: 'name', label: 'Nome', minWidth: 50 },
   { id: 'brand', label: 'Marca', minWidth: 50 },
   { id: 'category', label: 'Categoria', minWidth: 50 },
@@ -25,7 +25,7 @@ const Product = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    http.get<IProduct[]>('products/').then((response) => {
+    api.get<IProduct[]>('products/').then((response) => {
       setProducts(response.data)
     })
   }, [])
@@ -35,11 +35,11 @@ const Product = () => {
   }
 
   const removeProduct = (id: string) => {
-    http
+    api
       .delete(`products/${id}`)
       .then((resp) => {
         console.log(resp.data.message)
-        setProducts(products.filter((product) => product._id !== id))
+        setProducts(products.filter((product) => product.id !== id))
       })
       .catch((err) => {
         console.log(err.message)

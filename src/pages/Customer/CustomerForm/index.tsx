@@ -1,36 +1,74 @@
-import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
 
 import ICustomer from '@/interfaces/ICustomer'
+import useCustomers from '@/hooks/useCustomers'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import './CustomerForm.scss'
-import http from '@/http'
+import api from '@/api'
 
 const CustomerForm = () => {
+  const { getCustomerById } = useCustomers()
   const params = useParams()
   const navigate = useNavigate()
   const [newCustomer, setNewCustomer] = useState<ICustomer>({
     name: '',
     address: {
       neighborhood: '',
-      number: '',
+      houseNumber: '',
       street: '',
       complement: '',
     },
-    phone_number: '',
+    phoneNumber: '',
     email: '',
-    social_media: '',
+    socialMedia: '',
+  })
+
+  const addCustomer = useMutation({
+    mutationFn: () => {
+      return api.post<ICustomer>('customers/', newCustomer)
+    },
+    onSuccess: () => {
+      navigate('/cliente')
+    },
+    onError: (err) => {
+      console.log(err.message)
+    },
+  })
+
+  const updateCustomer = useMutation({
+    mutationFn: () => {
+      return api.patch<ICustomer>(`customers/${params.id}`, newCustomer)
+    },
+    onSuccess: () => {
+      navigate('/cliente')
+    },
+    onError: (err) => {
+      console.log(err.message)
+    },
   })
 
   useEffect(() => {
     if (params.id) {
-      http
-        .get(`customers/${params.id}`)
-        .then((resp) => setNewCustomer(resp.data))
-        .catch((err) => console.error(err.message))
+      const customer = getCustomerById(params.id)
+      if (customer !== undefined) {
+        setNewCustomer({
+          name: customer.name,
+          address: {
+            neighborhood: customer.address.neighborhood,
+            houseNumber: customer.address.houseNumber,
+            street: customer.address.street,
+            complement: customer.address.complement,
+          },
+          phoneNumber: customer.phoneNumber,
+          email: customer.email,
+          socialMedia: customer.socialMedia,
+        })
+      }
     }
-  }, [params])
+  }, [params, getCustomerById])
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -43,7 +81,7 @@ const CustomerForm = () => {
       setNewCustomer((prevCustomer) => ({
         ...prevCustomer,
         address: {
-          ...prevCustomer.address,
+          ...prevCustomer?.address,
           [addressField]: value,
         },
       }))
@@ -70,28 +108,11 @@ const CustomerForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    console.log(newCustomer)
     if (params.id) {
-      http
-        .put(`customers/${params.id}`, {
-          ...newCustomer
-        })
-        .then((resp) => {
-          navigate('/cliente')
-          console.log(resp.data.message)
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
+      updateCustomer.mutate()
     } else {
-      http
-        .post('customers/', {
-          ...newCustomer,
-        })
-        .then((resp) => {
-          console.log(resp)
-          navigate('/cliente')
-        })
-        .catch((err) => console.log(err.message))
+      addCustomer.mutate()
     }
   }
 
@@ -145,8 +166,8 @@ const CustomerForm = () => {
                 className="customerForm__input"
                 required
                 type="text"
-                name="address.number"
-                value={newCustomer.address.number}
+                name="address.houseNumber"
+                value={newCustomer.address.houseNumber}
                 onChange={handleInputChange}
               />
             </label>
@@ -182,8 +203,8 @@ const CustomerForm = () => {
                 className="customerForm__input"
                 required
                 type="text"
-                name="phone_number"
-                value={newCustomer.phone_number}
+                name="phoneNumber"
+                value={newCustomer.phoneNumber}
                 onChange={handleInputChange}
               />
             </label>
@@ -193,8 +214,8 @@ const CustomerForm = () => {
                 className="customerForm__input"
                 type="text"
                 placeholder="Redes sociais... (opcional)"
-                name="social_media"
-                value={newCustomer.social_media}
+                name="socialMedia"
+                value={newCustomer.socialMedia}
                 onChange={handleInputChange}
               />
             </label>

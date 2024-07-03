@@ -67,18 +67,18 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((item) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={item._id}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={item.id}>
                     <TableCell>
                       <div style={{ display: 'flex' }}>
                         <IconButton
-                          onClick={() => remove(item._id)}
+                          onClick={() => remove(item.id)}
                           color="error"
                           aria-label="deletar"
                         >
                           <FaTrash size={20} />
                         </IconButton>
                         <IconButton
-                          onClick={() => update(item._id)}
+                          onClick={() => update(item.id)}
                           color="warning"
                           aria-label="editar"
                         >

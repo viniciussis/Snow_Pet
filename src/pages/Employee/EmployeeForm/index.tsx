@@ -5,7 +5,7 @@ import IEmployee from '@/interfaces/IEmployee'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import './EmployeeForm.scss'
-import http from '@/http'
+import api from '@/api'
 
 const EmployeeForm = () => {
   const params = useParams()
@@ -14,7 +14,7 @@ const EmployeeForm = () => {
     name: '',
     address: {
       neighborhood: '',
-      number: '',
+      houseNumber: '',
       street: '',
       complement: '',
     },
@@ -29,7 +29,7 @@ const EmployeeForm = () => {
 
   useEffect(() => {
     if (params.id) {
-      http
+      api
         .get(`employees/${params.id}`)
         .then((resp) => setNewEmployee(resp.data))
         .catch((err) => console.error(err.message))
@@ -80,7 +80,7 @@ const EmployeeForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (params.id) {
-      http
+      api
         .put(`employees/${params.id}`, {
           ...newEmployee,
         })
@@ -92,7 +92,7 @@ const EmployeeForm = () => {
           console.log(err.message)
         })
     } else {
-      http
+      api
         .post('employees/', {
           ...newEmployee,
         })
@@ -155,7 +155,7 @@ const EmployeeForm = () => {
                 required
                 type="text"
                 name="address.number"
-                value={newEmployee.address.number}
+                value={newEmployee.address.houseNumber}
                 onChange={handleInputChange}
               />
             </label>

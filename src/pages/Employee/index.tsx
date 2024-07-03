@@ -1,19 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
+import formatAddress from '@/utils/formatAddress'
 import TableFlex from '@/components/TableFlex'
 import SearchBar from '@/components/SearchBar'
 import IEmployee from '@/interfaces/IEmployee'
-import IAddress from '@/interfaces/IAddress'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
-import http from '@/http'
+import api from '@/api'
 import './Employee.scss'
-
-const formatAddress = (address: IAddress) => {
-  const complement = address.complement ? ', ' + address.complement : ''
-  return `${address.street}, ${address.number}${complement} - ${address.neighborhood}`
-}
 
 const employeeColumns: IColumn<IEmployee>[] = [
   { id: 'name', label: 'Nome', minWidth: 100 },
@@ -37,7 +32,7 @@ const Employee = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    http.get<IEmployee[]>('customers/').then((response) => {
+    api.get<IEmployee[]>('customers/').then((response) => {
       setEmployees(response.data)
     })
   }, [])
@@ -47,11 +42,11 @@ const Employee = () => {
   }
 
   const removeEmployee = (id: string) => {
-    http
+    api
       .delete(`employees/${id}`)
       .then((resp) => {
         console.log(resp.data.message)
-        setEmployees(employees.filter((employee) => employee._id !== id))
+        setEmployees(employees.filter((employee) => employee.id !== id))
       })
       .catch((err) => {
         console.log(err.message)

@@ -5,7 +5,7 @@ import ICustomer from '@/interfaces/ICustomer'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import IPet from '@/interfaces/IPet'
-import http from '@/http'
+import api from '@/api'
 import './PetForm.scss'
 
 const PetForm = () => {
@@ -26,7 +26,7 @@ const PetForm = () => {
 
   useEffect(() => {
     if (params.id) {
-      http
+      api
         .get(`pets/${params.id}`)
         .then((resp) => setNewPet(resp.data))
         .catch((err) => console.log(err.message))
@@ -34,7 +34,7 @@ const PetForm = () => {
   }, [params])
 
   useEffect(() => {
-    http
+    api
       .get('customers/')
       .then((resp) => setOwnerList(resp.data))
       .catch((err) => console.log(err.message))
@@ -55,7 +55,7 @@ const PetForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (params.id) {
-      http
+      api
         .put(`pets/${params.id}`, {
           ...newPet,
         })
@@ -67,7 +67,7 @@ const PetForm = () => {
           console.log(err.message)
         })
     } else {
-      http
+      api
         .post('pets/', {
           ...newPet,
         })
@@ -108,7 +108,7 @@ const PetForm = () => {
               >
                 <option value="">Selecione o dono do pet...</option>
                 {ownerList.map((owner) => (
-                  <option key={owner._id} value={owner._id}>
+                  <option key={owner.id} value={owner.id}>
                     {owner.name}
                   </option>
                 ))}

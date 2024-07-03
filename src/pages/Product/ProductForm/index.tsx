@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import IProduct from '@/interfaces/IProduct'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
-import http from '@/http'
+import api from '@/api'
 import './ProductForm.scss'
 
 const ProductForm = () => {
@@ -22,7 +22,7 @@ const ProductForm = () => {
 
   useEffect(() => {
     if (params.id) {
-      http
+      api
         .get(`products/${params.id}`)
         .then((resp) => setNewProduct(resp.data))
         .catch((err) => console.log(err.message))
@@ -44,7 +44,7 @@ const ProductForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (params.id) {
-      http
+      api
         .put(`products/${params.id}`, {
           ...newProduct,
         })
@@ -56,7 +56,7 @@ const ProductForm = () => {
           console.log(err.message)
         })
     } else {
-      http
+      api
         .post('products/', {
           ...newProduct,
         })

@@ -1,6 +1,7 @@
 export default interface IAddress {
+  id?: string;
   neighborhood: string
-  number: string
+  houseNumber: string
   street: string
   complement?: string
 }

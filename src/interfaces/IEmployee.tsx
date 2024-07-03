@@ -1,7 +1,7 @@
 import IAddress from "./IAddress"
 
 export default interface IEmployee {
-  _id?: string
+  id?: string
   name: string
   cpf: string
   birthdate: Date
