@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
 
+import useCategories from '@/hooks/useCategory'
+import useProducts from '@/hooks/useProducts'
 import IProduct from '@/interfaces/IProduct'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
@@ -8,27 +11,51 @@ import './ProductForm.scss'
 import api from '@/api'
 
 const ProductForm = () => {
+  const { getProductById } = useProducts()
+  const { categories: categoriesList, getCategoryById } = useCategories()
   const params = useParams()
   const navigate = useNavigate()
   const [newProduct, setNewProduct] = useState<IProduct>({
     name: '',
     brand: '',
-    category: {
-      name: '',
-    },
-    measure: '',
     price: 0,
+    measure: '',
+    categoryId: '',
     description: '',
+  })
+
+  const addProduct = useMutation({
+    mutationFn: () => {
+      return api.post<IProduct>('products', newProduct)
+    },
+    onSuccess: () => {
+      navigate('/produto')
+    },
+    onError: (err) => {
+      console.log(err.message)
+    },
+  })
+
+  const updateProduct = useMutation({
+    mutationFn: () => {
+      return api.patch<IProduct>(`products/${params.id}`, newProduct)
+    },
+    onSuccess: () => {
+      navigate('/produto')
+    },
+    onError: (err) => {
+      console.log(err.message)
+    },
   })
 
   useEffect(() => {
     if (params.id) {
-      api
-        .get(`products/${params.id}`)
-        .then((resp) => setNewProduct(resp.data))
-        .catch((err) => console.log(err.message))
+      const product = getProductById(params.id)
+      if (product !== undefined) {
+        setNewProduct({ ...product })
+      }
     }
-  }, [params])
+  }, [getCategoryById, getProductById, params])
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -36,25 +63,11 @@ const ProductForm = () => {
     >,
   ) => {
     const { name, value } = e.target
-    if (name.startsWith('address.')) {
-      const categoryField = name.split('.')[1]
-      setNewProduct((prevProduct) => ({
-        ...prevProduct,
-        address: {
-          ...prevProduct?.category,
-          [categoryField]: value,
-        },
-      }))
-    } else if (
-      name === 'name'
-    ) {
-      setNewProduct((prevCustomer) => ({
-        ...prevCustomer,
-        address: {
-          ...prevCustomer.category,
-          [name]: value,
-        },
-      }))
+    if (name === 'price') {
+      setNewProduct({
+        ...newProduct,
+        [name]: Number(value),
+      })
     } else {
       setNewProduct({
         ...newProduct,
@@ -65,28 +78,11 @@ const ProductForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    console.log(newProduct)
     if (params.id) {
-      api
-        .put(`products/${params.id}`, {
-          ...newProduct,
-        })
-        .then((resp) => {
-          navigate('/produto')
-          console.log(resp.data.message)
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
+      updateProduct.mutate()
     } else {
-      api
-        .post('products/', {
-          ...newProduct,
-        })
-        .then((resp) => {
-          console.log(resp)
-          navigate('/produto')
-        })
-        .catch((err) => console.log(err.message))
+      addProduct.mutate()
     }
   }
 
@@ -122,15 +118,20 @@ const ProductForm = () => {
             </label>
             <label className="productForm__label">
               Categoria*:
-              <input
-                placeholder="Informe a categoria do produto..."
-                className="productForm__input"
+              <select
+                className="productForm__select"
                 required
-                type="text"
-                name="category.name"
-                value={newProduct.category.name}
+                name="categoryId"
+                value={newProduct.categoryId}
                 onChange={handleInputChange}
-              />
+              >
+                <option value="">Selecione a categoria do produto...</option>
+                {categoriesList.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </label>
           </div>
           <div className="productForm__rows">
@@ -141,6 +142,7 @@ const ProductForm = () => {
                 className="productForm__input"
                 required
                 type="number"
+                min={0}
                 name="price"
                 value={newProduct.price}
                 onChange={handleInputChange}
@@ -171,6 +173,11 @@ const ProductForm = () => {
             />
           </label>
           <div className="productForm__actions">
+            <Button
+              onClick={() => navigate('/produto/novo/categoria')}
+              text="Adicionar Categoria"
+              colorType="primary"
+            />
             <Button
               text="Cancelar"
               colorType="fail"

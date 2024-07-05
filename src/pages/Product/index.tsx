@@ -1,7 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
+import useCategories from '@/hooks/useCategory'
+import ICategory from '@/interfaces/ICategory'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import useProducts from '@/hooks/useProducts'
@@ -20,6 +22,11 @@ const productColumns: IColumn<IProduct>[] = [
   { id: 'measure', label: 'Medida', minWidth: 40 },
 ]
 
+const fetchCategories = async () => {
+  const res = await api.get<ICategory[]>('categories')
+  return res.data
+}
+
 const fetchProducts = async () => {
   const resp = await api.get<IProduct[]>('products')
   return resp.data
@@ -27,17 +34,32 @@ const fetchProducts = async () => {
 
 const Product = () => {
   const { products, setProducts, removeProduct } = useProducts()
+  const { setCategories } = useCategories()
   const navigate = useNavigate()
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['products'],
     queryFn: fetchProducts,
+  })
+  const categoryQuery = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
   })
 
   useEffect(() => {
     if (isSuccess) {
       setProducts(data)
     }
-  }, [data, isSuccess, setProducts])
+    if (categoryQuery.isSuccess) {
+      setCategories(categoryQuery.data)
+    }
+  }, [
+    categoryQuery.data,
+    categoryQuery.isSuccess,
+    data,
+    isSuccess,
+    setCategories,
+    setProducts,
+  ])
 
   const updateProduct = (id: string) => {
     navigate(`/produto/${id}`)

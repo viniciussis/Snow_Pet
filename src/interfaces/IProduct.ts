@@ -4,8 +4,9 @@ export default interface IProduct {
   id?: string
   name: string
   brand: string
-  category: ICategory
   price: number
   measure: string
+  categoryId?: string
+  category?: ICategory
   description?: string
 }

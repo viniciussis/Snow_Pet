@@ -2,7 +2,7 @@ import './Home.scss'
 import { Link } from 'react-router-dom'
 
 const options = [
-  { icon: 'venda', label: 'Atendimento', route: '/atendimento' },
+  { icon: 'atendimento', label: 'Atendimento', route: '/atendimento' },
   { icon: 'banho_e_tosa', label: 'Banho e tosa', route: '/banho_e_tosa' },
   { icon: 'cliente', label: 'Cliente', route: '/cliente' },
   { icon: 'estoque', label: 'Estoque', route: '/estoque' },

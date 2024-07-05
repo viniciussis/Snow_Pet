@@ -27,7 +27,7 @@ const GroomingForm = () => {
       const grooming = getGroomingById(params.id)
       if (grooming !== undefined) {
         console.log(grooming)
-        setNewGrooming(grooming)
+        setNewGrooming({...grooming, date: grooming.date.slice(0, -1)} )
       }
     }
   }, [getGroomingById, params])
@@ -49,7 +49,7 @@ const GroomingForm = () => {
       return api.patch<IGrooming>(`groomings/${params.id}`, newGrooming)
     },
     onSuccess: () => {
-      navigate('/pet')
+      navigate('/banho_e_tosa')
     },
     onError: (err) => {
       console.log(err.message)
@@ -76,8 +76,8 @@ const GroomingForm = () => {
     e.preventDefault()
     setNewGrooming({
       ...newGrooming,
-      date: newGrooming.date.includes(':00')
-        ? newGrooming.date + 'Z'
+      date: newGrooming.date.includes(':00Z')
+        ? newGrooming.date
         : newGrooming.date + ':00Z',
     })
     if (params.id) {

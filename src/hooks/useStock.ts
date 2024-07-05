@@ -9,7 +9,7 @@ interface StockState {
   removeStockProduct: (id: string) => void
 }
 
-const useItems = create<StockState>()((set, get) => ({
+const useStockProducts = create<StockState>()((set, get) => ({
   stock: [],
   setStock: (stock) => set({ stock }),
   getStockProductById: (id) =>
@@ -21,4 +21,4 @@ const useItems = create<StockState>()((set, get) => ({
   },
 }))
 
-export default useItems
+export default useStockProducts
