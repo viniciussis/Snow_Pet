@@ -11,10 +11,10 @@ import './ProductForm.scss'
 import api from '@/api'
 
 const ProductForm = () => {
-  const { getProductById } = useProducts()
-  const { categories: categoriesList, getCategoryById } = useCategories()
   const params = useParams()
   const navigate = useNavigate()
+  const { getProductById } = useProducts()
+  const { categories: categoriesList, getCategoryById } = useCategories()
   const [newProduct, setNewProduct] = useState<IProduct>({
     name: '',
     brand: '',
@@ -26,6 +26,7 @@ const ProductForm = () => {
 
   const addProduct = useMutation({
     mutationFn: () => {
+      console.log(newProduct)
       return api.post<IProduct>('products', newProduct)
     },
     onSuccess: () => {

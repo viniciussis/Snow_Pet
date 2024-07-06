@@ -16,10 +16,11 @@ import './Product.scss'
 
 const productColumns: IColumn<IProduct>[] = [
   { id: 'name', label: 'Nome', minWidth: 50 },
-  { id: 'brand', label: 'Marca', minWidth: 50 },
-  { id: 'description', label: 'Descrição', minWidth: 100 },
-  { id: 'price', label: 'Preço', minWidth: 50 },
-  { id: 'measure', label: 'Medida', minWidth: 40 },
+  { id: 'brand', label: 'Marca', minWidth: 50, align: 'center' },
+  { id: 'description', label: 'Descrição', minWidth: 100, align: 'center' },
+  { id: 'price', label: 'Preço', minWidth: 50, align: 'center' },
+  { id: 'measure', label: 'Medida', minWidth: 40, align: 'center' },
+  { id: 'categoryId', label: 'Categoria', minWidth: 50, align: 'center' },
 ]
 
 const fetchCategories = async () => {
@@ -36,7 +37,8 @@ const Product = () => {
   const { products, setProducts, removeProduct } = useProducts()
   const { setCategories } = useCategories()
   const navigate = useNavigate()
-  const { data, isLoading, isSuccess } = useQuery({
+
+  const productQuery = useQuery({
     queryKey: ['products'],
     queryFn: fetchProducts,
   })
@@ -46,8 +48,8 @@ const Product = () => {
   })
 
   useEffect(() => {
-    if (isSuccess) {
-      setProducts(data)
+    if (productQuery.isSuccess) {
+      setProducts(productQuery.data)
     }
     if (categoryQuery.isSuccess) {
       setCategories(categoryQuery.data)
@@ -55,8 +57,8 @@ const Product = () => {
   }, [
     categoryQuery.data,
     categoryQuery.isSuccess,
-    data,
-    isSuccess,
+    productQuery.data,
+    productQuery.isSuccess,
     setCategories,
     setProducts,
   ])
@@ -85,14 +87,14 @@ const Product = () => {
         <SearchBar placeholder="Pesquisar Produtos..." />
         <Button text="Novo Produto" onClick={() => navigate('/produto/novo')} />
       </div>
-      {isLoading ? (
+      {categoryQuery.isLoading ? (
         <Loading />
       ) : (
         <TableFlex
+          columns={productColumns}
+          data={products}
           remove={deleteProduct.mutate}
           update={updateProduct}
-          data={products}
-          columns={productColumns}
         />
       )}
       <div className="product__reports">

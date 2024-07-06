@@ -2,8 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 
-import IStock from '@/interfaces/IStock'
 import useStockProducts from '@/hooks/useStock'
+import IStock from '@/interfaces/IStock'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import './StockForm.scss'
@@ -11,19 +11,20 @@ import api from '@/api'
 
 const StockForm = () => {
   const { getStockProductById } = useStockProducts()
-  const params = useParams()
   const navigate = useNavigate()
+  const params = useParams()
   const [newStock, setNewStock] = useState<IStock>({
-    product: ,
-
+    date: new Date().toUTCString(),
+    productId: '',
+    quantity: 0,
   })
 
   const addStock = useMutation({
     mutationFn: () => {
-      return api.post<IStock>('stockProducts/', newStock)
+      return api.post<IStock>('stock/', newStock)
     },
     onSuccess: () => {
-      navigate('/cliente')
+      navigate('/estoque')
     },
     onError: (err) => {
       console.log(err.message)
@@ -32,10 +33,10 @@ const StockForm = () => {
 
   const updateStock = useMutation({
     mutationFn: () => {
-      return api.patch<IStock>(`stockProducts/${params.id}`, newStock)
+      return api.patch<IStock>(`stock/${params.id}`, newStock)
     },
     onSuccess: () => {
-      navigate('/cliente')
+      navigate('/estoque')
     },
     onError: (err) => {
       console.log(err.message)
@@ -46,18 +47,7 @@ const StockForm = () => {
     if (params.id) {
       const stock = getStockProductById(params.id)
       if (stock !== undefined) {
-        setNewStock({
-          name: stock.name,
-          address: {
-            neighborhood: stock.address.neighborhood,
-            houseNumber: stock.address.houseNumber,
-            street: stock.address.street,
-            complement: stock.address.complement,
-          },
-          phoneNumber: stock.phoneNumber,
-          email: stock.email,
-          socialMedia: stock.socialMedia,
-        })
+        setNewStock(stock)
       }
     }
   }, [params, getStockProductById])
@@ -68,39 +58,14 @@ const StockForm = () => {
     >,
   ) => {
     const { name, value } = e.target
-    if (name.startsWith('address.')) {
-      const addressField = name.split('.')[1]
-      setNewStock((prevStock) => ({
-        ...prevStock,
-        address: {
-          ...prevStock?.address,
-          [addressField]: value,
-        },
-      }))
-    } else if (
-      name === 'complement' ||
-      name === 'neighborhood' ||
-      name === 'number' ||
-      name === 'street'
-    ) {
-      setNewStock((prevStock) => ({
-        ...prevStock,
-        address: {
-          ...prevStock.address,
-          [name]: value,
-        },
-      }))
-    } else {
-      setNewStock({
-        ...newStock,
-        [name]: value,
-      })
-    }
+    setNewStock({
+      ...newStock,
+      [name]: value,
+    })
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(newStock)
     if (params.id) {
       updateStock.mutate()
     } else {
@@ -111,103 +76,31 @@ const StockForm = () => {
   return (
     <>
       <div className="stockFormContainer" />
-      <Modal title="Formulário de Clientes">
+      <Modal title={`${newStock.productId}`}>
         <form className="stockForm" onSubmit={handleSubmit}>
           <div className="stockForm__rows">
-            <label className="stockForm__label">
-              Nome do Cliente*:
+            <label className="productForm__label">
+              Quantidade*:
               <input
-                placeholder="Informe o nome do cliente..."
+                placeholder="Informe a quantidade do produto..."
                 className="stockForm__input"
                 required
-                type="text"
-                name="name"
-                value={newStock.name}
+                type="number"
+                min={0}
+                name="quantity"
+                value={newStock.quantity}
                 onChange={handleInputChange}
               />
             </label>
-            <label className="stockForm__label">
-              Email:
+            <label className="serviceForm__label">
+              Último Reabastecimento*:
               <input
-                placeholder="Informe o email... (opcional)"
-                className="stockForm__input"
-                type="text"
-                name="email"
-                value={newStock.email}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className="stockForm__rows">
-            <label className="stockForm__label">
-              Rua*:
-              <input
-                placeholder="Informe o nome da rua..."
+                placeholder="informe a data do último abastecimento..."
                 className="stockForm__input"
                 required
-                type="text"
-                name="address.street"
-                value={newStock.address.street}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="stockForm__label">
-              Número*:
-              <input
-                placeholder="Informe o número da casa..."
-                className="stockForm__input"
-                required
-                type="text"
-                name="address.houseNumber"
-                value={newStock.address.houseNumber}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="stockForm__label">
-              Complemento:
-              <input
-                placeholder="Informações adicionais (opcional)..."
-                className="stockForm__input"
-                type="text"
-                name="address.complement"
-                value={newStock.address.complement}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className="stockForm__rows">
-            <label className="stockForm__label">
-              Bairro*:
-              <input
-                placeholder="informe o bairro..."
-                className="stockForm__input"
-                required
-                type="text"
-                name="address.neighborhood"
-                value={newStock.address.neighborhood}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="stockForm__label">
-              Telefone*:
-              <input
-                placeholder="Informe o telefone..."
-                className="stockForm__input"
-                required
-                type="text"
-                name="phoneNumber"
-                value={newStock.phoneNumber}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="stockForm__label">
-              Instagram:
-              <input
-                className="stockForm__input"
-                type="text"
-                placeholder="Redes sociais... (opcional)"
-                name="socialMedia"
-                value={newStock.socialMedia}
+                type="datetime-local"
+                name="date"
+                value={newStock.date}
                 onChange={handleInputChange}
               />
             </label>
@@ -216,7 +109,7 @@ const StockForm = () => {
             <Button
               text="Cancelar"
               colorType="fail"
-              onClick={() => navigate('/cliente')}
+              onClick={() => navigate('/estoque')}
             />
             <Button type="submit" text="Cadastrar" colorType="success" />
           </div>

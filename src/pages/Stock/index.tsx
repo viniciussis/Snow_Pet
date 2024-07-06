@@ -13,7 +13,7 @@ import api from '@/api'
 import './Stock.scss'
 
 const stockColumns: IColumn<IStock>[] = [
-  { id: 'product', label: 'Produto', minWidth: 125 },
+  { id: 'productId', label: 'Produto', minWidth: 125 },
   { id: 'quantity', label: 'Quantidade', minWidth: 50 },
   { id: 'date', label: 'Último Reabastecimento', minWidth: 75 },
 ]

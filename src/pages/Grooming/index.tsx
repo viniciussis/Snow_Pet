@@ -13,10 +13,10 @@ import './Grooming.scss'
 import api from '@/api'
 
 const groomingColumns: IColumn<IGrooming>[] = [
-  { id: 'petId', label: 'Pet', align: 'center', minWidth: 50 },
+  { id: 'petId', label: 'Nome do Pet', align: 'center', minWidth: 50 },
   { id: 'type', label: 'Tipo', align: 'center', minWidth: 50 },
   { id: 'price', label: 'Preço', minWidth: 50 },
-  { id: 'petId', label: 'Combo', align: 'center', minWidth: 50 },
+  { id: 'petId', label: 'É Pacote?', align: 'center', minWidth: 50 },
   { id: 'date', label: 'Data', align: 'center', minWidth: 75 },
 ]
 

@@ -9,6 +9,7 @@ import GroomingForm from './pages/Grooming/GroomingForm'
 import CustomerForm from './pages/Customer/CustomerForm'
 import ProductForm from './pages/Product/ProductForm'
 import ServiceForm from './pages/Service/ServiceForm'
+import StockForm from './pages/Stock/StockForm'
 import Default from '@/components/Default'
 import PetForm from './pages/Pet/PetForm'
 import Customer from './pages/Customer'
@@ -16,6 +17,7 @@ import NotFound from '@/pages/NotFound'
 import Grooming from './pages/Grooming'
 import Service from './pages/Service'
 import Product from './pages/Product'
+import Stock from './pages/Stock'
 import Home from '@/pages/Home'
 import Pet from './pages/Pet'
 
@@ -34,9 +36,9 @@ const AppRoutes = () => {
         <Route path="cliente" element={<Customer />} />
         <Route path="cliente/novo" element={<CustomerForm />} />
         <Route path="cliente/:id" element={<CustomerForm />} />
-        {/*         <Route path="estoque" element={<Stock />} />
-        <Route path="estoque/novo" element={<CustomerForm />} />
-        <Route path="estoque/:id" element={<CustomerForm />} /> */}
+        <Route path="estoque" element={<Stock />} />
+        <Route path="estoque/novo" element={<StockForm />} />
+        <Route path="estoque/:id" element={<StockForm />} />
         <Route path="pet" element={<Pet />} />
         <Route path="pet/novo" element={<PetForm />} />
         <Route path="pet/:id" element={<PetForm />} />
