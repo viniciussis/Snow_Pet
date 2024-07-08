@@ -2,14 +2,11 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 8rem 16rem;
-  gap: 2rem;
+  padding: 4rem 10rem;
+  gap: 1rem;
   min-height: 78vh;
 
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: variables.$white;
+  &__image {
   }
 
   &__goBack {

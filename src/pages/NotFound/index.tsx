@@ -8,7 +8,11 @@ const NotFound = () => {
       <div className="notFound__goBack">
         <button onClick={() => navigate(-1)}>{'< Voltar'}</button>
       </div>
-      <h1>Página não encontrada!</h1>
+      <img
+        className='notFound__image'
+        src="images/not_found.png"
+        alt="Imagem com dois pets e um texto escrito 'página não encontrada!'"
+      />
     </div>
   )
 }
