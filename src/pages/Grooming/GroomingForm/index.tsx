@@ -26,15 +26,20 @@ const GroomingForm = () => {
     if (params.id) {
       const grooming = getGroomingById(params.id)
       if (grooming !== undefined) {
+        setNewGrooming({ ...grooming, date: grooming.date.slice(0, -1) })
         console.log(grooming)
-        setNewGrooming({...grooming, date: grooming.date.slice(0, -1)} )
       }
     }
   }, [getGroomingById, params])
 
   const addGrooming = useMutation({
     mutationFn: () => {
-      return api.post<IGrooming>('groomings/', { ...newGrooming })
+      return api.post<IGrooming>('groomings/', {
+        ...newGrooming,
+        date: newGrooming.date.includes('.00Z')
+          ? newGrooming.date
+          : newGrooming.date + ':00Z',
+      })
     },
     onSuccess: () => {
       navigate('/banho_e_tosa')
@@ -74,12 +79,6 @@ const GroomingForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setNewGrooming({
-      ...newGrooming,
-      date: newGrooming.date.includes(':00Z')
-        ? newGrooming.date
-        : newGrooming.date + ':00Z',
-    })
     if (params.id) {
       updateGrooming.mutate()
     } else {

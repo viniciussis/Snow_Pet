@@ -2,22 +2,32 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import formatBoolean from '@/utils/formatBoolean'
 import useGroomings from '@/hooks/useGroomings'
 import IGrooming from '@/interfaces/IGrooming'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
+import formatDate from '@/utils/formatDate'
 import IColumn from '@/interfaces/IColumn'
 import Loading from '@/components/Loading'
 import Button from '@/components/Button'
+import usePets from '@/hooks/usePets'
+import IPet from '@/interfaces/IPet'
 import './Grooming.scss'
 import api from '@/api'
 
-const groomingColumns: IColumn<IGrooming>[] = [
-  { id: 'petId', label: 'Nome do Pet', align: 'center', minWidth: 50 },
-  { id: 'type', label: 'Tipo', align: 'center', minWidth: 50 },
-  { id: 'price', label: 'Preço', minWidth: 50 },
-  { id: 'petId', label: 'É Pacote?', align: 'center', minWidth: 50 },
-  { id: 'date', label: 'Data', align: 'center', minWidth: 75 },
+const groomingColumns: IColumn<IGrooming & IPet>[] = [
+  { id: 'name', label: 'Nome do Pet', align: 'center', minWidth: 50 },
+  { id: 'type', label: 'Tipo', align: 'center', minWidth: 75 },
+  { id: 'price', label: 'Preço', minWidth: 50, align: 'center' },
+  {
+    id: 'combo',
+    label: 'É Pacote?',
+    align: 'center',
+    minWidth: 50,
+    formatBoolean,
+  },
+  { id: 'date', label: 'Data', align: 'center', minWidth: 75, formatDate },
 ]
 
 const fetchGroomings = async () => {
@@ -27,6 +37,7 @@ const fetchGroomings = async () => {
 
 const Grooming = () => {
   const { groomings, setGroomings, removeGrooming } = useGroomings()
+  const { getPetById } = usePets()
   const navigate = useNavigate()
   const { isLoading, data, isSuccess } = useQuery({
     queryKey: ['groomings'],
@@ -38,6 +49,18 @@ const Grooming = () => {
       setGroomings(data)
     }
   }, [data, isSuccess, setGroomings])
+
+  const mountTableData = () => {
+    const tableData = groomings.map((grooming) => {
+      const petData = getPetById(grooming.petId)
+      return {
+        ...grooming,
+        name: petData?.name,
+        combo: petData?.combo,
+      }
+    })
+    return tableData
+  }
 
   const updateGrooming = (id: string) => {
     navigate(`/banho_e_tosa/${id}`)
@@ -72,7 +95,7 @@ const Grooming = () => {
         <TableFlex
           remove={deleteGrooming.mutate}
           update={updateGrooming}
-          data={groomings}
+          data={mountTableData()}
           columns={groomingColumns}
         />
       )}

@@ -16,6 +16,9 @@ import { FaPencil } from 'react-icons/fa6'
 import formatAddress from '@/utils/formatAddress'
 import IColumn from '@/interfaces/IColumn'
 import './TableFlex.scss'
+import formatBoolean from '@/utils/formatBoolean'
+import formatCategory from '@/utils/formatCategory'
+import formatDate from '@/utils/formatDate'
 
 interface TableFlexProps<T> {
   columns: IColumn<T>[]
@@ -91,6 +94,12 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                       let value = item[column.id]
                       if (column.formatAddress) {
                         value = formatAddress(value)
+                      } else if (column.formatBoolean) {
+                        value = formatBoolean(value)
+                      } else if (column.formatCategory) {
+                        value = formatCategory(value)
+                      } else if (column.formatDate) {
+                        value = formatDate(value)
                       }
                       return (
                         <TableCell

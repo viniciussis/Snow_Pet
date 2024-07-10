@@ -10,7 +10,7 @@ const NotFound = () => {
       </div>
       <img
         className='notFound__image'
-        src="images/not_found.png"
+        src="/images/not_found.png"
         alt="Imagem com dois pets e um texto escrito 'página não encontrada!'"
       />
     </div>

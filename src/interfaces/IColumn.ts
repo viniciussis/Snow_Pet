@@ -8,4 +8,6 @@ export default interface IColumn<T> {
   align?: 'right' | 'center'
   formatAddress?: (value: IAddress) => string
   formatCategory?: (value: ICategory) => string
+  formatBoolean?: (value: boolean) => string
+  formatDate?: (value: string) => string
 }
