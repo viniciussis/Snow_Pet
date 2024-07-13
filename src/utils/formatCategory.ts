@@ -1,7 +1,7 @@
 import ICategory from '@/interfaces/ICategory'
 
 const formatCategory = (category: ICategory) => {
-  return `${category.name}`
+  return `${category.label}`
 }
 
 export default formatCategory
