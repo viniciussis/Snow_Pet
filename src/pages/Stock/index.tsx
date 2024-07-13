@@ -1,19 +1,21 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import { useProductsQuery } from '@/api/queries/products'
+import { useStockQuery } from '@/api/queries/stock'
 import useStockProducts from '@/hooks/useStock'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
+import useProducts from '@/hooks/useProducts'
+import IProduct from '@/interfaces/IProduct'
+import formatDate from '@/utils/formatDate'
 import Loading from '@/components/Loading'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
 import IStock from '@/interfaces/IStock'
 import api from '@/api'
 import './Stock.scss'
-import IProduct from '@/interfaces/IProduct'
-import useProducts from '@/hooks/useProducts'
-import formatDate from '@/utils/formatDate'
 
 const stockColumns: IColumn<IStock & IProduct>[] = [
   { id: 'name', label: 'Produto', align: 'center', minWidth: 125 },
@@ -27,25 +29,26 @@ const stockColumns: IColumn<IStock & IProduct>[] = [
   },
 ]
 
-const fetchStockProducts = async () => {
-  const resp = await api.get<IStock[]>('stock')
-  return resp.data
-}
-
 const Stock = () => {
   const navigate = useNavigate()
+  const stockQuery = useStockQuery()
+  const productsQuery = useProductsQuery()
+  const { getProductById, setProducts } = useProducts()
   const { setStock, stock, removeStockProduct } = useStockProducts()
-  const { getProductById } = useProducts()
-  const { isSuccess, isLoading, data } = useQuery({
-    queryKey: ['stock'],
-    queryFn: fetchStockProducts,
-  })
 
   useEffect(() => {
-    if (isSuccess) {
-      setStock(data)
+    if (stockQuery.isSuccess && productsQuery.isSuccess) {
+      setStock(stockQuery.data)
+      setProducts(productsQuery.data)
     }
-  }, [data, isSuccess, setStock])
+  }, [
+    productsQuery.data,
+    productsQuery.isSuccess,
+    setProducts,
+    setStock,
+    stockQuery.data,
+    stockQuery.isSuccess,
+  ])
 
   const assemblingData = () => {
     const tableData = stock.map((product) => {
@@ -85,7 +88,7 @@ const Stock = () => {
           onClick={() => navigate('/estoque/reabastecer')}
         />
       </div>
-      {isLoading ? (
+      {stockQuery.isLoading ? (
         <Loading />
       ) : (
         <TableFlex

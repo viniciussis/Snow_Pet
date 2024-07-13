@@ -1,7 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import { useCustomersQuery } from '@/api/queries/customers'
 import formatAddress from '@/utils/formatAddress'
 import useCustomers from '@/hooks/useCustomers'
 import SearchBar from '@/components/SearchBar'
@@ -26,18 +27,10 @@ const customerColumns: IColumn<ICustomer>[] = [
   { id: 'socialMedia', label: 'Instagram', minWidth: 75, align: 'center' },
 ]
 
-const fetchCustomers = async () => {
-  const resp = await api.get<ICustomer[]>('customers')
-  return resp.data
-}
-
 const Customer = () => {
   const navigate = useNavigate()
   const { setCustomers, customers, removeCustomer } = useCustomers()
-  const { isSuccess, isLoading, data } = useQuery({
-    queryKey: ['customers'],
-    queryFn: fetchCustomers,
-  })
+  const { isSuccess, isLoading, data } = useCustomersQuery()
 
   useEffect(() => {
     if (isSuccess) {

@@ -1,7 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import { usePetsQuery } from '@/api/queries/pets'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import IColumn from '@/interfaces/IColumn'
@@ -33,18 +34,10 @@ const petColumns: IColumn<IPet>[] = [
   },
 ]
 
-const fetchPets = async () => {
-  const resp = await api.get<IPet[]>('pets/')
-  return resp.data
-}
-
 const Pet = () => {
-  const { pets, setPets, removePet } = usePets()
   const navigate = useNavigate()
-  const { isLoading, data, isSuccess } = useQuery({
-    queryKey: ['pets'],
-    queryFn: fetchPets,
-  })
+  const { pets, setPets, removePet } = usePets()
+  const { isLoading, data, isSuccess } = usePetsQuery()
 
   useEffect(() => {
     if (isSuccess) {

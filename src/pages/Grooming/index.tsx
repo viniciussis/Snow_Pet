@@ -1,8 +1,10 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import { useGroomingsQuery } from '@/api/queries/grooming'
 import formatBoolean from '@/utils/formatBoolean'
+import { usePetsQuery } from '@/api/queries/pets'
 import useGroomings from '@/hooks/useGroomings'
 import IGrooming from '@/interfaces/IGrooming'
 import SearchBar from '@/components/SearchBar'
@@ -10,12 +12,12 @@ import TableFlex from '@/components/TableFlex'
 import formatDate from '@/utils/formatDate'
 import IColumn from '@/interfaces/IColumn'
 import Loading from '@/components/Loading'
+import formatBrl from '@/utils/formatBrl'
 import Button from '@/components/Button'
 import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
 import './Grooming.scss'
 import api from '@/api'
-import formatBrl from '@/utils/formatBrl'
 
 const groomingColumns: IColumn<IGrooming & IPet>[] = [
   { id: 'name', label: 'Nome do Pet', align: 'center', minWidth: 50 },
@@ -31,25 +33,26 @@ const groomingColumns: IColumn<IGrooming & IPet>[] = [
   { id: 'date', label: 'Data', align: 'center', minWidth: 75, formatDate },
 ]
 
-const fetchGroomings = async () => {
-  const resp = await api.get<IGrooming[]>('groomings/')
-  return resp.data
-}
-
 const Grooming = () => {
-  const { groomings, setGroomings, removeGrooming } = useGroomings()
-  const { getPetById } = usePets()
   const navigate = useNavigate()
-  const { isLoading, data, isSuccess } = useQuery({
-    queryKey: ['groomings'],
-    queryFn: fetchGroomings,
-  })
+  const petsQuery = usePetsQuery()
+  const { getPetById, setPets } = usePets()
+  const groomingsQuery = useGroomingsQuery()
+  const { groomings, setGroomings, removeGrooming } = useGroomings()
 
   useEffect(() => {
-    if (isSuccess) {
-      setGroomings(data)
+    if (groomingsQuery.isSuccess && petsQuery.isSuccess) {
+      setGroomings(groomingsQuery.data)
+      setPets(petsQuery.data)
     }
-  }, [data, isSuccess, setGroomings])
+  }, [
+    groomingsQuery.data,
+    groomingsQuery.isSuccess,
+    petsQuery.data,
+    petsQuery.isSuccess,
+    setGroomings,
+    setPets,
+  ])
 
   const assemblingData = () => {
     const tableData = groomings.map((grooming) => {
@@ -90,7 +93,7 @@ const Grooming = () => {
           onClick={() => navigate('/banho_e_tosa/novo')}
         />
       </div>
-      {isLoading ? (
+      {groomingsQuery.isLoading ? (
         <Loading />
       ) : (
         <TableFlex

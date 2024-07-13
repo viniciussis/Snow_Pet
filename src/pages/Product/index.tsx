@@ -1,7 +1,9 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import { useCategoriesQuery } from '@/api/queries/categories'
+import { useProductsQuery } from '@/api/queries/products'
 import useCategories from '@/hooks/useCategory'
 import ICategory from '@/interfaces/ICategory'
 import SearchBar from '@/components/SearchBar'
@@ -24,29 +26,12 @@ const productColumns: IColumn<IProduct & ICategory>[] = [
   { id: 'label', label: 'Categoria', minWidth: 50, align: 'center' },
 ]
 
-const fetchCategories = async () => {
-  const resp = await api.get<ICategory[]>('categories')
-  return resp.data
-}
-
-const fetchProducts = async () => {
-  const resp = await api.get<IProduct[]>('products')
-  return resp.data
-}
-
 const Product = () => {
-  const { products, setProducts, removeProduct } = useProducts()
-  const { setCategories, getCategoryById } = useCategories()
   const navigate = useNavigate()
-
-  const productQuery = useQuery({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-  })
-  const categoryQuery = useQuery({
-    queryKey: ['categories'],
-    queryFn: fetchCategories,
-  })
+  const productQuery = useProductsQuery()
+  const categoryQuery = useCategoriesQuery()
+  const { setCategories, getCategoryById } = useCategories()
+  const { products, setProducts, removeProduct } = useProducts()
 
   useEffect(() => {
     if (productQuery.isSuccess) {
@@ -99,7 +84,7 @@ const Product = () => {
         <SearchBar placeholder="Pesquisar Produtos..." />
         <Button text="Novo Produto" onClick={() => navigate('/produto/novo')} />
       </div>
-      {categoryQuery.isLoading ? (
+      {categoryQuery.isLoading && productQuery.isLoading ? (
         <Loading />
       ) : (
         <TableFlex

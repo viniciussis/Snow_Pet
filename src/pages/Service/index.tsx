@@ -1,7 +1,9 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import { useServicesQuery } from '@/api/queries/services'
+import { useCustomersQuery } from '@/api/queries/customers'
 import useCustomers from '@/hooks/useCustomers'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
@@ -11,10 +13,10 @@ import IService from '@/interfaces/IService'
 import formatDate from '@/utils/formatDate'
 import Loading from '@/components/Loading'
 import IColumn from '@/interfaces/IColumn'
+import formatBrl from '@/utils/formatBrl'
 import Button from '@/components/Button'
 import './Service.scss'
 import api from '@/api'
-import formatBrl from '@/utils/formatBrl'
 
 const serviceColumns: IColumn<IService & ICustomer>[] = [
   { id: 'name', label: 'Cliente', align: 'center', minWidth: 100 },
@@ -28,25 +30,26 @@ const serviceColumns: IColumn<IService & ICustomer>[] = [
   { id: 'date', label: 'Data', minWidth: 75, align: 'center', formatDate },
 ]
 
-const fetchServices = async () => {
-  const resp = await api.get<IService[]>('services')
-  return resp.data
-}
-
 const Service = () => {
   const navigate = useNavigate()
-  const { getCustomerById } = useCustomers()
+  const customersQuery = useCustomersQuery()
+  const servicesQuery = useServicesQuery()
+  const { getCustomerById, setCustomers } = useCustomers()
   const { setServices, services, removeService } = useServices()
-  const { isSuccess, isLoading, data } = useQuery({
-    queryKey: ['services'],
-    queryFn: fetchServices,
-  })
 
   useEffect(() => {
-    if (isSuccess) {
-      setServices(data)
+    if (servicesQuery.isSuccess && customersQuery.isSuccess) {
+      setServices(servicesQuery.data)
+      setCustomers(customersQuery.data)
     }
-  }, [data, isSuccess, setServices])
+  }, [
+    customersQuery.data,
+    customersQuery.isSuccess,
+    servicesQuery.data,
+    servicesQuery.isSuccess,
+    setCustomers,
+    setServices,
+  ])
 
   const assemblingData = () => {
     const tableData = services.map((service) => {
@@ -86,7 +89,7 @@ const Service = () => {
           onClick={() => navigate('/atendimento/novo')}
         />
       </div>
-      {isLoading ? (
+      {servicesQuery.isLoading && customersQuery.isLoading ? (
         <Loading />
       ) : (
         <TableFlex
