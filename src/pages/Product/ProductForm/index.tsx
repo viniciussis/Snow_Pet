@@ -129,7 +129,7 @@ const ProductForm = () => {
                 <option value="">Selecione a categoria do produto...</option>
                 {categoriesList.map((category) => (
                   <option key={category.id} value={category.id}>
-                    {category.name}
+                    {category.label}
                   </option>
                 ))}
               </select>
