@@ -13,8 +13,8 @@ import api from '@/api'
 import './Pet.scss'
 
 const petColumns: IColumn<IPet>[] = [
-  { id: 'specie', label: 'Espécie', align: 'center', minWidth: 50 },
   { id: 'name', label: 'Nome', minWidth: 50 },
+  { id: 'specie', label: 'Espécie', align: 'center', minWidth: 50 },
   { id: 'breed', label: 'Raça', align: 'center', minWidth: 75 },
   { id: 'size', label: 'Porte', align: 'center', minWidth: 50 },
   { id: 'gender', label: 'Sexo', align: 'center', minWidth: 50 },

@@ -11,11 +11,20 @@ import Button from '@/components/Button'
 import IStock from '@/interfaces/IStock'
 import api from '@/api'
 import './Stock.scss'
+import IProduct from '@/interfaces/IProduct'
+import useProducts from '@/hooks/useProducts'
+import formatDate from '@/utils/formatDate'
 
-const stockColumns: IColumn<IStock>[] = [
-  { id: 'productId', label: 'Produto', minWidth: 125 },
-  { id: 'quantity', label: 'Quantidade', minWidth: 50 },
-  { id: 'date', label: 'Último Reabastecimento', minWidth: 75 },
+const stockColumns: IColumn<IStock & IProduct>[] = [
+  { id: 'name', label: 'Produto', align: 'center', minWidth: 125 },
+  { id: 'quantity', label: 'Quantidade', align: 'center', minWidth: 50 },
+  {
+    id: 'date',
+    label: 'Último Reabastecimento',
+    align: 'center',
+    minWidth: 75,
+    formatDate,
+  },
 ]
 
 const fetchStockProducts = async () => {
@@ -26,6 +35,7 @@ const fetchStockProducts = async () => {
 const Stock = () => {
   const navigate = useNavigate()
   const { setStock, stock, removeStockProduct } = useStockProducts()
+  const { getProductById } = useProducts()
   const { isSuccess, isLoading, data } = useQuery({
     queryKey: ['stock'],
     queryFn: fetchStockProducts,
@@ -36,6 +46,17 @@ const Stock = () => {
       setStock(data)
     }
   }, [data, isSuccess, setStock])
+
+  const assemblingData = () => {
+    const tableData = stock.map((product) => {
+      const productData = getProductById(product.productId)
+      return {
+        ...product,
+        name: productData?.name,
+      }
+    })
+    return tableData
+  }
 
   const updateStock = (id: string) => {
     navigate(`/estoque/${id}`)
@@ -71,7 +92,7 @@ const Stock = () => {
           remove={deleteStock.mutate}
           update={updateStock}
           columns={stockColumns}
-          data={stock}
+          data={assemblingData()}
         />
       )}
       <div>

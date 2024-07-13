@@ -50,7 +50,7 @@ const Grooming = () => {
     }
   }, [data, isSuccess, setGroomings])
 
-  const mountTableData = () => {
+  const assemblingData = () => {
     const tableData = groomings.map((grooming) => {
       const petData = getPetById(grooming.petId)
       return {
@@ -95,7 +95,7 @@ const Grooming = () => {
         <TableFlex
           remove={deleteGrooming.mutate}
           update={updateGrooming}
-          data={mountTableData()}
+          data={assemblingData()}
           columns={groomingColumns}
         />
       )}
