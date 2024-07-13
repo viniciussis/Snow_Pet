@@ -13,12 +13,13 @@ import { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
 
-import formatAddress from '@/utils/formatAddress'
-import IColumn from '@/interfaces/IColumn'
-import './TableFlex.scss'
-import formatBoolean from '@/utils/formatBoolean'
 import formatCategory from '@/utils/formatCategory'
+import formatAddress from '@/utils/formatAddress'
+import formatBoolean from '@/utils/formatBoolean'
 import formatDate from '@/utils/formatDate'
+import IColumn from '@/interfaces/IColumn'
+import formatBrl from '@/utils/formatBrl'
+import './TableFlex.scss'
 
 interface TableFlexProps<T> {
   columns: IColumn<T>[]
@@ -100,6 +101,8 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                         value = formatCategory(value)
                       } else if (column.formatDate) {
                         value = formatDate(value)
+                      } else if (column.formatBrl) {
+                        value = formatBrl(value)
                       }
                       return (
                         <TableCell

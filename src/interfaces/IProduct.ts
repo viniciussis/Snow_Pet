@@ -6,7 +6,7 @@ export default interface IProduct {
   brand: string
   price: number
   measure: string
-  categoryId?: string
+  categoryId: string
   category?: ICategory
   description?: string
 }

@@ -2,20 +2,30 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
-import useServices from '@/hooks/useServices'
+import useCustomers from '@/hooks/useCustomers'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
+import ICustomer from '@/interfaces/ICustomer'
+import useServices from '@/hooks/useServices'
 import IService from '@/interfaces/IService'
+import formatDate from '@/utils/formatDate'
 import Loading from '@/components/Loading'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
 import './Service.scss'
 import api from '@/api'
+import formatBrl from '@/utils/formatBrl'
 
-const serviceColumns: IColumn<IService>[] = [
-  { id: 'totalValue', label: 'Valor Total', minWidth: 50 },
-  { id: 'date', label: 'Data', minWidth: 75 },
-  { id: 'customerId', label: 'Cliente', minWidth: 75 },
+const serviceColumns: IColumn<IService & ICustomer>[] = [
+  { id: 'name', label: 'Cliente', align: 'center', minWidth: 100 },
+  {
+    id: 'totalValue',
+    label: 'Valor Total',
+    align: 'center',
+    minWidth: 50,
+    formatBrl,
+  },
+  { id: 'date', label: 'Data', minWidth: 75, align: 'center', formatDate },
 ]
 
 const fetchServices = async () => {
@@ -25,6 +35,7 @@ const fetchServices = async () => {
 
 const Service = () => {
   const navigate = useNavigate()
+  const { getCustomerById } = useCustomers()
   const { setServices, services, removeService } = useServices()
   const { isSuccess, isLoading, data } = useQuery({
     queryKey: ['services'],
@@ -36,6 +47,17 @@ const Service = () => {
       setServices(data)
     }
   }, [data, isSuccess, setServices])
+
+  const assemblingData = () => {
+    const tableData = services.map((service) => {
+      const customerData = getCustomerById(service.customerId)
+      return {
+        ...service,
+        name: customerData?.name,
+      }
+    })
+    return tableData
+  }
 
   const updateService = (id: string) => {
     navigate(`/atendimentos/${id}`)
@@ -71,7 +93,7 @@ const Service = () => {
           remove={deleteService.mutate}
           update={updateService}
           columns={serviceColumns}
-          data={services}
+          data={assemblingData()}
         />
       )}
       <div>

@@ -15,11 +15,12 @@ import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
 import './Grooming.scss'
 import api from '@/api'
+import formatBrl from '@/utils/formatBrl'
 
 const groomingColumns: IColumn<IGrooming & IPet>[] = [
   { id: 'name', label: 'Nome do Pet', align: 'center', minWidth: 50 },
   { id: 'type', label: 'Tipo', align: 'center', minWidth: 75 },
-  { id: 'price', label: 'Preço', minWidth: 50, align: 'center' },
+  { id: 'price', label: 'Preço', minWidth: 50, align: 'center', formatBrl },
   {
     id: 'combo',
     label: 'É Pacote?',

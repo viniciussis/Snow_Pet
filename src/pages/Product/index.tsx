@@ -10,22 +10,23 @@ import useProducts from '@/hooks/useProducts'
 import IProduct from '@/interfaces/IProduct'
 import Loading from '@/components/Loading'
 import IColumn from '@/interfaces/IColumn'
+import formatBrl from '@/utils/formatBrl'
 import Button from '@/components/Button'
 import api from '@/api'
 import './Product.scss'
 
-const productColumns: IColumn<IProduct>[] = [
+const productColumns: IColumn<IProduct & ICategory>[] = [
   { id: 'name', label: 'Nome', minWidth: 50 },
   { id: 'brand', label: 'Marca', minWidth: 50, align: 'center' },
   { id: 'description', label: 'Descrição', minWidth: 100, align: 'center' },
-  { id: 'price', label: 'Preço', minWidth: 50, align: 'center' },
+  { id: 'price', label: 'Preço', minWidth: 50, align: 'center', formatBrl },
   { id: 'measure', label: 'Medida', minWidth: 40, align: 'center' },
-  { id: 'categoryId', label: 'Categoria', minWidth: 50, align: 'center' },
+  { id: 'label', label: 'Categoria', minWidth: 50, align: 'center' },
 ]
 
 const fetchCategories = async () => {
-  const res = await api.get<ICategory[]>('categories')
-  return res.data
+  const resp = await api.get<ICategory[]>('categories')
+  return resp.data
 }
 
 const fetchProducts = async () => {
@@ -35,7 +36,7 @@ const fetchProducts = async () => {
 
 const Product = () => {
   const { products, setProducts, removeProduct } = useProducts()
-  const { setCategories } = useCategories()
+  const { setCategories, getCategoryById } = useCategories()
   const navigate = useNavigate()
 
   const productQuery = useQuery({
@@ -62,6 +63,17 @@ const Product = () => {
     setCategories,
     setProducts,
   ])
+
+  const assemblingData = () => {
+    const tableData = products.map((product) => {
+      const categoryData = getCategoryById(product.categoryId)
+      return {
+        ...product,
+        label: categoryData?.label,
+      }
+    })
+    return tableData
+  }
 
   const updateProduct = (id: string) => {
     navigate(`/produto/${id}`)
@@ -92,7 +104,7 @@ const Product = () => {
       ) : (
         <TableFlex
           columns={productColumns}
-          data={products}
+          data={assemblingData()}
           remove={deleteProduct.mutate}
           update={updateProduct}
         />

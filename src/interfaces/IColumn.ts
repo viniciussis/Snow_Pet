@@ -10,4 +10,5 @@ export default interface IColumn<T> {
   formatCategory?: (value: ICategory) => string
   formatBoolean?: (value: boolean) => string
   formatDate?: (value: string) => string
+  formatBrl?: (value: number) => string
 }
