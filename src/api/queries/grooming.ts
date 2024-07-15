@@ -12,4 +12,5 @@ export const useGroomingsQuery = () =>
   useQuery({
     queryKey: ['groomings'],
     queryFn: fetchGroomings,
+    staleTime: 60000,
   })

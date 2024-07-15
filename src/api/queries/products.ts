@@ -12,4 +12,5 @@ export const useProductsQuery = () =>
   useQuery({
     queryKey: ['products'],
     queryFn: fetchProducts,
+    staleTime: 60000,
   })

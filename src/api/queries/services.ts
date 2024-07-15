@@ -12,4 +12,5 @@ export const useServicesQuery = () =>
   useQuery({
     queryKey: ['services'],
     queryFn: fetchServices,
+    staleTime: 60000
   })

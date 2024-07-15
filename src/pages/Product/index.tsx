@@ -28,23 +28,29 @@ const productColumns: IColumn<IProduct & ICategory>[] = [
 
 const Product = () => {
   const navigate = useNavigate()
-  const productQuery = useProductsQuery()
-  const categoryQuery = useCategoriesQuery()
+  const {
+    isSuccess: isProductsSuccess,
+    data: productsData,
+    isPending: isProductsPendind,
+  } = useProductsQuery()
+  const {
+    isSuccess: isCategoriesSuccess,
+    data: categoriesData,
+    isPending: isCategoriesPendind,
+  } = useCategoriesQuery()
   const { setCategories, getCategoryById } = useCategories()
   const { products, setProducts, removeProduct } = useProducts()
 
   useEffect(() => {
-    if (productQuery.isSuccess) {
-      setProducts(productQuery.data)
-    }
-    if (categoryQuery.isSuccess) {
-      setCategories(categoryQuery.data)
+    if (isCategoriesSuccess && isProductsSuccess) {
+      setProducts(productsData)
+      setCategories(categoriesData)
     }
   }, [
-    categoryQuery.data,
-    categoryQuery.isSuccess,
-    productQuery.data,
-    productQuery.isSuccess,
+    categoriesData,
+    isCategoriesSuccess,
+    isProductsSuccess,
+    productsData,
     setCategories,
     setProducts,
   ])
@@ -84,7 +90,7 @@ const Product = () => {
         <SearchBar placeholder="Pesquisar Produtos..." />
         <Button text="Novo Produto" onClick={() => navigate('/produto/novo')} />
       </div>
-      {categoryQuery.isLoading && productQuery.isLoading ? (
+      {isProductsPendind || isCategoriesPendind ? (
         <Loading />
       ) : (
         <TableFlex

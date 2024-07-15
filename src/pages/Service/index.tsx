@@ -32,21 +32,29 @@ const serviceColumns: IColumn<IService & ICustomer>[] = [
 
 const Service = () => {
   const navigate = useNavigate()
-  const customersQuery = useCustomersQuery()
-  const servicesQuery = useServicesQuery()
+  const {
+    isSuccess: isCustomersSuccess,
+    data: customersData,
+    isPending: isCustomersPendind,
+  } = useCustomersQuery()
+  const {
+    isSuccess: isServicesSuccess,
+    data: servicesData,
+    isPending: isServicesPendind,
+  } = useServicesQuery()
   const { getCustomerById, setCustomers } = useCustomers()
   const { setServices, services, removeService } = useServices()
 
   useEffect(() => {
-    if (servicesQuery.isSuccess && customersQuery.isSuccess) {
-      setServices(servicesQuery.data)
-      setCustomers(customersQuery.data)
+    if (isCustomersSuccess && isServicesSuccess) {
+      setServices(servicesData)
+      setCustomers(customersData)
     }
   }, [
-    customersQuery.data,
-    customersQuery.isSuccess,
-    servicesQuery.data,
-    servicesQuery.isSuccess,
+    customersData,
+    isCustomersSuccess,
+    isServicesSuccess,
+    servicesData,
     setCustomers,
     setServices,
   ])
@@ -89,7 +97,7 @@ const Service = () => {
           onClick={() => navigate('/atendimento/novo')}
         />
       </div>
-      {servicesQuery.isLoading && customersQuery.isLoading ? (
+      {isCustomersPendind || isServicesPendind ? (
         <Loading />
       ) : (
         <TableFlex

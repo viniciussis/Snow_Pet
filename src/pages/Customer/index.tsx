@@ -30,7 +30,7 @@ const customerColumns: IColumn<ICustomer>[] = [
 const Customer = () => {
   const navigate = useNavigate()
   const { setCustomers, customers, removeCustomer } = useCustomers()
-  const { isSuccess, isLoading, data } = useCustomersQuery()
+  const { isSuccess, isPending, data } = useCustomersQuery()
 
   useEffect(() => {
     if (isSuccess) {
@@ -62,7 +62,7 @@ const Customer = () => {
         <SearchBar placeholder="Pesquisar Clientes..." />
         <Button text="Novo Cliente" onClick={() => navigate('/cliente/novo')} />
       </div>
-      {isLoading ? (
+      {isPending ? (
         <Loading />
       ) : (
         <TableFlex

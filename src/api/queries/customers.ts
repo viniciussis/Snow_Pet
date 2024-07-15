@@ -12,4 +12,5 @@ export const useCustomersQuery = () =>
   useQuery({
     queryKey: ['customers'],
     queryFn: fetchCustomers,
+    staleTime: 60000
   })

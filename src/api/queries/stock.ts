@@ -12,4 +12,5 @@ export const useStockQuery = () =>
   useQuery({
     queryKey: ['stock'],
     queryFn: fetchStockProducts,
+    staleTime: 60000,
   })

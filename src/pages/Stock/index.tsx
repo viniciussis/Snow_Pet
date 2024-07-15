@@ -31,23 +31,31 @@ const stockColumns: IColumn<IStock & IProduct>[] = [
 
 const Stock = () => {
   const navigate = useNavigate()
-  const stockQuery = useStockQuery()
-  const productsQuery = useProductsQuery()
+  const {
+    isSuccess: isStockSuccess,
+    data: stockData,
+    isPending: isStockPendind,
+  } = useStockQuery()
+  const {
+    isSuccess: isProductsSuccess,
+    data: productsData,
+    isPending: isProductsPendind,
+  } = useProductsQuery()
   const { getProductById, setProducts } = useProducts()
   const { setStock, stock, removeStockProduct } = useStockProducts()
 
   useEffect(() => {
-    if (stockQuery.isSuccess && productsQuery.isSuccess) {
-      setStock(stockQuery.data)
-      setProducts(productsQuery.data)
+    if (isStockSuccess && isProductsSuccess) {
+      setStock(stockData)
+      setProducts(productsData)
     }
   }, [
-    productsQuery.data,
-    productsQuery.isSuccess,
+    isProductsSuccess,
+    isStockSuccess,
+    productsData,
     setProducts,
     setStock,
-    stockQuery.data,
-    stockQuery.isSuccess,
+    stockData,
   ])
 
   const assemblingData = () => {
@@ -88,7 +96,7 @@ const Stock = () => {
           onClick={() => navigate('/estoque/reabastecer')}
         />
       </div>
-      {stockQuery.isLoading ? (
+      {isProductsPendind || isStockPendind ? (
         <Loading />
       ) : (
         <TableFlex

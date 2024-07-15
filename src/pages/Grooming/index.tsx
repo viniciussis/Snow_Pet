@@ -35,21 +35,29 @@ const groomingColumns: IColumn<IGrooming & IPet>[] = [
 
 const Grooming = () => {
   const navigate = useNavigate()
-  const petsQuery = usePetsQuery()
   const { getPetById, setPets } = usePets()
-  const groomingsQuery = useGroomingsQuery()
   const { groomings, setGroomings, removeGrooming } = useGroomings()
+  const {
+    isSuccess: isPetsSuccess,
+    data: petsData,
+    isPending: isPetsPendind,
+  } = usePetsQuery()
+  const {
+    isSuccess: isGroomingsSuccess,
+    data: groomingsData,
+    isPending: isGroomingsPendind,
+  } = useGroomingsQuery()
 
   useEffect(() => {
-    if (groomingsQuery.isSuccess && petsQuery.isSuccess) {
-      setGroomings(groomingsQuery.data)
-      setPets(petsQuery.data)
+    if (isGroomingsSuccess && isPetsSuccess) {
+      setGroomings(groomingsData)
+      setPets(petsData)
     }
   }, [
-    groomingsQuery.data,
-    groomingsQuery.isSuccess,
-    petsQuery.data,
-    petsQuery.isSuccess,
+    groomingsData,
+    isGroomingsSuccess,
+    isPetsSuccess,
+    petsData,
     setGroomings,
     setPets,
   ])
@@ -93,7 +101,7 @@ const Grooming = () => {
           onClick={() => navigate('/banho_e_tosa/novo')}
         />
       </div>
-      {groomingsQuery.isLoading ? (
+      {isPetsPendind || isGroomingsPendind ? (
         <Loading />
       ) : (
         <TableFlex
