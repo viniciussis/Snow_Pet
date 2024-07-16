@@ -36,7 +36,7 @@ const petColumns: IColumn<IPet>[] = [
 
 const Pet = () => {
   const navigate = useNavigate()
-  const { pets, setPets, removePet } = usePets()
+  const { searchedPets, setPets, removePet, searchPets } = usePets()
   const { isPending, data, isSuccess } = usePetsQuery()
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const Pet = () => {
     <div className="pet">
       <h1 className="pet__title">Gerenciamento de Pets</h1>
       <div className="pet__actions">
-        <SearchBar placeholder="Pesquisar Pet..." />
+        <SearchBar search={searchPets} placeholder="Pesquisar Pet..." />
         <Button text="Novo Pet" onClick={() => navigate('/pet/novo')} />
       </div>
       {isPending ? (
@@ -75,7 +75,7 @@ const Pet = () => {
         <TableFlex
           remove={deletePet.mutate}
           update={updatePet}
-          data={pets}
+          data={searchedPets}
           columns={petColumns}
         />
       )}

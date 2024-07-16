@@ -4,17 +4,14 @@ import { FaSearch } from 'react-icons/fa'
 
 interface SearchBarProps {
   placeholder: string
+  search: (query: string) => void
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ placeholder }) => {
-  const [searchTerm, setSearchTerm] = useState('')
-
-  const handleSearch = () => {
-    console.log('Pesquisar por:', searchTerm)
-  }
+const SearchBar: React.FC<SearchBarProps> = ({ placeholder, search }) => {
+  const [query, setQuery] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value)
+    setQuery(event.target.value)
   }
 
   return (
@@ -23,10 +20,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder }) => {
         className="searchBar__input"
         type="text"
         placeholder={placeholder}
-        value={searchTerm}
+        value={query}
         onChange={handleChange}
+        onBlur={() => search(query)}
       />
-      <button className="searchBar__button" onClick={handleSearch}>
+      <button className="searchBar__button" onClick={() => search(query)}>
         <FaSearch className="button__icon" size={20} />
       </button>
     </div>
