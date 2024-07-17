@@ -10,9 +10,9 @@ import './StockForm.scss'
 import api from '@/api'
 
 const StockForm = () => {
-  const { getStockProductById } = useStockProducts()
-  const navigate = useNavigate()
   const params = useParams()
+  const navigate = useNavigate()
+  const { getStockProductById } = useStockProducts()
   const [newStock, setNewStock] = useState<IStock>({
     date: new Date().toUTCString(),
     productId: '',

@@ -5,11 +5,11 @@ import { useEffect } from 'react'
 import { useProductsQuery } from '@/api/queries/products'
 import { useStockQuery } from '@/api/queries/stock'
 import useStockProducts from '@/hooks/useStock'
+import { formatDate } from '@/utils/formaters'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import useProducts from '@/hooks/useProducts'
 import IProduct from '@/interfaces/IProduct'
-import formatDate from '@/utils/formatDate'
 import Loading from '@/components/Loading'
 import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
@@ -41,8 +41,8 @@ const Stock = () => {
     data: productsData,
     isPending: isProductsPendind,
   } = useProductsQuery()
-  const { getProductById, setProducts } = useProducts()
-  const { setStock, stock, removeStockProduct } = useStockProducts()
+  const { getProductById, setProducts, searchProducts } = useProducts()
+  const { stock, setStock, removeStockProduct } = useStockProducts()
 
   useEffect(() => {
     if (isStockSuccess && isProductsSuccess) {
@@ -59,14 +59,10 @@ const Stock = () => {
   ])
 
   const assemblingData = () => {
-    const tableData = stock.map((product) => {
+    return stock.flatMap((product) => {
       const productData = getProductById(product.productId)
-      return {
-        ...product,
-        name: productData?.name,
-      }
+      return productData ? { ...product, name: productData.name } : []
     })
-    return tableData
   }
 
   const updateStock = (id: string) => {
@@ -90,7 +86,10 @@ const Stock = () => {
     <div className="stock">
       <h1 className="stock__title">Estoque de Produtos</h1>
       <div className="stock__actions">
-        <SearchBar placeholder="Pesquisar no Estoque..." />
+        <SearchBar
+          search={searchProducts}
+          placeholder="Pesquise pelo nome do produto"
+        />
         <Button
           text="Reabastecer Produto"
           onClick={() => navigate('/estoque/reabastecer')}

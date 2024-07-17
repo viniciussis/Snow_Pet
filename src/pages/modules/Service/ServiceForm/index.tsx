@@ -11,9 +11,9 @@ import './ServiceForm.scss'
 import api from '@/api'
 
 const ServiceForm = () => {
-  const { getServiceById } = useServices()
   const params = useParams()
   const navigate = useNavigate()
+  const { getServiceById } = useServices()
   const { customers: customersList } = useCustomers()
   const [newService, setNewService] = useState<IService>({
     customerId: '',

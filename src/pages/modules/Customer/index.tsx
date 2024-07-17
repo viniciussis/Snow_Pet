@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { useCustomersQuery } from '@/api/queries/customers'
-import formatAddress from '@/utils/formatAddress'
+import { formatAddress } from '@/utils/formaters'
 import useCustomers from '@/hooks/useCustomers'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
@@ -29,7 +29,8 @@ const customerColumns: IColumn<ICustomer>[] = [
 
 const Customer = () => {
   const navigate = useNavigate()
-  const { setCustomers, customers, removeCustomer } = useCustomers()
+  const { customersSearch, setCustomers, searchCustomers, removeCustomer } =
+    useCustomers()
   const { isSuccess, isPending, data } = useCustomersQuery()
 
   useEffect(() => {
@@ -59,7 +60,10 @@ const Customer = () => {
     <div className="customer">
       <h1 className="customer__title">Gerenciamento de Clientes</h1>
       <div className="customer__actions">
-        <SearchBar placeholder="Pesquisar Clientes..." />
+        <SearchBar
+          search={searchCustomers}
+          placeholder="Pesquisar clientes"
+        />
         <Button text="Novo Cliente" onClick={() => navigate('/cliente/novo')} />
       </div>
       {isPending ? (
@@ -69,7 +73,7 @@ const Customer = () => {
           remove={deleteCustomer.mutate}
           update={updateCustomer}
           columns={customerColumns}
-          data={customers}
+          data={customersSearch}
         />
       )}
       <div>

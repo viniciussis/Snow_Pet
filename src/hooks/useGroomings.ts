@@ -4,9 +4,9 @@ import IGrooming from '@/interfaces/IGrooming'
 
 interface GroomingsStore {
   groomings: IGrooming[]
+  removeGrooming: (id: string) => void
   setGroomings: (groomings: IGrooming[]) => void
   getGroomingById: (id: string) => IGrooming | undefined
-  removeGrooming: (id: string) => void
 }
 
 const useGroomings = create<GroomingsStore>()((set, get) => ({

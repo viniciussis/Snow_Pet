@@ -2,18 +2,18 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
-import { useServicesQuery } from '@/api/queries/services'
 import { useCustomersQuery } from '@/api/queries/customers'
+import { useServicesQuery } from '@/api/queries/services'
 import useCustomers from '@/hooks/useCustomers'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import ICustomer from '@/interfaces/ICustomer'
+import { formatDate } from '@/utils/formaters'
+import { formatBrl } from '@/utils/formaters'
 import useServices from '@/hooks/useServices'
 import IService from '@/interfaces/IService'
-import formatDate from '@/utils/formatDate'
 import Loading from '@/components/Loading'
 import IColumn from '@/interfaces/IColumn'
-import formatBrl from '@/utils/formatBrl'
 import Button from '@/components/Button'
 import './Service.scss'
 import api from '@/api'
@@ -31,7 +31,6 @@ const serviceColumns: IColumn<IService & ICustomer>[] = [
 ]
 
 const Service = () => {
-  const navigate = useNavigate()
   const {
     isSuccess: isCustomersSuccess,
     data: customersData,
@@ -42,8 +41,9 @@ const Service = () => {
     data: servicesData,
     isPending: isServicesPendind,
   } = useServicesQuery()
-  const { getCustomerById, setCustomers } = useCustomers()
+  const { getCustomerById, setCustomers, searchCustomers } = useCustomers()
   const { setServices, services, removeService } = useServices()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (isCustomersSuccess && isServicesSuccess) {
@@ -60,14 +60,10 @@ const Service = () => {
   ])
 
   const assemblingData = () => {
-    const tableData = services.map((service) => {
+    return services.flatMap((service) => {
       const customerData = getCustomerById(service.customerId)
-      return {
-        ...service,
-        name: customerData?.name,
-      }
+      return customerData ? { ...service, name: customerData.name } : []
     })
-    return tableData
   }
 
   const updateService = (id: string) => {
@@ -91,7 +87,10 @@ const Service = () => {
     <div className="service">
       <h1 className="service__title">Gerenciamento de Atendimentos</h1>
       <div className="service__actions">
-        <SearchBar placeholder="Pesquisar Atendimentos..." />
+        <SearchBar
+          search={searchCustomers}
+          placeholder="Pesquise pelo nome do cliente"
+        />
         <Button
           text="Novo Atendimento"
           onClick={() => navigate('/atendimento/novo')}

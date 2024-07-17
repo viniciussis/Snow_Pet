@@ -4,7 +4,7 @@ import IPet from '@/interfaces/IPet'
 
 interface PetsState {
   pets: IPet[]
-  searchedPets: IPet[]
+  petsSearch: IPet[]
   setPets: (pets: IPet[]) => void
   getPetById: (id: string) => IPet | undefined
   removePet: (id: string) => void
@@ -13,9 +13,9 @@ interface PetsState {
 
 const usePets = create<PetsState>()((set, get) => ({
   pets: [],
-  searchedPets: [],
-  setPets: (pets) => set({ pets, searchedPets: pets }),
-  getPetById: (id) => get().pets.find((pet) => pet.id === id),
+  petsSearch: [],
+  setPets: (pets) => set({ pets, petsSearch: pets }),
+  getPetById: (id) => get().petsSearch.find((pet) => pet.id === id),
   removePet: (id) => {
     set((state) => ({
       pets: state.pets.filter((pet) => pet.id !== id),
@@ -24,12 +24,12 @@ const usePets = create<PetsState>()((set, get) => ({
   searchPets: (search) => {
     if (search) {
       set((state) => ({
-        searchedPets: state.searchedPets.filter((pet) =>
-          pet.name.includes(search),
+        petsSearch: state.petsSearch.filter((pet) =>
+          pet.name.toLowerCase().includes(search.toLowerCase()),
         ),
       }))
     } else {
-      set({ searchedPets: get().pets })
+      set({ petsSearch: get().pets })
     }
   },
 }))

@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { useGroomingsQuery } from '@/api/queries/grooming'
-import formatBoolean from '@/utils/formatBoolean'
+import { formatBoolean } from '@/utils/formaters'
 import { usePetsQuery } from '@/api/queries/pets'
 import useGroomings from '@/hooks/useGroomings'
 import IGrooming from '@/interfaces/IGrooming'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
-import formatDate from '@/utils/formatDate'
+import { formatDate } from '@/utils/formaters'
+import { formatBrl } from '@/utils/formaters'
 import IColumn from '@/interfaces/IColumn'
 import Loading from '@/components/Loading'
-import formatBrl from '@/utils/formatBrl'
 import Button from '@/components/Button'
 import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
@@ -35,7 +35,7 @@ const groomingColumns: IColumn<IGrooming & IPet>[] = [
 
 const Grooming = () => {
   const navigate = useNavigate()
-  const { getPetById, setPets } = usePets()
+  const { getPetById, setPets, searchPets } = usePets()
   const { groomings, setGroomings, removeGrooming } = useGroomings()
   const {
     isSuccess: isPetsSuccess,
@@ -63,15 +63,12 @@ const Grooming = () => {
   ])
 
   const assemblingData = () => {
-    const tableData = groomings.map((grooming) => {
+    return groomings.flatMap((grooming) => {
       const petData = getPetById(grooming.petId)
-      return {
-        ...grooming,
-        name: petData?.name,
-        combo: petData?.combo,
-      }
+      return petData
+        ? { ...grooming, name: petData.name, combo: petData.combo }
+        : []
     })
-    return tableData
   }
 
   const updateGrooming = (id: string) => {
@@ -95,7 +92,10 @@ const Grooming = () => {
     <div className="grooming">
       <h1 className="grooming__title">Gerenciamento de Banhos e Tosas</h1>
       <div className="grooming__actions">
-        <SearchBar placeholder="Pesquisar Banhos e Tosas..." />
+        <SearchBar
+          search={searchPets}
+          placeholder="Pesquise pelo nome do pet"
+        />
         <Button
           text="Novo Banho e Tosa"
           onClick={() => navigate('/banho_e_tosa/novo')}

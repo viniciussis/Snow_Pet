@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import './MobileMenu.scss'
 import { FaBars } from 'react-icons/fa'
+
+import './MobileMenu.scss'
 
 const MobileMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -11,7 +12,7 @@ const MobileMenu = () => {
     <>
       <div className="menuToggle">
         <button className="menuToggle__button" onClick={openMenu}>
-          <FaBars className='button__icon' size={36} />
+          <FaBars className="button__icon" size={36} />
         </button>
       </div>
       {menuOpen && (

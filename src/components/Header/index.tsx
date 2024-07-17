@@ -7,7 +7,13 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__logo">
-        <img src={logo} alt="Logo Snow Pet" width={125} height={125} onClick={() => navigate('/')}/>
+        <img
+          src={logo}
+          alt="Logo Snow Pet"
+          width={125}
+          height={125}
+          onClick={() => navigate('/')}
+        />
       </div>
     </header>
   )

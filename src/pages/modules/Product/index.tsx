@@ -8,11 +8,11 @@ import useCategories from '@/hooks/useCategory'
 import ICategory from '@/interfaces/ICategory'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
+import { formatBrl } from '@/utils/formaters'
 import useProducts from '@/hooks/useProducts'
 import IProduct from '@/interfaces/IProduct'
 import Loading from '@/components/Loading'
 import IColumn from '@/interfaces/IColumn'
-import formatBrl from '@/utils/formatBrl'
 import Button from '@/components/Button'
 import api from '@/api'
 import './Product.scss'
@@ -39,7 +39,8 @@ const Product = () => {
     isPending: isCategoriesPendind,
   } = useCategoriesQuery()
   const { setCategories, getCategoryById } = useCategories()
-  const { products, setProducts, removeProduct } = useProducts()
+  const { productsSearch, searchProducts, setProducts, removeProduct } =
+    useProducts()
 
   useEffect(() => {
     if (isCategoriesSuccess && isProductsSuccess) {
@@ -56,7 +57,7 @@ const Product = () => {
   ])
 
   const assemblingData = () => {
-    const tableData = products.map((product) => {
+    const tableData = productsSearch.map((product) => {
       const categoryData = getCategoryById(product.categoryId)
       return {
         ...product,
@@ -87,7 +88,10 @@ const Product = () => {
     <div className="product">
       <h1 className="product__title">Gerenciamento de Produtos</h1>
       <div className="product__actions">
-        <SearchBar placeholder="Pesquisar Produtos..." />
+        <SearchBar
+          search={searchProducts}
+          placeholder="Pesquisar produtos"
+        />
         <Button text="Novo Produto" onClick={() => navigate('/produto/novo')} />
       </div>
       {isProductsPendind || isCategoriesPendind ? (

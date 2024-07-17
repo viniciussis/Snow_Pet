@@ -13,12 +13,12 @@ import { useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
 
-import formatCategory from '@/utils/formatCategory'
-import formatAddress from '@/utils/formatAddress'
-import formatBoolean from '@/utils/formatBoolean'
-import formatDate from '@/utils/formatDate'
+import { formatCategory } from '@/utils/formaters'
+import { formatAddress } from '@/utils/formaters'
+import { formatBoolean } from '@/utils/formaters'
+import { formatDate } from '@/utils/formaters'
+import { formatBrl } from '@/utils/formaters'
 import IColumn from '@/interfaces/IColumn'
-import formatBrl from '@/utils/formatBrl'
 import './TableFlex.scss'
 
 interface TableFlexProps<T> {
@@ -38,7 +38,7 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
-  const handleChangePage = (_event: unknown, newPage: number) => {
+  const handleChangePage = (newPage: number) => {
     setPage(newPage)
   }
 
@@ -126,7 +126,7 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
       <TablePagination
         page={page}
         rowsPerPage={rowsPerPage}
-        onPageChange={handleChangePage}
+        onPageChange={() => handleChangePage}
         count={data.length}
         labelRowsPerPage="Linhas por página:"
         rowsPerPageOptions={[10, 25, 100]}

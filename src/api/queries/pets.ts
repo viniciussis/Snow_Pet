@@ -12,5 +12,5 @@ export const usePetsQuery = () =>
   useQuery({
     queryKey: ['pets'],
     queryFn: fetchPets,
-    staleTime: 60000,
+    staleTime: 1000 * 60, // 1 minute
   })
