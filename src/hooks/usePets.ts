@@ -19,6 +19,7 @@ const usePets = create<PetsState>()((set, get) => ({
   removePet: (id) => {
     set((state) => ({
       pets: state.pets.filter((pet) => pet.id !== id),
+      petsSearch: state.petsSearch.filter((pet) => pet.id !== id),
     }))
   },
   searchPets: (search) => {

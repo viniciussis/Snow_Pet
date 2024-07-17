@@ -26,3 +26,11 @@ export const formatAddress = (address: IAddress) => {
   const complement = address.complement ? ', ' + address.complement : ''
   return `${address.street}, ${address.houseNumber}${complement} - ${address.neighborhood}`
 }
+
+export const formatDateToInputField = (date: string) => {
+  return date.substring(0, 16)
+}
+
+export const formatDateToDatabase = (date: string) => {
+  return date + ':00.000Z'
+}

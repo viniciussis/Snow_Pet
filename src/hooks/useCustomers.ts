@@ -20,6 +20,9 @@ const useCustomers = create<CustomerState>()((set, get) => ({
   removeCustomer: (id) => {
     set((state) => ({
       customers: state.customers.filter((customer) => customer.id !== id),
+      customersSearch: state.customersSearch.filter(
+        (customer) => customer.id !== id,
+      ),
     }))
   },
   searchCustomers: (search) => {

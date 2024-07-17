@@ -9,6 +9,7 @@ import Modal from '@/components/Modal'
 import usePets from '@/hooks/usePets'
 import './GroomingForm.scss'
 import api from '@/api'
+import { formatDateToDatabase, formatDateToInputField } from '@/utils/formaters'
 
 const GroomingForm = () => {
   const params = useParams()
@@ -26,7 +27,10 @@ const GroomingForm = () => {
     if (params.id) {
       const grooming = getGroomingById(params.id)
       if (grooming !== undefined) {
-        setNewGrooming({ ...grooming, date: grooming.date.slice(0, -1) })
+        setNewGrooming({
+          ...grooming,
+          date: formatDateToInputField(grooming.date),
+        })
         console.log(grooming)
       }
     }
@@ -36,9 +40,7 @@ const GroomingForm = () => {
     mutationFn: () => {
       return api.post<IGrooming>('groomings/', {
         ...newGrooming,
-        date: newGrooming.date.includes('.00Z')
-          ? newGrooming.date
-          : newGrooming.date + ':00Z',
+        date: formatDateToDatabase(newGrooming.date),
       })
     },
     onSuccess: () => {
@@ -51,7 +53,10 @@ const GroomingForm = () => {
 
   const updateGrooming = useMutation({
     mutationFn: () => {
-      return api.patch<IGrooming>(`groomings/${params.id}`, newGrooming)
+      return api.patch<IGrooming>(`groomings/${params.id}`, {
+        ...newGrooming,
+        date: formatDateToDatabase(newGrooming.date),
+      })
     },
     onSuccess: () => {
       navigate('/banho_e_tosa')

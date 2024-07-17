@@ -12,6 +12,8 @@ import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
 import api from '@/api'
 import './Pet.scss'
+import { useCustomersQuery } from '@/api/queries/customers'
+import useCustomers from '@/hooks/useCustomers'
 
 const petColumns: IColumn<IPet>[] = [
   { id: 'name', label: 'Nome', minWidth: 50 },
@@ -37,13 +39,23 @@ const petColumns: IColumn<IPet>[] = [
 const Pet = () => {
   const navigate = useNavigate()
   const { petsSearch, setPets, removePet, searchPets } = usePets()
+  const { setCustomers } = useCustomers()
+  const customersQuery = useCustomersQuery()
   const { isPending, data, isSuccess } = usePetsQuery()
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && customersQuery.isSuccess) {
       setPets(data)
+      setCustomers(customersQuery.data)
     }
-  }, [data, isSuccess, setPets])
+  }, [
+    customersQuery.data,
+    customersQuery.isSuccess,
+    data,
+    isSuccess,
+    setCustomers,
+    setPets,
+  ])
 
   const updatePet = (id: string) => {
     navigate(`/pet/${id}`)
