@@ -2,7 +2,9 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
+import { useCustomersQuery } from '@/api/queries/customers'
 import { usePetsQuery } from '@/api/queries/pets'
+import useCustomers from '@/hooks/useCustomers'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import IColumn from '@/interfaces/IColumn'
@@ -12,8 +14,6 @@ import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
 import api from '@/api'
 import './Pet.scss'
-import { useCustomersQuery } from '@/api/queries/customers'
-import useCustomers from '@/hooks/useCustomers'
 
 const petColumns: IColumn<IPet>[] = [
   { id: 'name', label: 'Nome', minWidth: 50 },
@@ -76,7 +76,14 @@ const Pet = () => {
 
   return (
     <div className="pet">
-      <h1 className="pet__title">Gerenciamento de Pets</h1>
+      <div className="pet__management">
+        <Button
+          text="< Voltar"
+          colorType="goBack"
+          onClick={() => navigate(-1)}
+        />
+        <h1 className="pet__management__title">Gerenciamento de Pets</h1>
+      </div>
       <div className="pet__actions">
         <SearchBar search={searchPets} placeholder="Pesquisar pet" />
         <Button text="Novo Pet" onClick={() => navigate('/pet/novo')} />

@@ -86,12 +86,18 @@ const Product = () => {
 
   return (
     <div className="product">
-      <h1 className="product__title">Gerenciamento de Produtos</h1>
-      <div className="product__actions">
-        <SearchBar
-          search={searchProducts}
-          placeholder="Pesquisar produtos"
+      <div className="product__management">
+        <Button
+          text="< Voltar"
+          colorType="goBack"
+          onClick={() => navigate(-1)}
         />
+        <h1 className="product__management__title">
+          Gerenciamento de Produtos
+        </h1>
+      </div>
+      <div className="product__actions">
+        <SearchBar search={searchProducts} placeholder="Pesquisar produtos" />
         <Button text="Novo Produto" onClick={() => navigate('/produto/novo')} />
       </div>
       {isProductsPendind || isCategoriesPendind ? (

@@ -5,7 +5,7 @@ interface ButtonProps {
   text: string
   onClick?: () => void
   type?: 'button' | 'reset' | 'submit'
-  colorType?: 'primary' | 'success' | 'fail'
+  colorType?: 'primary' | 'success' | 'fail' | 'goBack'
 }
 
 const Button: React.FC<ButtonProps> = ({ text, onClick, colorType = 'primary', type = 'button' }) => {

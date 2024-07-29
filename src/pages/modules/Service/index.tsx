@@ -85,7 +85,16 @@ const Service = () => {
 
   return (
     <div className="service">
-      <h1 className="service__title">Gerenciamento de Atendimentos</h1>
+      <div className="service__management">
+        <Button
+          text="< Voltar"
+          colorType="goBack"
+          onClick={() => navigate(-1)}
+        />
+        <h1 className="service__management__title">
+          Gerenciamento de Atendimentos
+        </h1>
+      </div>
       <div className="service__actions">
         <SearchBar
           search={searchCustomers}

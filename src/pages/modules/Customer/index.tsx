@@ -58,12 +58,18 @@ const Customer = () => {
 
   return (
     <div className="customer">
-      <h1 className="customer__title">Gerenciamento de Clientes</h1>
-      <div className="customer__actions">
-        <SearchBar
-          search={searchCustomers}
-          placeholder="Pesquisar clientes"
+      <div className="customer__management">
+        <Button
+          text="< Voltar"
+          colorType="goBack"
+          onClick={() => navigate(-1)}
         />
+        <h1 className="customer__management__title">
+          Gerenciamento de Clientes
+        </h1>
+      </div>
+      <div className="customer__actions">
+        <SearchBar search={searchCustomers} placeholder="Pesquisar clientes" />
         <Button text="Novo Cliente" onClick={() => navigate('/cliente/novo')} />
       </div>
       {isPending ? (

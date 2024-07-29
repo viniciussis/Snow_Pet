@@ -1,6 +1,6 @@
-import './SearchBar.scss'
-import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
+import React, { useState } from 'react'
+import './SearchBar.scss'
 
 interface SearchBarProps {
   placeholder: string

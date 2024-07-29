@@ -90,7 +90,16 @@ const Grooming = () => {
 
   return (
     <div className="grooming">
-      <h1 className="grooming__title">Gerenciamento de Banhos e Tosas</h1>
+      <div className="grooming__management">
+        <Button
+          text="< Voltar"
+          colorType="goBack"
+          onClick={() => navigate(-1)}
+        />
+        <h1 className="grooming__management__title">
+          Gerenciamento de Banhos e Tosas
+        </h1>
+      </div>
       <div className="grooming__actions">
         <SearchBar
           search={searchPets}

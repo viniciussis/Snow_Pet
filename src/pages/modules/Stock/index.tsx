@@ -84,7 +84,14 @@ const Stock = () => {
 
   return (
     <div className="stock">
-      <h1 className="stock__title">Estoque de Produtos</h1>
+      <div className="stock__management">
+        <Button
+          text="< Voltar"
+          colorType="goBack"
+          onClick={() => navigate(-1)}
+        />
+        <h1 className="stock__management__title">Estoque de Produtos</h1>
+      </div>
       <div className="stock__actions">
         <SearchBar
           search={searchProducts}

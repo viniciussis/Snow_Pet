@@ -6,11 +6,25 @@
   padding: 5.5rem 2rem 3rem;
   gap: 1rem;
 
-  &__title {
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
-    color: variables.$white;
+  &__management {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    display: flex;
+    width: 100%;
+
+    button {
+      position: absolute;
+      top: -5vh;
+      left: 0;
+    }
+
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      color: variables.$white;
+    }
   }
 
   &__actions {

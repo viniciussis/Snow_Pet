@@ -1,33 +1,11 @@
 .notFound {
-  display: flex;
-  align-items: center;
   flex-direction: column;
   padding: 4rem 10rem;
-  gap: 1rem;
   min-height: 78vh;
+  display: flex;
 
   &__image {
-  }
-
-  &__goBack {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-
-    button {
-      background-color: variables.$white;
-      border: 3px solid variables.$blue-light;
-      padding: 0.5rem 1.5rem;
-      border-radius: 2rem;
-      color: variables.$orange;
-      cursor: pointer;
-      font-size: 1.5rem;
-      font-weight: bold;
-      transition: 1s;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
+    align-self: center;
+    max-width: 80%;
   }
 }

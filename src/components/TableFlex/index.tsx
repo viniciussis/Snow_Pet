@@ -9,9 +9,9 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core'
-import { useState } from 'react'
-import { FaTrash } from 'react-icons/fa'
 import { FaPencil } from 'react-icons/fa6'
+import { FaTrash } from 'react-icons/fa'
+import { useState } from 'react'
 
 import { formatCategory } from '@/utils/formaters'
 import { formatAddress } from '@/utils/formaters'
@@ -22,8 +22,8 @@ import IColumn from '@/interfaces/IColumn'
 import './TableFlex.scss'
 
 interface TableFlexProps<T> {
-  columns: IColumn<T>[]
   data: T[]
+  columns: IColumn<T>[]
   remove: (id: string) => void
   update: (id: string) => void
 }

@@ -2,12 +2,13 @@
   padding: 0.5rem 2rem;
   border-radius: 1rem;
   font-size: 1.25rem;
+  width: fit-content;
   font-weight: 500;
 
   &__primary {
+    border: 2px solid variables.$blue-light;
     background-color: variables.$white;
     color: variables.$black;
-    border: 2px solid variables.$blue-light;
 
     &:hover {
       outline: 1px solid variables.$blue-light;
@@ -16,8 +17,8 @@
 
   &__success {
     background-color: variables.$green-light;
-    color: variables.$black;
     border: 2px solid variables.$green;
+    color: variables.$black;
 
     &:hover {
       outline: 1px solid variables.$green;
@@ -26,11 +27,22 @@
 
   &__fail {
     background-color: variables.$red-light;
-    color: variables.$black;
     border: 2px solid variables.$red;
+    color: variables.$black;
 
     &:hover {
       outline: 1px solid variables.$red;
+    }
+  }
+
+  &__goBack {
+    border: 2px solid variables.$blue-light;
+    background-color: variables.$white;
+    color: variables.$orange;
+    font-weight: 700;
+
+    &:hover {
+      outline: 1px solid variables.$blue-light;
     }
   }
 }
