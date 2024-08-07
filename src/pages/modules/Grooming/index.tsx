@@ -94,7 +94,7 @@ const Grooming = () => {
         <Button
           text="< Voltar"
           colorType="goBack"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
         />
         <h1 className="grooming__management__title">
           Gerenciamento de Banhos e Tosas

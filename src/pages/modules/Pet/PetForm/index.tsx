@@ -31,8 +31,7 @@ const PetForm = () => {
     if (params.id) {
       const pet = getPetById(params.id)
       if (pet !== undefined) {
-        console.log(pet)
-        setNewPet(pet)
+        setNewPet({ ...pet })
       }
     }
   }, [getPetById, params])
@@ -51,7 +50,8 @@ const PetForm = () => {
 
   const updatePet = useMutation({
     mutationFn: () => {
-      return api.patch<IPet>(`pets/${params.id}`, newPet)
+      const { id, createdAt, updatedAt, ...updatedPet } = newPet
+      return api.patch<IPet>(`pets/${params.id}`, { ...updatedPet })
     },
     onSuccess: () => {
       navigate('/pet')

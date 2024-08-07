@@ -90,7 +90,7 @@ const Product = () => {
         <Button
           text="< Voltar"
           colorType="goBack"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
         />
         <h1 className="product__management__title">
           Gerenciamento de Produtos

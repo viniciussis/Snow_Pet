@@ -67,7 +67,7 @@ const Service = () => {
   }
 
   const updateService = (id: string) => {
-    navigate(`/atendimentos/${id}`)
+    navigate(`/atendimento/${id}`)
   }
 
   const deleteService = useMutation({
@@ -89,7 +89,7 @@ const Service = () => {
         <Button
           text="< Voltar"
           colorType="goBack"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
         />
         <h1 className="service__management__title">
           Gerenciamento de Atendimentos

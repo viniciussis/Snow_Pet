@@ -65,7 +65,7 @@ const Stock = () => {
     })
   }
 
-  const updateStock = (id: string) => {
+  const refillStock = (id: string) => {
     navigate(`/estoque/${id}`)
   }
 
@@ -88,7 +88,7 @@ const Stock = () => {
         <Button
           text="< Voltar"
           colorType="goBack"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
         />
         <h1 className="stock__management__title">Estoque de Produtos</h1>
       </div>
@@ -97,17 +97,13 @@ const Stock = () => {
           search={searchProducts}
           placeholder="Pesquise pelo nome do produto"
         />
-        <Button
-          text="Reabastecer Produto"
-          onClick={() => navigate('/estoque/reabastecer')}
-        />
       </div>
       {isProductsPendind || isStockPendind ? (
         <Loading />
       ) : (
         <TableFlex
           remove={deleteStock.mutate}
-          update={updateStock}
+          update={refillStock}
           columns={stockColumns}
           data={assemblingData()}
         />

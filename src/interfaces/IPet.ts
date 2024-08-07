@@ -10,4 +10,6 @@ export default interface IPet {
   allergies?: string
   additionalInfo?: string
   combo?: boolean
+  createdAt?: string
+  updatedAt?: string
 }

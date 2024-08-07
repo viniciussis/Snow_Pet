@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 
+import { formatDateToDatabase, formatDateToInputField } from '@/utils/formaters'
 import useCustomers from '@/hooks/useCustomers'
 import useServices from '@/hooks/useServices'
 import IService from '@/interfaces/IService'
@@ -23,10 +24,14 @@ const ServiceForm = () => {
 
   const addService = useMutation({
     mutationFn: () => {
-      return api.post<IService>('services/', newService)
+      return api.post<IService>('services/', {
+        totalValue: Number(newService.totalValue),
+        customerId: newService.customerId,
+        date: formatDateToDatabase(newService.date),
+      })
     },
     onSuccess: () => {
-      navigate('/atendimentos')
+      navigate('/atendimento')
     },
     onError: (err) => {
       console.log(err.message)
@@ -35,10 +40,14 @@ const ServiceForm = () => {
 
   const updateService = useMutation({
     mutationFn: () => {
-      return api.patch<IService>(`services/${params.id}`, newService)
+      return api.patch<IService>(`services/${params.id}`, {
+        totalValue: Number(newService.totalValue),
+        customerId: newService.customerId,
+        date: formatDateToDatabase(newService.date),
+      })
     },
     onSuccess: () => {
-      navigate('/atendimentos')
+      navigate('/atendimento')
     },
     onError: (err) => {
       console.log(err.message)
@@ -49,10 +58,14 @@ const ServiceForm = () => {
     if (params.id) {
       const service = getServiceById(params.id)
       if (service !== undefined) {
-        setNewService(newService)
+        setNewService({
+          customerId: service.customerId,
+          date: formatDateToInputField(service.date),
+          totalValue: service.totalValue,
+        })
       }
     }
-  }, [params, getServiceById, newService])
+  }, [params, getServiceById])
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -104,7 +117,7 @@ const ServiceForm = () => {
             <label className="serviceForm__label">
               Valor Total*:
               <input
-                placeholder="informe o valor total do Atendimento..."
+                placeholder="Valor total..."
                 className="serviceForm__input"
                 required
                 type="number"
@@ -128,23 +141,22 @@ const ServiceForm = () => {
             </label>
           </div>
           <div className="serviceForm__rows">
-            <ul>Lista de Produtos e Serviços...</ul>
             <Button
               text="Adicionar Serviço"
               colorType="primary"
-              onClick={() => navigate('/atendimento/servico')}
+              onClick={() => navigate('/atendimento/servico/a')}
             />
             <Button
               text="Adicionar Produto"
               colorType="primary"
-              onClick={() => navigate('/atendimento/produto')}
+              onClick={() => navigate('/atendimento/produto/a')}
             />
           </div>
           <div className="serviceForm__actions">
             <Button
               text="Cancelar"
               colorType="fail"
-              onClick={() => navigate('/cliente')}
+              onClick={() => navigate('/atendimento')}
             />
             <Button type="submit" text="Cadastrar" colorType="success" />
           </div>

@@ -39,7 +39,9 @@ const ProductForm = () => {
 
   const updateProduct = useMutation({
     mutationFn: () => {
-      return api.patch<IProduct>(`products/${params.id}`, newProduct)
+      console.log(newProduct)
+      const { id, ...updatedProduct } = newProduct
+      return api.patch<IProduct>(`products/${params.id}`, { ...updatedProduct })
     },
     onSuccess: () => {
       navigate('/produto')
@@ -79,7 +81,6 @@ const ProductForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(newProduct)
     if (params.id) {
       updateProduct.mutate()
     } else {

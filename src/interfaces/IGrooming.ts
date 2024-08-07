@@ -4,4 +4,6 @@ export default interface IGrooming {
   price: number
   date: string
   petId: string
+  updatedAt?: string
+  createdAt?: string
 }

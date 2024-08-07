@@ -20,6 +20,9 @@ const useProducts = create<ProductState>()((set, get) => ({
   removeProduct: (id) => {
     set((state) => ({
       products: state.products.filter((product) => product.id !== id),
+      productsSearch: state.productsSearch.filter(
+        (product) => product.id !== id,
+      ),
     }))
   },
   searchProducts: (search) => {

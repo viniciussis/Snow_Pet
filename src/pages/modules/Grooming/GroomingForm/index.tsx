@@ -53,8 +53,9 @@ const GroomingForm = () => {
 
   const updateGrooming = useMutation({
     mutationFn: () => {
+      const { createdAt, id, updatedAt, ...updatedGrooming } = newGrooming
       return api.patch<IGrooming>(`groomings/${params.id}`, {
-        ...newGrooming,
+        ...updatedGrooming,
         date: formatDateToDatabase(newGrooming.date),
       })
     },

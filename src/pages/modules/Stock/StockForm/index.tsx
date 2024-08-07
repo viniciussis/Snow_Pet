@@ -8,10 +8,13 @@ import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import './StockForm.scss'
 import api from '@/api'
+import useProducts from '@/hooks/useProducts'
 
 const StockForm = () => {
   const params = useParams()
   const navigate = useNavigate()
+  const { getProductById } = useProducts()
+  const [productName, setProductName] = useState<string | null>()
   const { getStockProductById } = useStockProducts()
   const [newStock, setNewStock] = useState<IStock>({
     date: new Date().toUTCString(),
@@ -19,21 +22,11 @@ const StockForm = () => {
     quantity: 0,
   })
 
-  const addStock = useMutation({
+  const refillStock = useMutation({
     mutationFn: () => {
-      return api.post<IStock>('stock/', newStock)
-    },
-    onSuccess: () => {
-      navigate('/estoque')
-    },
-    onError: (err) => {
-      console.log(err.message)
-    },
-  })
-
-  const updateStock = useMutation({
-    mutationFn: () => {
-      return api.patch<IStock>(`stock/${params.id}`, newStock)
+      return api.patch<IStock>(`stock/${params.id}`, {
+        quantity: Number(newStock.quantity),
+      })
     },
     onSuccess: () => {
       navigate('/estoque')
@@ -48,9 +41,13 @@ const StockForm = () => {
       const stock = getStockProductById(params.id)
       if (stock !== undefined) {
         setNewStock(stock)
+        const product = getProductById(stock.productId)
+        if (product) {
+          setProductName(product.name)
+        }
       }
     }
-  }, [params, getStockProductById])
+  }, [params, getStockProductById, getProductById])
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -67,16 +64,14 @@ const StockForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (params.id) {
-      updateStock.mutate()
-    } else {
-      addStock.mutate()
+      refillStock.mutate()
     }
   }
 
   return (
     <>
       <div className="stockFormContainer" />
-      <Modal title={`${newStock.productId}`}>
+      <Modal title={`Reabastecer Produto: ${productName}`}>
         <form className="stockForm" onSubmit={handleSubmit}>
           <div className="stockForm__rows">
             <label className="productForm__label">
@@ -89,18 +84,6 @@ const StockForm = () => {
                 min={0}
                 name="quantity"
                 value={newStock.quantity}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="serviceForm__label">
-              Último Reabastecimento*:
-              <input
-                placeholder="informe a data do último abastecimento..."
-                className="stockForm__input"
-                required
-                type="datetime-local"
-                name="date"
-                value={newStock.date}
                 onChange={handleInputChange}
               />
             </label>

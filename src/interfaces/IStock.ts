@@ -3,4 +3,6 @@ export default interface IStock {
   quantity: number
   date: string
   productId: string
+  updatedAt?: string
+  createdAt?: string
 }
