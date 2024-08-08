@@ -8,3 +8,4 @@ export default interface ICustomer {
   phoneNumber: string
   socialMedia?: string
 }
+  

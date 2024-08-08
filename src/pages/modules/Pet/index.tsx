@@ -38,7 +38,7 @@ const petColumns: IColumn<IPet>[] = [
 
 const Pet = () => {
   const navigate = useNavigate()
-  const { petsSearch, setPets, removePet, searchPets } = usePets()
+  const { petsSearch, setPets, removePet, searchPets, pets } = usePets()
   const { setCustomers } = useCustomers()
   const customersQuery = useCustomersQuery()
   const { isPending, data, isSuccess } = usePetsQuery()
@@ -57,6 +57,7 @@ const Pet = () => {
     setPets,
   ])
 
+  console.log(pets)
   const updatePet = (id: string) => {
     navigate(`/pet/${id}`)
   }

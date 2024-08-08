@@ -9,6 +9,9 @@ import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
 import api from '@/api'
 import './PetForm.scss'
+import { PetSpecie } from '@/shared/enums/PetSpecie'
+import { PetSize } from '@/shared/enums/PetSize'
+import { PetGender } from '@/shared/enums/PetGender'
 
 const PetForm = () => {
   const params = useParams()
@@ -17,11 +20,11 @@ const PetForm = () => {
   const { customers: ownerList } = useCustomers()
   const [newPet, setNewPet] = useState<IPet>({
     name: '',
-    specie: '',
+    specie: PetSpecie.CACHORRO,
     ownerId: '',
     breed: '',
-    size: '',
-    gender: '',
+    size: PetSize.GRANDE,
+    gender: PetGender.FEMEA,
     healthProblems: '',
     allergies: '',
     additionalInfo: '',
@@ -38,6 +41,7 @@ const PetForm = () => {
 
   const addPet = useMutation({
     mutationFn: () => {
+      console.log({ ...newPet })
       return api.post<IPet>('pets/', newPet)
     },
     onSuccess: () => {
@@ -51,6 +55,7 @@ const PetForm = () => {
   const updatePet = useMutation({
     mutationFn: () => {
       const { id, createdAt, updatedAt, ...updatedPet } = newPet
+      console.log({ ...updatedPet })
       return api.patch<IPet>(`pets/${params.id}`, { ...updatedPet })
     },
     onSuccess: () => {
@@ -127,8 +132,8 @@ const PetForm = () => {
                 onChange={handleInputChange}
               >
                 <option value="">Selecione</option>
-                <option value="Macho">Macho</option>
-                <option value="Fêmea">Fêmea</option>
+                <option value="MACHO">Macho</option>
+                <option value="FEMEA">Fêmea</option>
               </select>
             </label>
           </div>
@@ -143,8 +148,9 @@ const PetForm = () => {
                 onChange={handleInputChange}
               >
                 <option value="">Selecione</option>
-                <option value="Cachorro">Cachorro</option>
-                <option value="Gato">Gato</option>
+                <option value="CACHORRO">Cachorro</option>
+                <option value="GATO">Gato</option>
+                <option value="PASSARO">Pássaro</option>
               </select>
             </label>
             <label className="petForm__label">
@@ -157,9 +163,9 @@ const PetForm = () => {
                 onChange={handleInputChange}
               >
                 <option value="">Selecione</option>
-                <option value="Pequeno">Pequeno</option>
-                <option value="Médio">Médio</option>
-                <option value="Grande">Grande</option>
+                <option value="PEQUENO">Pequeno</option>
+                <option value="MEDIO">Médio</option>
+                <option value="GRANDE">Grande</option>
               </select>
             </label>
             <label className="petForm__label">
