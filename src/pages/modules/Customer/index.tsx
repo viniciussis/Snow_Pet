@@ -59,17 +59,13 @@ const Customer = () => {
   return (
     <div className="customer">
       <div className="customer__management">
-        <Button
-          text="< Voltar"
-          colorType="goBack"
-          onClick={() => navigate('/')}
-        />
+        <Button onClick={() => navigate('/')} text="< Voltar" />
         <h1 className="customer__management__title">
           Gerenciamento de Clientes
         </h1>
       </div>
       <div className="customer__actions">
-        <SearchBar search={searchCustomers} placeholder="Pesquisar clientes" />
+        <SearchBar search={searchCustomers} placeholder="Pesquisar clientes..." />
         <Button text="Novo Cliente" onClick={() => navigate('/cliente/novo')} />
       </div>
       {isPending ? (
@@ -82,12 +78,10 @@ const Customer = () => {
           data={customersSearch}
         />
       )}
-      <div>
-        <Button
-          onClick={() => navigate('/relatorios/cliente')}
-          text="Relatórios"
-        />
-      </div>
+      <Button
+        onClick={() => navigate('/relatorios/cliente')}
+        text="Relatórios"
+      />
     </div>
   )
 }

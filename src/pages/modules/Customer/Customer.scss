@@ -1,9 +1,9 @@
 .customer {
-  display: flex;
+  padding: 6rem 4rem 3rem;
   flex-direction: column;
   align-items: center;
-  min-height: 78vh;
-  padding: 5.5rem 2rem 3rem;
+  min-height: 80vh;
+  display: flex;
   gap: 1rem;
 
   &__management {
@@ -20,29 +20,19 @@
     }
 
     &__title {
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
+      font-family: variables.$font-title;
       color: variables.$white;
+      font-size: 2.75rem;
+      font-weight: 700;
     }
   }
 
   &__actions {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: row;
     align-items: center;
-
-    gap: 1rem;
+    display: flex;
     width: 100%;
-  }
-
-  @media screen and (min-width: variables.$desktop-width) {
-    padding: 4rem 5rem 2rem;
-
-    &__actions {
-      flex-direction: row;
-      gap: 1rem;
-    }
+    gap: 1rem;
   }
 }

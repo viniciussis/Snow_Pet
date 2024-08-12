@@ -1,37 +1,35 @@
 .home {
-  display: flex;
   flex-direction: column;
   align-items: center;
+  display: flex;
 
-  min-height: 78vh;
-  padding: 5.5rem 2rem 0;
   color: variables.$white;
-  font-family: variables.$font-titles;
+  padding: 5.5rem 2rem 0;
+  min-height: 80vh;
 
   &__title {
-    font-size: 2rem;
-    font-weight: 700;
+    font-family: variables.$font-title;
     text-align: center;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 2rem;
   }
 
-  &__subtitle {
+  &__sub {
     font-size: 1.5rem;
     text-align: center;
-    margin-bottom: 2rem;
   }
 
   &__options {
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-top: 3rem;
     gap: 0.5rem 1rem;
     flex-wrap: wrap;
     display: flex;
 
-    .options__icon {
+    &__icon {
       border: 3px solid variables.$blue-light;
-      border-radius: 1rem;
-      transition: 1s;
+      border-radius: 0.5rem;
+      transition: 0.25s;
       height: 9rem;
       width: 9rem;
 
@@ -42,14 +40,25 @@
   }
 
   @media screen and (min-width: variables.$desktop-width) {
-    padding: 4rem 8rem 0;
+    justify-content: center;
+    padding: 0;
+
+    &__title {
+      font-size: 3rem;
+    }
+
+    &__sub {
+      font-size: 1.75rem;
+      text-align: center;
+    }
 
     &__options {
       padding: 0 10rem;
+      max-width: 70%;
 
-      .options__icon {
-        width: 8.5rem;
-        height: 8.5rem;
+      &__icon {
+        width: 10rem;
+        height: 10rem;
       }
     }
   }

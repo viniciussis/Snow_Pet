@@ -1,7 +1,9 @@
 // Add fonts here...
 
-body{
-  font-family: variables.$font-titles, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+body {
+  font-family: variables.$font-text, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   font-size: variables.$font-size;
   font-weight: 500;
   line-height: 1.25;

@@ -1,5 +1,5 @@
-import './Home.scss'
 import { Link } from 'react-router-dom'
+import './Home.scss'
 
 const options = [
   { icon: 'atendimento', label: 'Atendimento', route: '/atendimento' },
@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <div className="home">
       <h1 className="home__title">Bem vindo ao Snow Pet Shop</h1>
-      <h2 className="home__subtitle">
+      <h2 className="home__sub">
         Onde amor e cuidado encontram um lar <em>peludo</em>.
       </h2>
       <div className="home__options">
@@ -24,7 +24,7 @@ const Home = () => {
             <img
               src={`images/${option.icon}.png`}
               alt={option.label}
-              className="options__icon"
+              className="home__options__icon"
             />
           </Link>
         ))}

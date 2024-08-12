@@ -1,3 +1,50 @@
+$--theme-primary: --theme-primary;
+$--theme-secondary: --theme-secondary;
+$--theme-surface: --theme-surface;
+$--theme-background: --theme-background;
+$--theme-on-primary: --theme-on-primary;
+$--theme-on-secondary: --theme-on-secondary;
+$--theme-on-surface: --theme-on-surface;
+$--theme-smoke-down: --theme-smoke-down;
+$--theme-smoke-up: --theme-smoke-up;
+$--theme-higher-contrast: --theme-higher-contrast;
+$--theme-background-opaque: --theme-background-opaque;
+
+// themes
+$theme-map-light: (
+  $--theme-primary: #ff4800,
+  $--theme-secondary: #54c4cf,
+  $--theme-surface: #f3f1ed,
+  $--theme-background: #ffffff,
+  $--theme-background-opaque: #f3f1edda,
+  $--theme-on-primary: #96c11f,
+  $--theme-on-secondary: #f8f8f8,
+  $--theme-on-surface: #1a1a1a,
+  $--theme-smoke-down: #0000004d,
+  $--theme-smoke-up: #ffffff,
+  $--theme-higher-contrast: #ffffff,
+);
+
+$theme-map-dark: (
+  $--theme-primary: #96c11f,
+  $--theme-secondary: #f8f8f8,
+  $--theme-surface: #1a1a1a,
+  $--theme-background: #000000,
+  $--theme-background-opaque: #1a1a1ad2,
+  $--theme-on-primary: #5d7715,
+  $--theme-on-secondary: #000000,
+  $--theme-on-surface: #f3f1ed,
+  $--theme-smoke-down: #000000,
+  $--theme-smoke-up: #ffffff25,
+  $--theme-higher-contrast: #000000,
+);
+
+// fonts
+$font-title: 'Baloo 2';
+$font-text: 'Open Sans';
+$font-size: 18px;
+
+// colors
 $orange: hsl(17, 100%, 50%);
 $orange-light: hsl(27, 100%, 65%);
 $orange-dark: hsl(22, 85%, 43%);
@@ -10,8 +57,10 @@ $red-light: rgb(255, 134, 134);
 $green: rgb(0, 190, 0);
 $green-light: rgb(102, 216, 102);
 
-$font-titles: 'Poppins';
-$font-text: 'Montserrat';
-$font-size: 18px;
+// devices widths
+$breakpoint-tablet: 767px;
+$breakpoint-desktop: 1024px;
+$breakpoint-desktop-md: 1440px;
+$breakpoint-desktop-lg: 1880px;
 $mobile-width: 375px;
 $desktop-width: 1250px;

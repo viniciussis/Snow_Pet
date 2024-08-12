@@ -1,20 +1,19 @@
 import { useNavigate } from 'react-router-dom'
-import './Header.scss'
 import logo from '/images/logo_rounded.png'
+import './Header.scss'
 
 const Header = () => {
   const navigate = useNavigate()
   return (
     <header className="header">
-      <div className="header__logo">
-        <img
-          src={logo}
-          alt="Logo Snow Pet"
-          width={125}
-          height={125}
-          onClick={() => navigate('/')}
-        />
-      </div>
+      <img
+        className="header__logo"
+        alt="Logo Snow Pet"
+        onClick={() => navigate('/')}
+        height={100}
+        width={100}
+        src={logo}
+      />
     </header>
   )
 }

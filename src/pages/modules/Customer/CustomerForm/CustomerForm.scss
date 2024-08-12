@@ -1,6 +1,6 @@
 .customerForm {
-  display: flex;
   flex-direction: column;
+  display: flex;
   gap: 1rem;
 
   &__rows {
@@ -9,7 +9,7 @@
   }
 
   &__label {
-    width: 100%;                                
+    width: 100%;
     font-weight: 700;
     font-size: 1.25rem;
   }
@@ -35,5 +35,5 @@
 }
 
 .customerFormContainer {
-  min-height: 78vh;
+  min-height: 80vh;
 }

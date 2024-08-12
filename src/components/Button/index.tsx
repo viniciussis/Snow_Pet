@@ -1,16 +1,25 @@
-import React from 'react'
+import { ButtonHTMLAttributes } from 'react'
 import './Button.scss'
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
   onClick?: () => void
   type?: 'button' | 'reset' | 'submit'
   colorType?: 'primary' | 'success' | 'fail' | 'goBack'
 }
 
-const Button: React.FC<ButtonProps> = ({ text, onClick, colorType = 'primary', type = 'button' }) => {
+const Button = ({
+  text,
+  onClick,
+  colorType = 'primary',
+  type = 'button',
+}: ButtonProps) => {
   return (
-    <button type={type} onClick={onClick} className={`button button__${colorType}`}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`button button__${colorType}`}
+    >
       {text}
     </button>
   )

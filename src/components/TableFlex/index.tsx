@@ -50,7 +50,7 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
   }
 
   return (
-    <Paper className="tableContainer" sx={{ borderRadius: '1rem' }}>
+    <Paper className="tableContainer" sx={{ borderRadius: '0.5rem' }}>
       <TableContainer sx={{ maxHeight: 516 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -60,7 +60,12 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                 <TableCell
                   key={index}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, fontFamily: 'Poppins' }}
+                  style={{
+                    minWidth: column.minWidth,
+                    fontFamily: 'Open Sans',
+                    fontSize: '1.05rem',
+                    fontWeight: '600',
+                  }}
                 >
                   {column.label}
                 </TableCell>
@@ -108,8 +113,8 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                         <TableCell
                           key={index}
                           style={{
-                            fontFamily: 'Montserrat',
-                            fontWeight: '500',
+                            fontFamily: 'Open Sans',
+                            fontSize: '1rem',
                           }}
                           align={column.align}
                         >

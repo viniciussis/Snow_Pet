@@ -1,14 +1,18 @@
 .button {
+  border: 2px solid variables.$blue-light;
+  background-color: variables.$white;
+  font-family: variables.$font-title;
+  text-transform: uppercase;
+  color: variables.$orange;
+  border-radius: 0.5rem;
   padding: 0.5rem 2rem;
-  border-radius: 1rem;
   font-size: 1.25rem;
+
   width: fit-content;
-  font-weight: 500;
+  font-weight: 700;
 
   &__primary {
-    border: 2px solid variables.$blue-light;
     background-color: variables.$white;
-    color: variables.$black;
 
     &:hover {
       outline: 1px solid variables.$blue-light;
@@ -32,17 +36,6 @@
 
     &:hover {
       outline: 1px solid variables.$red;
-    }
-  }
-
-  &__goBack {
-    border: 2px solid variables.$blue-light;
-    background-color: variables.$white;
-    color: variables.$orange;
-    font-weight: 700;
-
-    &:hover {
-      outline: 1px solid variables.$blue-light;
     }
   }
 }

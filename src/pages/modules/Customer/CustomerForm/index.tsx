@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
+import { DevTool } from '@hookform/devtools'
+import { useForm } from 'react-hook-form'
+import  { useEffect } from 'react'
 
 import ICustomer from '@/interfaces/ICustomer'
 import useCustomers from '@/hooks/useCustomers'
@@ -8,22 +10,26 @@ import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import './CustomerForm.scss'
 import api from '@/api'
+import Field from '@/components/Field'
 
 const CustomerForm = () => {
   const { getCustomerById } = useCustomers()
-  const params = useParams()
   const navigate = useNavigate()
-  const [newCustomer, setNewCustomer] = useState<ICustomer>({
-    name: '',
-    address: {
-      neighborhood: '',
-      houseNumber: '',
-      street: '',
-      complement: '',
+  const params = useParams()
+  const customer = params.id ? getCustomerById(params.id) : undefined
+  const { register, control } = useForm<ICustomer>({
+    defaultValues: customer ?? {
+      name: '',
+      address: {
+        neighborhood: '',
+        houseNumber: '',
+        street: '',
+        complement: '',
+      },
+      phoneNumber: '',
+      email: '',
+      socialMedia: '',
     },
-    phoneNumber: '',
-    email: '',
-    socialMedia: '',
   })
 
   const addCustomer = useMutation({
@@ -32,7 +38,6 @@ const CustomerForm = () => {
     },
     onSuccess: () => {
       navigate('/cliente')
-      
     },
     onError: (err) => {
       console.log(err.message)
@@ -71,29 +76,6 @@ const CustomerForm = () => {
     }
   }, [params, getCustomerById])
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = e.target
-    if (name.startsWith('address.')) {
-      const addressField = name.split('.')[1]
-      setNewCustomer((prevCustomer) => ({
-        ...prevCustomer,
-        address: {
-          ...prevCustomer?.address,
-          [addressField]: value,
-        },
-      }))
-    } else {
-      setNewCustomer({
-        ...newCustomer,
-        [name]: value,
-      })
-    }
-  }
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(newCustomer)
@@ -110,103 +92,42 @@ const CustomerForm = () => {
       <Modal title="Formulário de Clientes">
         <form className="customerForm" onSubmit={handleSubmit}>
           <div className="customerForm__rows">
-            <label className="customerForm__label">
-              Nome do Cliente*:
-              <input
-                placeholder="Informe o nome do cliente..."
-                className="customerForm__input"
-                required
-                type="text"
-                name="name"
-                value={newCustomer.name}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="customerForm__label">
-              Email:
-              <input
-                placeholder="Informe o email... (opcional)"
-                className="customerForm__input"
-                type="text"
-                name="email"
-                value={newCustomer.email}
-                onChange={handleInputChange}
-              />
-            </label>
+            <Field label="Nome*" {...register('name')} required={true} />
+            <Field label="Email" {...register('email')} required={true} />
           </div>
           <div className="customerForm__rows">
-            <label className="customerForm__label">
-              Rua*:
-              <input
-                placeholder="Informe o nome da rua..."
-                className="customerForm__input"
-                required
-                type="text"
-                name="address.street"
-                value={newCustomer.address.street}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="customerForm__label">
-              Número*:
-              <input
-                placeholder="Informe o número da casa..."
-                className="customerForm__input"
-                required
-                type="text"
-                name="address.houseNumber"
-                value={newCustomer.address.houseNumber}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="customerForm__label">
-              Complemento:
-              <input
-                placeholder="Informações adicionais (opcional)..."
-                className="customerForm__input"
-                type="text"
-                name="address.complement"
-                value={newCustomer.address.complement}
-                onChange={handleInputChange}
-              />
-            </label>
+            <Field
+              label="Rua*"
+              {...register('address.street')}
+              required={true}
+            />
+            <Field
+              label="Número da casa*"
+              {...register('address.houseNumber')}
+              required={true}
+            />
+            <Field
+              label="Complemento"
+              {...register('address.complement')}
+              required={true}
+            />
           </div>
           <div className="customerForm__rows">
-            <label className="customerForm__label">
-              Bairro*:
-              <input
-                placeholder="informe o bairro..."
-                className="customerForm__input"
-                required
-                type="text"
-                name="address.neighborhood"
-                value={newCustomer.address.neighborhood}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="customerForm__label">
-              Telefone*:
-              <input
-                placeholder="Informe o telefone..."
-                className="customerForm__input"
-                required
-                type="text"
-                name="phoneNumber"
-                value={newCustomer.phoneNumber}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="customerForm__label">
-              Instagram:
-              <input
-                className="customerForm__input"
-                type="text"
-                placeholder="Redes sociais... (opcional)"
-                name="socialMedia"
-                value={newCustomer.socialMedia}
-                onChange={handleInputChange}
-              />
-            </label>
+            <Field
+              label="Bairro*"
+              {...register('address.neighborhood')}
+              required={true}
+            />
+            <Field
+              label="Celular*"
+              {...register('phoneNumber')}
+              required={true}
+            />
+            <Field
+              label="Instagram"
+              {...register('socialMedia')}
+              required={true}
+            />
           </div>
           <div className="customerForm__actions">
             <Button
@@ -217,6 +138,7 @@ const CustomerForm = () => {
             <Button type="submit" text="Cadastrar" colorType="success" />
           </div>
         </form>
+        <DevTool control={control} />
       </Modal>
     </>
   )
