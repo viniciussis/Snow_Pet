@@ -2,22 +2,22 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { DevTool } from '@hookform/devtools'
 import { useForm } from 'react-hook-form'
-import  { useEffect } from 'react'
 
-import ICustomer from '@/interfaces/ICustomer'
 import useCustomers from '@/hooks/useCustomers'
+import ICustomer from '@/interfaces/ICustomer'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
+import Field from '@/components/Field'
 import './CustomerForm.scss'
 import api from '@/api'
-import Field from '@/components/Field'
 
 const CustomerForm = () => {
   const { getCustomerById } = useCustomers()
   const navigate = useNavigate()
   const params = useParams()
+
   const customer = params.id ? getCustomerById(params.id) : undefined
-  const { register, control } = useForm<ICustomer>({
+  const { register, control, handleSubmit } = useForm<ICustomer>({
     defaultValues: customer ?? {
       name: '',
       address: {
@@ -33,8 +33,8 @@ const CustomerForm = () => {
   })
 
   const addCustomer = useMutation({
-    mutationFn: () => {
-      return api.post<ICustomer>('customers/', newCustomer)
+    mutationFn: (data: ICustomer) => {
+      return api.post<ICustomer>('customers/', data)
     },
     onSuccess: () => {
       navigate('/cliente')
@@ -45,8 +45,8 @@ const CustomerForm = () => {
   })
 
   const updateCustomer = useMutation({
-    mutationFn: () => {
-      return api.patch<ICustomer>(`customers/${params.id}`, newCustomer)
+    mutationFn: (data: ICustomer) => {
+      return api.patch<ICustomer>(`customers/${params.id}`, data)
     },
     onSuccess: () => {
       navigate('/cliente')
@@ -56,33 +56,13 @@ const CustomerForm = () => {
     },
   })
 
-  useEffect(() => {
+  const submitting = (data: ICustomer) => {
+    console.log(data)
+    const { id, ...customer } = data
     if (params.id) {
-      const customer = getCustomerById(params.id)
-      if (customer !== undefined) {
-        setNewCustomer({
-          name: customer.name,
-          address: {
-            neighborhood: customer.address.neighborhood,
-            houseNumber: customer.address.houseNumber,
-            street: customer.address.street,
-            complement: customer.address.complement,
-          },
-          phoneNumber: customer.phoneNumber,
-          email: customer.email,
-          socialMedia: customer.socialMedia,
-        })
-      }
-    }
-  }, [params, getCustomerById])
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(newCustomer)
-    if (params.id) {
-      updateCustomer.mutate()
+      updateCustomer.mutate(customer)
     } else {
-      addCustomer.mutate()
+      addCustomer.mutate(customer)
     }
   }
 
@@ -90,7 +70,7 @@ const CustomerForm = () => {
     <>
       <div className="customerFormContainer" />
       <Modal title="Formulário de Clientes">
-        <form className="customerForm" onSubmit={handleSubmit}>
+        <form className="customerForm" onSubmit={handleSubmit(submitting)}>
           <div className="customerForm__rows">
             <Field label="Nome*" {...register('name')} required={true} />
             <Field label="Email" {...register('email')} required={true} />
@@ -102,15 +82,11 @@ const CustomerForm = () => {
               required={true}
             />
             <Field
-              label="Número da casa*"
+              label="Número*"
               {...register('address.houseNumber')}
               required={true}
             />
-            <Field
-              label="Complemento"
-              {...register('address.complement')}
-              required={true}
-            />
+            <Field label="Complemento" {...register('address.complement')} />
           </div>
           <div className="customerForm__rows">
             <Field
@@ -123,11 +99,7 @@ const CustomerForm = () => {
               {...register('phoneNumber')}
               required={true}
             />
-            <Field
-              label="Instagram"
-              {...register('socialMedia')}
-              required={true}
-            />
+            <Field label="Instagram" {...register('socialMedia')} />
           </div>
           <div className="customerForm__actions">
             <Button
@@ -138,8 +110,13 @@ const CustomerForm = () => {
             <Button type="submit" text="Cadastrar" colorType="success" />
           </div>
         </form>
-        <DevTool control={control} />
       </Modal>
+      <DevTool
+        control={control}
+        styles={{
+          button: { transform: 'scale(1.5)' },
+        }}
+      />
     </>
   )
 }

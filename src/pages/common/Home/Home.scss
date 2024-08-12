@@ -1,11 +1,12 @@
 .home {
+  color: variables.$white;
+  padding: 4rem 2rem 2rem;
+
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   display: flex;
-
-  color: variables.$white;
-  padding: 5.5rem 2rem 0;
-  min-height: 80vh;
+  flex-grow: 1;
 
   &__title {
     font-family: variables.$font-title;
@@ -15,13 +16,13 @@
   }
 
   &__sub {
-    font-size: 1.5rem;
     text-align: center;
+    font-size: 1.5rem;
   }
 
   &__options {
     justify-content: center;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     gap: 0.5rem 1rem;
     flex-wrap: wrap;
     display: flex;
@@ -30,8 +31,8 @@
       border: 3px solid variables.$blue-light;
       border-radius: 0.5rem;
       transition: 0.25s;
-      height: 9rem;
-      width: 9rem;
+      height: 7.5rem;
+      width: 7.5rem;
 
       &:hover {
         transform: scale(1.1);
@@ -39,26 +40,40 @@
     }
   }
 
-  @media screen and (min-width: variables.$desktop-width) {
-    justify-content: center;
-    padding: 0;
+  @include mixins.for-size(desktop) {
+    padding: 0 8rem;
+
+    &__title {
+      font-size: 2.5rem;
+    }
+
+    &__sub {
+      font-size: 1.75rem;
+    }
+
+    &__options {
+      &__icon {
+        height: 8rem;
+        width: 8rem;
+      }
+    }
+  }
+
+  @include mixins.for-size(desktop-md) {
+    padding: 0 16rem;
 
     &__title {
       font-size: 3rem;
     }
 
     &__sub {
-      font-size: 1.75rem;
-      text-align: center;
+      font-size: 2rem;
     }
 
     &__options {
-      padding: 0 10rem;
-      max-width: 70%;
-
       &__icon {
-        width: 10rem;
         height: 10rem;
+        width: 10rem;
       }
     }
   }

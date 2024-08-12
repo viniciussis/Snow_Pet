@@ -1,12 +1,12 @@
-import React from 'react'
+import { ReactNode } from 'react'
 import './Modal.scss'
 
 interface ModalProps {
-  children: React.ReactNode
+  children: ReactNode
   title: string
 }
 
-const Modal: React.FC<ModalProps> = ({ title, children }) => {
+const Modal = ({ title, children }: ModalProps) => {
   return (
     <div className="overlay">
       <div className="modal">

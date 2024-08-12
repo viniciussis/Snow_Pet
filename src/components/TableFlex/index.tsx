@@ -113,8 +113,9 @@ const TableFlex: React.FC<TableFlexProps<any>> = ({
                         <TableCell
                           key={index}
                           style={{
+                            textTransform: 'capitalize',
                             fontFamily: 'Open Sans',
-                            fontSize: '1rem',
+                            fontSize: '0.90rem',
                           }}
                           align={column.align}
                         >

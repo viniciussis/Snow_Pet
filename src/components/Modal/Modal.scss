@@ -13,19 +13,30 @@
 
   .modal {
     flex-direction: column;
+    max-width: 90%;
     display: flex;
     gap: 1rem;
 
     border: 3px solid variables.$blue-light;
     background-color: variables.$white;
     border-radius: 0.5rem;
-    padding: 2rem;
+    padding: 1rem;
 
     &__title {
       font-family: variables.$font-title;
-      font-size: 2.25rem;
       text-align: center;
+      font-size: 1.5rem;
       font-weight: 700;
+    }
+  }
+
+  @include mixins.for-size(tablet) {
+    .modal {
+      padding: 2rem;
+
+      &__title {
+        font-size: 2.25rem;
+      }
     }
   }
 }

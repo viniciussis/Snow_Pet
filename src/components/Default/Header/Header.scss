@@ -1,15 +1,28 @@
 .header {
   background-color: white;
   position: relative;
-  height: 10vh;
+  min-height: 10vh;
   width: 100%;
 
-  .header__logo {
-    transform: translateX(-50%) scale(1.45);
+  &__logo {
+    transform: translateX(-50%);
     position: absolute;
     border-radius: 50%;
     cursor: pointer;
-    bottom: -50%;
+    bottom: -75%;
     left: 50%;
+  }
+
+  @include mixins.for-size(desktop-md) {
+    &__logo {
+      transform: translateX(-50%);
+      bottom: -50%;
+    }
+  }
+
+  @include mixins.for-size(desktop-lg) {
+    &__logo {
+      transform: translateX(-50%) scale(1.5);
+    }
   }
 }

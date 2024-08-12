@@ -5,7 +5,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
   onClick?: () => void
   type?: 'button' | 'reset' | 'submit'
-  colorType?: 'primary' | 'success' | 'fail' | 'goBack'
+  colorType?: 'primary' | 'success' | 'fail'
 }
 
 const Button = ({

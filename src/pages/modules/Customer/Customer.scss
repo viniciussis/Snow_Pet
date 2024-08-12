@@ -1,38 +1,59 @@
 .customer {
-  padding: 6rem 4rem 3rem;
+  padding: 4rem 1.5rem 2rem;
   flex-direction: column;
   align-items: center;
-  min-height: 80vh;
   display: flex;
+  flex-grow: 1;
   gap: 1rem;
 
   &__management {
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    display: flex;
-    width: 100%;
-
     button {
-      position: absolute;
-      top: -5vh;
-      left: 0;
+      display: none;
     }
 
     &__title {
       font-family: variables.$font-title;
       color: variables.$white;
-      font-size: 2.75rem;
+      text-align: center;
       font-weight: 700;
+      font-size: 2rem;
     }
   }
 
   &__actions {
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     display: flex;
     width: 100%;
     gap: 1rem;
+  }
+
+  @include mixins.for-size(tablet) {
+    padding: 4rem 3rem 2rem;
+
+    &__management {
+      position: relative;
+      width: 100%;
+
+      button {
+        position: absolute;
+        display: flex;
+        top: -85%;
+        left: 0;
+      }
+
+      &__title {
+        font-size: 2.75rem;
+      }
+    }
+
+    &__actions {
+      flex-direction: row;
+    }
+  }
+
+  @include mixins.for-size(desktop) {
+    padding: 6rem 4rem 3rem;
   }
 }

@@ -5,8 +5,8 @@
 
   &__input {
     border: 2px solid variables.$blue-light;
-    padding: calc(0.65rem * 1.5) 1.5rem;
     caret-color: variables.$blue-light;
+    padding: calc(0.5rem * 1) 1.5rem;
     border-radius: 0.5rem;
     display: block;
     color: black;
@@ -22,15 +22,15 @@
   }
 
   &__label {
-    margin: calc(0.5rem * 0.75 + 3px) calc(1.5rem * 0.5);
-    padding: calc(0.5rem * 0.75) calc(1.5rem * 0.5);
+    margin: calc(0.35rem * 0.75 + 3px) calc(1.5rem * 0.5);
+    padding: calc(0.35rem * 0.75) calc(1.5rem * 0.5);
     transition: transform 120ms ease-in;
     font-family: variables.$font-title;
     color: var(--theme-primary);
     background-color: white;
     border-radius: 0.75rem;
     transform-origin: 0 0;
-    font-size: 1.25rem;
+    font-size: 1rem;
     position: absolute;
     font-weight: 700;
     top: 0;
@@ -53,6 +53,51 @@
   &:has(.field__error) {
     .field__input {
       border-color: var(--theme-on-primary);
+    }
+  }
+
+  @include mixins.for-size(tablet) {
+    border-radius: 0.5rem;
+    position: relative;
+    flex-grow: 1;
+
+    &__input {
+      padding: calc(0.65rem * 1.5) 1.5rem;
+      border-radius: 0.5rem;
+      display: block;
+      outline: none;
+      width: 100%;
+
+      &:focus,
+      &:not(:placeholder-shown) {
+        & + .field__label {
+          transform: translate(0.25rem, -65%) scale(0.9);
+        }
+      }
+    }
+
+    &__label {
+      margin: calc(0.5rem * 0.75 + 3px) calc(1.5rem * 0.5);
+      padding: calc(0.5rem * 0.75) calc(1.5rem * 0.5);
+      transition: transform 120ms ease-in;
+      border-radius: 0.75rem;
+      transform-origin: 0 0;
+      font-size: 1.25rem;
+      position: absolute;
+      font-weight: 700;
+      top: 0;
+    }
+
+    &__error {
+      margin: calc(0.5rem * 0.75 + 3px) calc(1.5rem * 0.5);
+      padding: calc(0.5rem * 0.75) calc(1.5rem * 0.5);
+      transform: translate(-50%);
+      position: absolute;
+      font-size: 0.85rem;
+      transition: 1s;
+      font-weight: 700;
+      bottom: -1.25rem;
+      left: 50%;
     }
   }
 }

@@ -1,16 +1,22 @@
 .loading {
+  justify-content: center;
   flex-direction: column;
-  margin: 3rem 0 0;
+  min-width: 20%;
   display: flex;
   flex-grow: 1;
-  width: 20%;
   gap: 1rem;
 
   &__title {
     font-family: variables.$font-title;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: white;
+  }
+
+  @include mixins.for-size(tablet) {
+    &__title {
+      font-size: 2.5rem;
+    }
   }
 }

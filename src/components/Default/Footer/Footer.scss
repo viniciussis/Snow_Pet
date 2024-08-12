@@ -1,17 +1,18 @@
 .footer {
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-items: center;
-  display: flex;
-  height: 10vh;
-
   background-color: white;
   color: variables.$orange;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  align-items: center;
+  min-height: 10vh;
+  display: flex;
+  gap: 1.25rem;
   width: 100%;
 
   &__para {
     font-family: variables.$font-title;
-    font-size: 1.5rem;
+    text-align: center;
+    font-size: 1.25rem;
   }
 
   &__icons {
@@ -29,15 +30,46 @@
     }
   }
 
-  @media screen and (min-width: variables.$desktop-width) {
+  @include mixins.for-size(tablet) {
+    justify-content: space-between;
     flex-direction: row;
+    padding: 1rem 2rem;
 
     &__para {
-      min-width: 25%;
+      font-size: 1.15rem;
+      text-align: left;
+      min-width: 19rem;
 
       &--right {
         text-align: right;
       }
     }
+  }
+
+  @include mixins.for-size(desktop) {
+    padding: 1rem 3rem;
+
+    &__para {
+      font-size: 1.25rem;
+    }
+  }
+
+  @include mixins.for-size(desktop-md) {
+    padding: 1rem 4rem;
+
+    &__para {
+      font-size: 1.5rem;
+    }
+
+    &__icons {
+      gap: 1.25rem;
+      a {
+        transform: scale(1.25);
+      }
+    }
+  }
+
+  @include mixins.for-size(desktop-lg) {
+    justify-content: space-around;
   }
 }

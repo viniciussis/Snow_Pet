@@ -9,10 +9,10 @@ const Footer = () => {
       </p>
       <div className="footer__icons">
         <a>
-          <FaInstagram size={36} />
+          <FaInstagram size={30} />
         </a>
         <a>
-          <FaWhatsapp size={36} />
+          <FaWhatsapp size={30} />
         </a>
       </div>
       <p className="footer__para footer__para--right">

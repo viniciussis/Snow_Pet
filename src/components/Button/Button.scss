@@ -5,11 +5,10 @@
   text-transform: uppercase;
   color: variables.$orange;
   border-radius: 0.5rem;
-  padding: 0.5rem 2rem;
-  font-size: 1.25rem;
-
+  padding: 0.5rem 1rem;
   width: fit-content;
   font-weight: 700;
+  font-size: 1rem;
 
   &__primary {
     background-color: variables.$white;
@@ -37,5 +36,14 @@
     &:hover {
       outline: 1px solid variables.$red;
     }
+  }
+
+  @include mixins.for-size(tablet) {
+    padding: 0.5rem 1.25rem;
+    font-size: 1.25rem;
+  }
+
+  @include mixins.for-size(desktop) {
+    padding: 0.5rem 2rem;
   }
 }
