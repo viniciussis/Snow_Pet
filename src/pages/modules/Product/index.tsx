@@ -89,7 +89,6 @@ const Product = () => {
       <div className="product__management">
         <Button
           text="< Voltar"
-          colorType="goBack"
           onClick={() => navigate('/')}
         />
         <h1 className="product__management__title">

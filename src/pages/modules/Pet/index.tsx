@@ -80,7 +80,6 @@ const Pet = () => {
       <div className="pet__management">
         <Button
           text="< Voltar"
-          colorType="goBack"
           onClick={() => navigate('/')}
         />
         <h1 className="pet__management__title">Gerenciamento de Pets</h1>

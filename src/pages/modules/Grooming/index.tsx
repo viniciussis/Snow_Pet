@@ -93,7 +93,6 @@ const Grooming = () => {
       <div className="grooming__management">
         <Button
           text="< Voltar"
-          colorType="goBack"
           onClick={() => navigate('/')}
         />
         <h1 className="grooming__management__title">

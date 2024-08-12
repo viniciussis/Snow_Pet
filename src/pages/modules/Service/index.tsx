@@ -86,11 +86,7 @@ const Service = () => {
   return (
     <div className="service">
       <div className="service__management">
-        <Button
-          text="< Voltar"
-          colorType="goBack"
-          onClick={() => navigate('/')}
-        />
+        <Button text="< Voltar" onClick={() => navigate('/')} />
         <h1 className="service__management__title">
           Gerenciamento de Atendimentos
         </h1>

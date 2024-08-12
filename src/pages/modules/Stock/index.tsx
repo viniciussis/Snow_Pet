@@ -87,7 +87,6 @@ const Stock = () => {
       <div className="stock__management">
         <Button
           text="< Voltar"
-          colorType="goBack"
           onClick={() => navigate('/')}
         />
         <h1 className="stock__management__title">Estoque de Produtos</h1>

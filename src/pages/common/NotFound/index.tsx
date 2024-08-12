@@ -6,7 +6,7 @@ const NotFound = () => {
   const navigate = useNavigate()
   return (
     <div className="notFound">
-      <Button text="< Voltar" colorType="goBack" onClick={() => navigate(-1)} />
+      <Button text="< Voltar" onClick={() => navigate(-1)} />
       <img
         className="notFound__image"
         src="/images/not_found.png"
