@@ -17,6 +17,8 @@
   }
 
   @include mixins.for-size(tablet) {
+    gap: 1.5rem;
+
     &__actions {
       margin-top: 1rem;
     }

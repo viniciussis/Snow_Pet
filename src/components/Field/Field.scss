@@ -30,29 +30,28 @@
     background-color: white;
     border-radius: 0.75rem;
     transform-origin: 0 0;
-    font-size: 1rem;
     position: absolute;
     font-weight: 700;
+    font-size: 1rem;
     top: 0;
   }
 
   &__error {
-    margin: calc(0.5rem * 0.75 + 3px) calc(1.5rem * 0.5);
-    padding: calc(0.5rem * 0.75) calc(1.5rem * 0.5);
-    background-color: var(--theme-background);
-    transform: translate(-50%);
+    transform: translateX(-50%) translateY(50%);
+    background-color: white;
+    width: max-content;
     position: absolute;
-    font-size: 0.85rem;
-    transition: 1s;
+    font-size: 0.75rem;
     font-weight: 700;
-    bottom: -1.25rem;
+    padding: 0 1rem;
     color: red;
+    bottom: 0;
     left: 50%;
   }
 
   &:has(.field__error) {
     .field__input {
-      border-color: var(--theme-on-primary);
+      border-color: red;
     }
   }
 
@@ -89,15 +88,7 @@
     }
 
     &__error {
-      margin: calc(0.5rem * 0.75 + 3px) calc(1.5rem * 0.5);
-      padding: calc(0.5rem * 0.75) calc(1.5rem * 0.5);
-      transform: translate(-50%);
-      position: absolute;
       font-size: 0.85rem;
-      transition: 1s;
-      font-weight: 700;
-      bottom: -1.25rem;
-      left: 50%;
     }
   }
 }

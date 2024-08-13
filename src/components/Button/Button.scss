@@ -38,6 +38,16 @@
     }
   }
 
+  &__disabled {
+    background-color: gray;
+    color: white;
+    border-color: black;
+
+    &:hover {
+      outline: unset;
+    }
+  }
+
   @include mixins.for-size(tablet) {
     padding: 0.5rem 1.25rem;
     font-size: 1.25rem;

@@ -4,7 +4,6 @@ import './Button.scss'
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
   onClick?: () => void
-  type?: 'button' | 'reset' | 'submit'
   colorType?: 'primary' | 'success' | 'fail'
 }
 
@@ -13,12 +12,14 @@ const Button = ({
   onClick,
   colorType = 'primary',
   type = 'button',
+  disabled = false,
 }: ButtonProps) => {
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`button button__${colorType}`}
+      className={`button button__${colorType} button__${disabled ? 'disabled' : ''}`}
+      disabled={disabled}
     >
       {text}
     </button>
