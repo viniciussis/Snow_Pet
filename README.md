@@ -12,6 +12,8 @@ O **Snow Pet Shop** é uma aplicação desenvolvida em React com TypeScript, cri
 - **Axios**: Cliente HTTP para realizar requisições.
 - **Tanstack Query**: Biblioteca para gerenciamento de estado assíncrono e caching de dados.
 - **Zustand**: Biblioteca para gerenciamento de estado no lado do cliente.
+- **React Hook Form**: Biblioteca para gerenciamento e validação de formulários.
+- **Zod**: Biblioteca para validação de esquemas e inferência de tipos.
 - **MUI (Material-UI)**: Biblioteca de componentes de interface de usuário.
 - **SASS**: Pré-processador CSS para estilização, utilizando mixins e variáveis.
 
