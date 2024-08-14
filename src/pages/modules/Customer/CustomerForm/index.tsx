@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { DevTool } from '@hookform/devtools'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
