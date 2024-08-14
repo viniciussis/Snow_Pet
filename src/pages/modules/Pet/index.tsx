@@ -38,7 +38,7 @@ const petColumns: IColumn<IPet>[] = [
 
 const Pet = () => {
   const navigate = useNavigate()
-  const { petsSearch, setPets, removePet, searchPets, pets } = usePets()
+  const { petsSearch, setPets, removePet, searchPets } = usePets()
   const { setCustomers } = useCustomers()
   const customersQuery = useCustomersQuery()
   const { isPending, data, isSuccess } = usePetsQuery()
@@ -57,7 +57,6 @@ const Pet = () => {
     setPets,
   ])
 
-  console.log(pets)
   const updatePet = (id: string) => {
     navigate(`/pet/${id}`)
   }
@@ -66,8 +65,7 @@ const Pet = () => {
     mutationFn: (id: string) => {
       return api.delete(`pets/${id}`)
     },
-    onSuccess: (data, id) => {
-      console.log(data)
+    onSuccess: (_, id) => {
       removePet(id)
     },
     onError: (err) => {
@@ -78,10 +76,7 @@ const Pet = () => {
   return (
     <div className="pet">
       <div className="pet__management">
-        <Button
-          text="< Voltar"
-          onClick={() => navigate('/')}
-        />
+        <Button text="< Voltar" onClick={() => navigate('/')} />
         <h1 className="pet__management__title">Gerenciamento de Pets</h1>
       </div>
       <div className="pet__actions">

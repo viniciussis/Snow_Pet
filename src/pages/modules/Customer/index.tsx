@@ -47,8 +47,7 @@ const Customer = () => {
     mutationFn: (id: string) => {
       return api.delete(`customers/${id}`)
     },
-    onSuccess: (data, id) => {
-      console.log(data)
+    onSuccess: (_, id) => {
       removeCustomer(id)
     },
     onError: (err) => {
@@ -65,7 +64,10 @@ const Customer = () => {
         </h1>
       </div>
       <div className="customer__actions">
-        <SearchBar search={searchCustomers} placeholder="Pesquisar clientes..." />
+        <SearchBar
+          search={searchCustomers}
+          placeholder="Pesquisar clientes..."
+        />
         <Button text="Novo Cliente" onClick={() => navigate('/cliente/novo')} />
       </div>
       {isPending ? (

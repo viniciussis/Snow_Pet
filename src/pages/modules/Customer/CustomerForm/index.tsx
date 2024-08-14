@@ -44,7 +44,6 @@ const CustomerForm = () => {
   const customer = params.id ? getCustomerById(params.id) : undefined
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors, isSubmitting, isValid, isDirty },
   } = useForm<CustomerData>({
@@ -171,12 +170,6 @@ const CustomerForm = () => {
           </div>
         </form>
       </Modal>
-      <DevTool
-        control={control}
-        styles={{
-          button: { transform: 'scale(1.5)' },
-        }}
-      />
     </>
   )
 }

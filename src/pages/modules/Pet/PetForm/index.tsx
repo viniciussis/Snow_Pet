@@ -1,48 +1,74 @@
 import { useNavigate, useParams } from 'react-router-dom'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
+import { PET_OPTIONS } from '@/shared/constants/PetOptions'
+import { PetSpecie } from '@/shared/enums/PetSpecie'
+import { PetGender } from '@/shared/enums/PetGender'
+import { PetSize } from '@/shared/enums/PetSize'
 import useCustomers from '@/hooks/useCustomers'
 import Button from '@/components/Button'
+import Select from '@/components/Select'
 import Modal from '@/components/Modal'
+import Field from '@/components/Field'
 import usePets from '@/hooks/usePets'
 import IPet from '@/interfaces/IPet'
 import api from '@/api'
 import './PetForm.scss'
-import { PetSpecie } from '@/shared/enums/PetSpecie'
-import { PetSize } from '@/shared/enums/PetSize'
-import { PetGender } from '@/shared/enums/PetGender'
+import { DevTool } from '@hookform/devtools'
+
+const schema = z.object({
+  name: z.string(),
+  specie: z.nativeEnum(PetSpecie).or(z.string().max(0)),
+  ownerId: z.string().or(z.string().max(0)),
+  breed: z.string(),
+  size: z.nativeEnum(PetSize).or(z.string().max(0)),
+  gender: z.nativeEnum(PetGender).or(z.string().max(0)),
+  healthProblems: z.string().optional(),
+  allergies: z.string().optional(),
+  additionalInfo: z.string().optional(),
+})
+
+type PetData = z.infer<typeof schema>
 
 const PetForm = () => {
-  const params = useParams()
-  const navigate = useNavigate()
   const { getPetById } = usePets()
-  const { customers: ownerList } = useCustomers()
-  const [newPet, setNewPet] = useState<IPet>({
-    name: '',
-    specie: PetSpecie.CACHORRO,
-    ownerId: '',
-    breed: '',
-    size: PetSize.GRANDE,
-    gender: PetGender.FEMEA,
-    healthProblems: '',
-    allergies: '',
-    additionalInfo: '',
+  const navigate = useNavigate()
+  const params = useParams()
+
+  const pet = params.id ? getPetById(params.id) : undefined
+  const { customers } = useCustomers()
+  const ownerList = customers.map((customer) => ({
+    value: customer.id as string,
+    label: customer.name,
+  }))
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<PetData>({
+    defaultValues: pet ?? {
+      name: '',
+      specie: '',
+      ownerId: '',
+      breed: '',
+      size: '',
+      gender: '',
+      healthProblems: '',
+      allergies: '',
+      additionalInfo: '',
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(schema),
   })
 
-  useEffect(() => {
-    if (params.id) {
-      const pet = getPetById(params.id)
-      if (pet !== undefined) {
-        setNewPet({ ...pet })
-      }
-    }
-  }, [getPetById, params])
-
   const addPet = useMutation({
-    mutationFn: () => {
-      console.log({ ...newPet })
-      return api.post<IPet>('pets/', newPet)
+    mutationFn: (data: PetData) => {
+      return api.post<IPet>('pets/', data)
     },
     onSuccess: () => {
       navigate('/pet')
@@ -53,10 +79,8 @@ const PetForm = () => {
   })
 
   const updatePet = useMutation({
-    mutationFn: () => {
-      const { id, createdAt, updatedAt, ...updatedPet } = newPet
-      console.log({ ...updatedPet })
-      return api.patch<IPet>(`pets/${params.id}`, { ...updatedPet })
+    mutationFn: (data: PetData) => {
+      return api.patch<IPet>(`pets/${params.id}`, data)
     },
     onSuccess: () => {
       navigate('/pet')
@@ -66,154 +90,78 @@ const PetForm = () => {
     },
   })
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = e.target
-    setNewPet({
-      ...newPet,
-      [name]: value,
-    })
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const submitting = (data: PetData) => {
     if (params.id) {
-      updatePet.mutate()
+      updatePet.mutate(data)
     } else {
-      addPet.mutate()
+      addPet.mutate(data)
     }
   }
 
   return (
     <>
       <div className="petFormContainer" />
-      <Modal title="Formulário de Pet">
-        <form className="petForm" onSubmit={handleSubmit}>
+      <Modal title="Formulário de Pets">
+        <form
+          onSubmit={handleSubmit(submitting)}
+          className="petForm"
+          noValidate
+        >
           <div className="petForm__rows">
-            <label className="petForm__label">
-              Nome do Pet*:
-              <input
-                placeholder="Informe o nome do pet..."
-                className="petForm__input"
-                required
-                type="text"
-                name="name"
-                value={newPet.name}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="petForm__label">
-              Dono*:
-              <select
-                className="petForm__select"
-                required
-                name="ownerId"
-                value={newPet.ownerId}
-                onChange={handleInputChange}
-              >
-                <option value="">Selecione o dono do pet...</option>
-                {ownerList.map((owner) => (
-                  <option key={owner.id} value={owner.id}>
-                    {owner.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="petForm__label">
-              Sexo*:
-              <select
-                className="petForm__select"
-                required
-                name="gender"
-                value={newPet.gender}
-                onChange={handleInputChange}
-              >
-                <option value="">Selecione</option>
-                <option value="MACHO">Macho</option>
-                <option value="FEMEA">Fêmea</option>
-              </select>
-            </label>
+            <Field
+              label="Nome*"
+              required={true}
+              {...register('name')}
+              errors={errors.name?.message}
+            />
+            <Select
+              label="Dono*"
+              options={ownerList}
+              {...register('ownerId')}
+              errors={errors.ownerId?.message}
+            />
+            <Select
+              label="Sexo*"
+              options={PET_OPTIONS.GENDER}
+              {...register('gender')}
+              errors={errors.gender?.message}
+            />
           </div>
           <div className="petForm__rows">
-            <label className="petForm__label">
-              Animal*:
-              <select
-                className="petForm__select"
-                required
-                name="specie"
-                value={newPet.specie}
-                onChange={handleInputChange}
-              >
-                <option value="">Selecione</option>
-                <option value="CACHORRO">Cachorro</option>
-                <option value="GATO">Gato</option>
-                <option value="PASSARO">Pássaro</option>
-              </select>
-            </label>
-            <label className="petForm__label">
-              Porte*:
-              <select
-                className="petForm__select"
-                required
-                name="size"
-                value={newPet.size}
-                onChange={handleInputChange}
-              >
-                <option value="">Selecione</option>
-                <option value="PEQUENO">Pequeno</option>
-                <option value="MEDIO">Médio</option>
-                <option value="GRANDE">Grande</option>
-              </select>
-            </label>
-            <label className="petForm__label">
-              Raça*:
-              <input
-                placeholder="informe a raça do pet..."
-                className="petForm__input"
-                required
-                type="text"
-                name="breed"
-                value={newPet.breed}
-                onChange={handleInputChange}
-              />
-            </label>
+            <Select
+              label="Espécie*"
+              options={PET_OPTIONS.SPECIE}
+              {...register('specie')}
+              errors={errors.specie?.message}
+            />
+            <Select
+              label="Porte*"
+              options={PET_OPTIONS.SIZE}
+              {...register('size')}
+              errors={errors.size?.message}
+            />
+            <Field
+              label="Raça*"
+              {...register('breed')}
+              required={true}
+              errors={errors.breed?.message}
+            />
           </div>
-          <label className="petForm__label">
-            Possui problemas de saúde?
-            <input
-              placeholder="Se sim, quais? (opcional)"
-              className="petForm__input"
-              type="text"
-              name="healthProblems"
-              value={newPet.healthProblems}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label className="petForm__label">
-            Possuí alergias?
-            <input
-              placeholder="Se sim, quais? (opcional)"
-              className="petForm__input"
-              type="text"
-              name="allergies"
-              value={newPet.allergies}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label className="petForm__label">
-            Informações adicionais:
-            <input
-              className="petForm__input"
-              type="text"
-              placeholder="Coloque aqui informações adicionais sobre o pet... (opcional)"
-              name="additionalInfo"
-              value={newPet.additionalInfo}
-              onChange={handleInputChange}
-            />
-          </label>
+          <Field
+            label="Problemas de saúde?"
+            {...register('healthProblems')}
+            errors={errors.healthProblems?.message}
+          />
+          <Field
+            label="Alergias?"
+            {...register('allergies')}
+            errors={errors.allergies?.message}
+          />
+          <Field
+            label="Informação adicional"
+            {...register('additionalInfo')}
+            errors={errors.additionalInfo?.message}
+          />
           <div className="petForm__actions">
             <Button
               text="Cancelar"
@@ -224,6 +172,12 @@ const PetForm = () => {
           </div>
         </form>
       </Modal>
+      <DevTool
+        control={control}
+        styles={{
+          button: { transform: 'scale(1.5)' },
+        }}
+      />
     </>
   )
 }
