@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { usePets, useCustomers } from '@/hooks/stores'
-import { IColumn, IPet } from '@/shared/interfaces'
 import { useCustomersQuery } from '@/api/queries'
 import { usePetsQuery } from '@/api/queries/pets'
+import { PET_COLUMNS } from '@/shared/constants'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import Loading from '@/components/Loading'
@@ -13,46 +13,33 @@ import Button from '@/components/Button'
 import api from '@/api'
 import './Pet.scss'
 
-const petColumns: IColumn<IPet>[] = [
-  { id: 'name', label: 'Nome', minWidth: 50 },
-  { id: 'specie', label: 'Espécie', align: 'center', minWidth: 50 },
-  { id: 'breed', label: 'Raça', align: 'center', minWidth: 75 },
-  { id: 'size', label: 'Porte', align: 'center', minWidth: 50 },
-  { id: 'gender', label: 'Sexo', align: 'center', minWidth: 50 },
-  {
-    id: 'healthProblems',
-    label: 'Problemas de Saúde',
-    align: 'center',
-    minWidth: 100,
-  },
-  { id: 'allergies', label: 'Alergias', align: 'center', minWidth: 75 },
-  {
-    id: 'additionalInfo',
-    label: 'Informações Adicionais',
-    align: 'center',
-    minWidth: 100,
-  },
-]
-
 const Pet = () => {
   const navigate = useNavigate()
   const { petsSearch, setPets, removePet, searchPets } = usePets()
+  const {
+    data: petsData,
+    isPending: isPetsPending,
+    isSuccess: isPetsSuccess,
+  } = usePetsQuery()
+  const {
+    data: customersData,
+    isPending: isCustomersPending,
+    isSuccess: isCustomersSuccess,
+  } = useCustomersQuery()
   const { setCustomers } = useCustomers()
-  const customersQuery = useCustomersQuery()
-  const { isPending, data, isSuccess } = usePetsQuery()
 
   useEffect(() => {
-    if (isSuccess && customersQuery.isSuccess) {
-      setPets(data)
-      setCustomers(customersQuery.data)
+    if (isPetsSuccess && isCustomersSuccess) {
+      setPets(petsData)
+      setCustomers(customersData)
     }
   }, [
-    customersQuery.data,
-    customersQuery.isSuccess,
-    data,
-    isSuccess,
-    setCustomers,
+    petsData,
+    customersData,
+    isPetsSuccess,
+    isCustomersSuccess,
     setPets,
+    setCustomers,
   ])
 
   const updatePet = (id: string) => {
@@ -81,14 +68,14 @@ const Pet = () => {
         <SearchBar search={searchPets} placeholder="Pesquisar pet" />
         <Button text="Novo Pet" onClick={() => navigate('/pet/novo')} />
       </div>
-      {isPending ? (
+      {isPetsPending || isCustomersPending ? (
         <Loading />
       ) : (
         <TableFlex
           remove={deletePet.mutate}
           update={updatePet}
           data={petsSearch}
-          columns={petColumns}
+          columns={PET_COLUMNS}
         />
       )}
       <div className="pet__reports">

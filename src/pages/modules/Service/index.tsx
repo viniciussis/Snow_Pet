@@ -69,8 +69,7 @@ const Service = () => {
     mutationFn: (id: string) => {
       return api.delete(`services/${id}`)
     },
-    onSuccess: (data, id) => {
-      console.log(data)
+    onSuccess: (_, id) => {
       removeService(id)
     },
     onError: (err) => {

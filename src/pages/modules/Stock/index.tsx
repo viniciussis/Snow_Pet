@@ -69,8 +69,7 @@ const Stock = () => {
     mutationFn: (id: string) => {
       return api.delete(`stock/${id}`)
     },
-    onSuccess: (data, id) => {
-      console.log(data)
+    onSuccess: (_, id) => {
       removeStockProduct(id)
     },
     onError: (err) => {

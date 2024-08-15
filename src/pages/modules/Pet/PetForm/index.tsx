@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 
 import { usePets, useCustomers } from '@/hooks/stores'
 import { Pet, petSchema } from '@/shared/schemas'
-import { PET_OPTIONS } from '@/shared/constants'
+import { PET_TYPES } from '@/shared/constants'
 import { IPet } from '@/shared/interfaces'
 import Button from '@/components/Button'
 import Select from '@/components/Select'
@@ -104,7 +104,7 @@ const PetForm = () => {
             <Select
               label="Sexo*"
               required={true}
-              options={PET_OPTIONS.GENDER}
+              options={PET_TYPES.GENDER}
               {...register('gender')}
               errors={errors.gender?.message}
             />
@@ -113,14 +113,14 @@ const PetForm = () => {
             <Select
               required={true}
               label="Espécie*"
-              options={PET_OPTIONS.SPECIE}
+              options={PET_TYPES.SPECIE}
               {...register('specie')}
               errors={errors.specie?.message}
             />
             <Select
               label="Porte*"
               required={true}
-              options={PET_OPTIONS.SIZE}
+              options={PET_TYPES.SIZE}
               {...register('size')}
               errors={errors.size?.message}
             />

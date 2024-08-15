@@ -1,11 +1,12 @@
 # Core Features
 
-
+- [x] Custom Input Field
+- [x] Custom Select Field
 
 # UI and Design Features
 
-- [ ] Choose a Personality (What do I want?) - _Friendly and Reliable_
-  - [ ] Fonts
+- [x] Choose a Personality (What do I want?) - _Friendly and Reliable_
+  - [x] Fonts
   - [ ] Colors
   - [ ] Border Radius
   - [ ] Language
@@ -17,4 +18,3 @@
   - [ ] Box shadows, border radius and width
 
 # Nice-to-have Features
-

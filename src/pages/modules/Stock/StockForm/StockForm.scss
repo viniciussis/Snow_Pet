@@ -1,39 +1,30 @@
 .stockForm {
-  display: flex;
   flex-direction: column;
+  display: flex;
   gap: 1rem;
 
   &__rows {
+    flex-wrap: wrap;
     display: flex;
     gap: 1rem;
-  }
-
-  &__label {
-    width: 100%;
-    font-weight: 700;
-    font-size: 1.25rem;
-  }
-
-  &__select {
-    border-radius: 1rem;
-    padding: 0.5rem 1rem;
-    width: 100%;
-  }
-
-  &__input {
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-    width: 100%;
   }
 
   &__actions {
-    width: 100%;
+    justify-content: center;
     display: flex;
+    width: 100%;
     gap: 1rem;
-    justify-content: end;
+  }
+
+  @include mixins.for-size(tablet) {
+    gap: 1.5rem;
+
+    &__actions {
+      margin-top: 1rem;
+    }
   }
 }
 
 .stockFormContainer {
-  min-height: 78vh;
+  min-height: 80vh;
 }
