@@ -1,4 +1,4 @@
-export default interface IStock {
+export interface IStock {
   id?: string
   quantity: number
   date: string

@@ -1,6 +1,6 @@
-import ICategory from './ICategory'
+import { ICategory } from '.'
 
-export default interface IProduct {
+export interface IProduct {
   id?: string
   name: string
   brand: string

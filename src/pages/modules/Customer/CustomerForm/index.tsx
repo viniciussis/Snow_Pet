@@ -2,38 +2,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
-import useCustomers from '@/hooks/useCustomers'
+import { Customer, customerSchema } from '@/shared/schemas'
+import { useCustomers } from '@/hooks/stores'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import Field from '@/components/Field'
 import './CustomerForm.scss'
 import api from '@/api'
-
-const schema = z.object({
-  name: z.string(),
-  address: z.object({
-    neighborhood: z.string(),
-    houseNumber: z.string(),
-    street: z.string(),
-    complement: z.string().optional(),
-  }),
-  socialMedia: z.string().optional(),
-  phoneNumber: z
-    .string()
-    .regex(
-      /^(?:(?:\+|00)55\s?)?(?:\(?[1-9][0-9]\)?\s?)?(?:9[1-9][0-9]{3}-?[0-9]{4})$/,
-      'Número inválido',
-    ),
-  email: z
-    .string()
-    .email('Email inválido')
-    .nullable()
-    .or(z.string().max(0).nullable()),
-})
-
-type CustomerData = z.infer<typeof schema>
 
 const CustomerForm = () => {
   const { getCustomerById } = useCustomers()
@@ -45,7 +21,7 @@ const CustomerForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid, isDirty },
-  } = useForm<CustomerData>({
+  } = useForm<Customer>({
     defaultValues: customer ?? {
       name: '',
       address: {
@@ -56,16 +32,15 @@ const CustomerForm = () => {
       },
       phoneNumber: '',
       socialMedia: '',
-      email: null,
+      email: '',
     },
     mode: 'onBlur',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(customerSchema),
   })
 
   const addCustomer = useMutation({
-    mutationFn: (data: CustomerData) => {
-      console.log(data)
-      return api.post<CustomerData>('customers/', data)
+    mutationFn: (data: Customer) => {
+      return api.post<Customer>('customers/', data)
     },
     onSuccess: () => {
       navigate('/cliente')
@@ -76,8 +51,8 @@ const CustomerForm = () => {
   })
 
   const updateCustomer = useMutation({
-    mutationFn: (data: CustomerData) => {
-      return api.patch<CustomerData>(`customers/${params.id}`, data)
+    mutationFn: (data: Customer) => {
+      return api.patch<Customer>(`customers/${params.id}`, data)
     },
     onSuccess: () => {
       navigate('/cliente')
@@ -87,7 +62,7 @@ const CustomerForm = () => {
     },
   })
 
-  const submitting = (data: CustomerData) => {
+  const submitting = (data: Customer) => {
     if (data.email === '') {
       data.email = null
     }

@@ -1,6 +1,5 @@
+import { IPet } from '@/shared/interfaces'
 import { create } from 'zustand'
-
-import IPet from '@/interfaces/IPet'
 
 interface PetsState {
   pets: IPet[]
@@ -11,7 +10,7 @@ interface PetsState {
   searchPets: (search: string) => void
 }
 
-const usePets = create<PetsState>()((set, get) => ({
+export const usePets = create<PetsState>()((set, get) => ({
   pets: [],
   petsSearch: [],
   setPets: (pets) => set({ pets, petsSearch: pets }),
@@ -34,5 +33,3 @@ const usePets = create<PetsState>()((set, get) => ({
     }
   },
 }))
-
-export default usePets

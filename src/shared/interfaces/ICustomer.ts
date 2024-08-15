@@ -1,6 +1,6 @@
-import IAddress from './IAddress'
+import { IAddress } from '.'
 
-export default interface ICustomer {
+export interface ICustomer {
   id?: string
   name: string
   address: IAddress
@@ -8,4 +8,3 @@ export default interface ICustomer {
   phoneNumber: string
   socialMedia?: string
 }
-  

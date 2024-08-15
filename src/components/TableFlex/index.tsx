@@ -13,12 +13,14 @@ import { FaPencil } from 'react-icons/fa6'
 import { FaTrash } from 'react-icons/fa'
 import { useState } from 'react'
 
-import { formatCategory } from '@/utils/formaters'
-import { formatAddress } from '@/utils/formaters'
-import { formatBoolean } from '@/utils/formaters'
-import { formatDate } from '@/utils/formaters'
-import { formatBrl } from '@/utils/formaters'
-import IColumn from '@/interfaces/IColumn'
+import {
+  formatAddress,
+  formatBoolean,
+  formatBrl,
+  formatCategory,
+  formatDate,
+} from '@/utils'
+import { IColumn } from '@/shared/interfaces'
 import './TableFlex.scss'
 
 interface TableFlexProps<T> {

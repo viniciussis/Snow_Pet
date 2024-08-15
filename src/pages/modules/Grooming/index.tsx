@@ -2,20 +2,14 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
-import { useGroomingsQuery } from '@/api/queries/grooming'
-import { formatBoolean } from '@/utils/formaters'
-import { usePetsQuery } from '@/api/queries/pets'
-import useGroomings from '@/hooks/useGroomings'
-import IGrooming from '@/interfaces/IGrooming'
+import { usePetsQuery, useGroomingsQuery } from '@/api/queries'
+import { formatBrl, formatBoolean, formatDate } from '@/utils'
+import { IColumn, IGrooming, IPet } from '@/shared/interfaces'
+import { usePets, useGroomings } from '@/hooks/stores'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
-import { formatDate } from '@/utils/formaters'
-import { formatBrl } from '@/utils/formaters'
-import IColumn from '@/interfaces/IColumn'
 import Loading from '@/components/Loading'
 import Button from '@/components/Button'
-import usePets from '@/hooks/usePets'
-import IPet from '@/interfaces/IPet'
 import './Grooming.scss'
 import api from '@/api'
 
@@ -91,10 +85,7 @@ const Grooming = () => {
   return (
     <div className="grooming">
       <div className="grooming__management">
-        <Button
-          text="< Voltar"
-          onClick={() => navigate('/')}
-        />
+        <Button text="< Voltar" onClick={() => navigate('/')} />
         <h1 className="grooming__management__title">
           Gerenciamento de Banhos e Tosas
         </h1>

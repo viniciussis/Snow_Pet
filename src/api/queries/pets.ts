@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import IPet from '@/interfaces/IPet'
+import { IPet } from '@/shared/interfaces'
 import api from '..'
 
 const fetchPets = async () => {

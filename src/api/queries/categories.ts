@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import ICategory from '@/interfaces/ICategory'
+import { ICategory } from '@/shared/interfaces'
 import api from '..'
 
 const fetchCategories = async () => {

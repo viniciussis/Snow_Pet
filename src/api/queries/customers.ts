@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import ICustomer from '@/interfaces/ICustomer'
+import { ICustomer } from '@/shared/interfaces'
 import api from '..'
 
 const fetchCustomers = async () => {

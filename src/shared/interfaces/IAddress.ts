@@ -1,4 +1,4 @@
-export default interface IAddress {
+export interface IAddress {
   neighborhood: string
   houseNumber: string
   street: string

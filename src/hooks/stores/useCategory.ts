@@ -1,6 +1,5 @@
+import { ICategory } from '@/shared/interfaces'
 import { create } from 'zustand'
-
-import ICategory from '@/interfaces/ICategory'
 
 interface CategoryState {
   categories: ICategory[]
@@ -9,7 +8,7 @@ interface CategoryState {
   removeCategory: (id: string) => void
 }
 
-const useCategories = create<CategoryState>()((set, get) => ({
+export const useCategories = create<CategoryState>()((set, get) => ({
   categories: [],
   setCategories: (categories) => set({ categories }),
   getCategoryById: (id) =>
@@ -20,5 +19,3 @@ const useCategories = create<CategoryState>()((set, get) => ({
     }))
   },
 }))
-
-export default useCategories

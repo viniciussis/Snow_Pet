@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import IGrooming from '@/interfaces/IGrooming'
+import { IGrooming } from '@/shared/interfaces'
 import api from '..'
 
 const fetchGroomings = async () => {

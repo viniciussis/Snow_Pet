@@ -1,6 +1,5 @@
+import { IStock } from '@/shared/interfaces'
 import { create } from 'zustand'
-
-import IStock from '@/interfaces/IStock'
 
 interface StockState {
   stock: IStock[]
@@ -9,7 +8,7 @@ interface StockState {
   removeStockProduct: (id: string) => void
 }
 
-const useStockProducts = create<StockState>()((set, get) => ({
+export const useStockProducts = create<StockState>()((set, get) => ({
   stock: [],
   setStock: (stock) => set({ stock }),
   getStockProductById: (id) =>
@@ -20,5 +19,3 @@ const useStockProducts = create<StockState>()((set, get) => ({
     }))
   },
 }))
-
-export default useStockProducts

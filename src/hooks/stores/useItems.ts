@@ -1,6 +1,5 @@
+import { IItem } from '@/shared/interfaces'
 import { create } from 'zustand'
-
-import IItem from '@/interfaces/IItem'
 
 interface ItemState {
   items: IItem[]
@@ -9,7 +8,7 @@ interface ItemState {
   removeItem: (id: string) => void
 }
 
-const useItems = create<ItemState>()((set, get) => ({
+export const useItems = create<ItemState>()((set, get) => ({
   items: [],
   setItems: (items) => set({ items }),
   getItemById: (id) => get().items.find((item) => item.id === id),
@@ -19,5 +18,3 @@ const useItems = create<ItemState>()((set, get) => ({
     }))
   },
 }))
-
-export default useItems

@@ -1,6 +1,5 @@
+import { ICustomer } from '@/shared/interfaces'
 import { create } from 'zustand'
-
-import ICustomer from '@/interfaces/ICustomer'
 
 interface CustomerState {
   customers: ICustomer[]
@@ -11,7 +10,7 @@ interface CustomerState {
   getCustomerById: (id: string) => ICustomer | undefined
 }
 
-const useCustomers = create<CustomerState>()((set, get) => ({
+export const useCustomers = create<CustomerState>()((set, get) => ({
   customers: [],
   customersSearch: [],
   setCustomers: (customers) => set({ customers, customersSearch: customers }),
@@ -37,5 +36,3 @@ const useCustomers = create<CustomerState>()((set, get) => ({
     }
   },
 }))
-
-export default useCustomers

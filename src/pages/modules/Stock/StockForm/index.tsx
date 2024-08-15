@@ -2,13 +2,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 
-import useStockProducts from '@/hooks/useStock'
-import IStock from '@/interfaces/IStock'
+import { useProducts, useStockProducts } from '@/hooks/stores'
+import { IStock } from '@/shared/interfaces'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
 import './StockForm.scss'
 import api from '@/api'
-import useProducts from '@/hooks/useProducts'
 
 const StockForm = () => {
   const params = useParams()

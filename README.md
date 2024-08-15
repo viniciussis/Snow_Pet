@@ -66,15 +66,21 @@ A estrutura do projeto é a seguinte:
 
 ```
 src/
+├── api/            # Serviços para chamadas de API
+├──── queries/      # Chamadas da API com React-Query
 ├── assets/         # Arquivos estáticos (imagens, fontes, estilos, etc.)
 ├──── styles/       # Arquivos SASS e mixins
 ├── components/     # Componentes reutilizáveis
 ├── hooks/          # Hooks personalizados
+├──── stores/       # Stores do Zustand
 ├── pages/          # Páginas da aplicação
-├── api/            # Serviços para chamadas de API
-├── interfaces/     # Interfaces da aplicação
-├── utils/          # Funções utilitárias compartilhadas pela aplicação
-├── routes.tsx      # Componente raiz e do roteamento da aplicação
+├── shared/         # Tudo o que é compartilhado pela aplicação
+├──── constants/    # Constantes
+├──── enums/        # Enums
+├──── interfaces/   # Interfaces
+├──── schemas/      # Zod Schemas
+├── utils/          # Funções utilitárias
+├── routes.tsx      # Roteamento da aplicação
 ├── main.tsx        # Ponto de entrada da aplicação
 └── vite-env.d.ts   # Tipos do Vite
 ```

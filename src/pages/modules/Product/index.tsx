@@ -2,18 +2,14 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
-import { useCategoriesQuery } from '@/api/queries/categories'
-import { useProductsQuery } from '@/api/queries/products'
-import useCategories from '@/hooks/useCategory'
-import ICategory from '@/interfaces/ICategory'
+import { useProductsQuery, useCategoriesQuery } from '@/api/queries'
+import { IColumn, IProduct, ICategory } from '@/shared/interfaces'
+import { useCategories, useProducts } from '@/hooks/stores'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
-import { formatBrl } from '@/utils/formaters'
-import useProducts from '@/hooks/useProducts'
-import IProduct from '@/interfaces/IProduct'
 import Loading from '@/components/Loading'
-import IColumn from '@/interfaces/IColumn'
 import Button from '@/components/Button'
+import { formatBrl } from '@/utils'
 import api from '@/api'
 import './Product.scss'
 
@@ -87,10 +83,7 @@ const Product = () => {
   return (
     <div className="product">
       <div className="product__management">
-        <Button
-          text="< Voltar"
-          onClick={() => navigate('/')}
-        />
+        <Button text="< Voltar" onClick={() => navigate('/')} />
         <h1 className="product__management__title">
           Gerenciamento de Produtos
         </h1>

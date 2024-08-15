@@ -1,6 +1,5 @@
+import { IGrooming } from '@/shared/interfaces'
 import { create } from 'zustand'
-
-import IGrooming from '@/interfaces/IGrooming'
 
 interface GroomingsStore {
   groomings: IGrooming[]
@@ -9,7 +8,7 @@ interface GroomingsStore {
   getGroomingById: (id: string) => IGrooming | undefined
 }
 
-const useGroomings = create<GroomingsStore>()((set, get) => ({
+export const useGroomings = create<GroomingsStore>()((set, get) => ({
   groomings: [],
   setGroomings: (groomings) => set({ groomings }),
   getGroomingById: (id) =>
@@ -19,5 +18,3 @@ const useGroomings = create<GroomingsStore>()((set, get) => ({
       groomings: state.groomings.filter((grooming) => grooming.id !== id),
     })),
 }))
-
-export default useGroomings

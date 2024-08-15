@@ -2,14 +2,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 
-import useGroomings from '@/hooks/useGroomings'
-import IGrooming from '@/interfaces/IGrooming'
+import { formatDateToInputField, formatDateToDatabase } from '@/utils'
+import { useGroomings, usePets } from '@/hooks/stores'
+import { IGrooming } from '@/shared/interfaces'
 import Button from '@/components/Button'
 import Modal from '@/components/Modal'
-import usePets from '@/hooks/usePets'
 import './GroomingForm.scss'
 import api from '@/api'
-import { formatDateToDatabase, formatDateToInputField } from '@/utils/formaters'
 
 const GroomingForm = () => {
   const params = useParams()

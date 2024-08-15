@@ -1,4 +1,4 @@
-export default interface IItem {
+export interface IItem {
   id?: string
   type: string
   quantity: number

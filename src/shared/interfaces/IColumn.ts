@@ -1,7 +1,6 @@
-import IAddress from './IAddress'
-import ICategory from './ICategory'
+import { IAddress, ICategory } from '.'
 
-export default interface IColumn<T> {
+export interface IColumn<T> {
   id: keyof T
   label: string
   minWidth?: number

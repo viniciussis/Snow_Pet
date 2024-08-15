@@ -1,4 +1,4 @@
-export default interface IGrooming {
+export interface IGrooming {
   id?: string
   type: string
   price: number

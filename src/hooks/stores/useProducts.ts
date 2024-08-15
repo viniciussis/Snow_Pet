@@ -1,6 +1,5 @@
+import { IProduct } from '@/shared/interfaces'
 import { create } from 'zustand'
-
-import IProduct from '@/interfaces/IProduct'
 
 interface ProductState {
   products: IProduct[]
@@ -11,7 +10,7 @@ interface ProductState {
   getProductById: (id: string) => IProduct | undefined
 }
 
-const useProducts = create<ProductState>()((set, get) => ({
+export const useProducts = create<ProductState>()((set, get) => ({
   products: [],
   productsSearch: [],
   setProducts: (products) => set({ products, productsSearch: products }),
@@ -37,5 +36,3 @@ const useProducts = create<ProductState>()((set, get) => ({
     }
   },
 }))
-
-export default useProducts

@@ -1,8 +1,6 @@
-import { PetGender } from '@/shared/enums/PetGender'
-import { PetSpecie } from '@/shared/enums/PetSpecie'
-import { PetSize } from '@/shared/enums/PetSize'
+import { PetSpecie, PetSize, PetGender } from '../enums'
 
-export default interface IPet {
+export interface IPet {
   id?: string
   name: string
   specie: PetSpecie
