@@ -11,6 +11,7 @@
 
   &__actions {
     justify-content: center;
+    flex-wrap: wrap;
     display: flex;
     width: 100%;
     gap: 1rem;

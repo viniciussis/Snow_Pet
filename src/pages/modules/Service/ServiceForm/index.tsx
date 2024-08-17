@@ -1,33 +1,42 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { formatDateToDatabase, formatDateToInputField } from '@/utils'
 import { useServices, useCustomers } from '@/hooks/stores'
-import { IService } from '@/shared/interfaces'
+import { Service } from '@/shared/schemas'
 import Button from '@/components/Button'
+import Select from '@/components/Select'
 import Modal from '@/components/Modal'
+import Field from '@/components/Field'
 import './ServiceForm.scss'
 import api from '@/api'
 
 const ServiceForm = () => {
-  const params = useParams()
-  const navigate = useNavigate()
   const { getServiceById } = useServices()
-  const { customers: customersList } = useCustomers()
-  const [newService, setNewService] = useState<IService>({
-    customerId: '',
-    date: new Date().toUTCString(),
-    totalValue: 0,
+  const { customers } = useCustomers()
+  const navigate = useNavigate()
+  const params = useParams()
+
+  const service = params.id ? getServiceById(params.id) : undefined
+  const customersList = customers.map((customer) => ({
+    value: customer.id as string,
+    label: customer.name,
+  }))
+  const {
+    register,
+    handleSubmit,
+    formState: { isDirty, isValid, isSubmitting, errors },
+  } = useForm<Service>({
+    defaultValues: service ?? {
+      customerId: '',
+      date: new Date(),
+      totalValue: 0,
+    },
   })
 
   const addService = useMutation({
-    mutationFn: () => {
-      return api.post<IService>('services/', {
-        totalValue: Number(newService.totalValue),
-        customerId: newService.customerId,
-        date: formatDateToDatabase(newService.date),
-      })
+    mutationFn: (data: Service) => {
+      return api.post<Service>('services/', data)
     },
     onSuccess: () => {
       navigate('/atendimento')
@@ -38,12 +47,8 @@ const ServiceForm = () => {
   })
 
   const updateService = useMutation({
-    mutationFn: () => {
-      return api.patch<IService>(`services/${params.id}`, {
-        totalValue: Number(newService.totalValue),
-        customerId: newService.customerId,
-        date: formatDateToDatabase(newService.date),
-      })
+    mutationFn: (data: Service) => {
+      return api.patch<Service>(`services/${params.id}`, data)
     },
     onSuccess: () => {
       navigate('/atendimento')
@@ -53,38 +58,11 @@ const ServiceForm = () => {
     },
   })
 
-  useEffect(() => {
+  const submitting = (data: Service) => {
     if (params.id) {
-      const service = getServiceById(params.id)
-      if (service !== undefined) {
-        setNewService({
-          customerId: service.customerId,
-          date: formatDateToInputField(service.date),
-          totalValue: service.totalValue,
-        })
-      }
-    }
-  }, [params, getServiceById])
-
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = e.target
-    setNewService({
-      ...newService,
-      [name]: value,
-    })
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(newService)
-    if (params.id) {
-      updateService.mutate()
+      updateService.mutate(data)
     } else {
-      addService.mutate()
+      addService.mutate(data)
     }
   }
 
@@ -92,72 +70,40 @@ const ServiceForm = () => {
     <>
       <div className="serviceFormContainer" />
       <Modal title="Formulário de Atendimento">
-        <form className="serviceForm" onSubmit={handleSubmit}>
-          <div className="serviceForm__rows">
-            <label className="serviceForm__label">
-              Nome do Cliente*:
-              <select
-                className="serviceForm__select"
-                required
-                name="customerId"
-                value={newService.customerId}
-                onChange={handleInputChange}
-              >
-                <option value="">Selecione o cliente...</option>
-                {customersList.map((customer) => (
-                  <option key={customer.id} value={customer.id}>
-                    {customer.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div className="serviceForm__rows">
-            <label className="serviceForm__label">
-              Valor Total*:
-              <input
-                placeholder="Valor total..."
-                className="serviceForm__input"
-                required
-                type="number"
-                min={0}
-                name="totalValue"
-                value={newService.totalValue}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label className="serviceForm__label">
-              Data*:
-              <input
-                placeholder="informe a data do Atendimento..."
-                className="serviceForm__input"
-                required
-                type="datetime-local"
-                name="date"
-                value={newService.date}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className="serviceForm__rows">
-            <Button
-              text="Adicionar Serviço"
-              colorType="primary"
-              onClick={() => navigate('/atendimento/servico/a')}
-            />
-            <Button
-              text="Adicionar Produto"
-              colorType="primary"
-              onClick={() => navigate('/atendimento/produto/a')}
-            />
-          </div>
+        <form className="serviceForm" onSubmit={handleSubmit(submitting)}>
+          <Select
+            label="Cliente*"
+            options={customersList}
+            {...register('customerId')}
+            errors={errors.customerId?.message}
+          />
+          <Field
+            min={0}
+            type="number"
+            label="Valor Total*"
+            errors={errors.totalValue?.message}
+            {...register('totalValue', { valueAsNumber: true })}
+          />
+          <Field
+            label="Data*"
+            type="datetime-local"
+            errors={errors.date?.message}
+            {...register('date', { valueAsDate: true })}
+          />
           <div className="serviceForm__actions">
+            <Button text="Adicionar Serviço" colorType="primary" />
+            <Button text="Adicionar Produto" colorType="primary" />
             <Button
               text="Cancelar"
               colorType="fail"
               onClick={() => navigate('/atendimento')}
             />
-            <Button type="submit" text="Cadastrar" colorType="success" />
+            <Button
+              type="submit"
+              text="Cadastrar"
+              colorType="success"
+              disabled={!isDirty || !isValid || isSubmitting}
+            />
           </div>
         </form>
       </Modal>

@@ -1,6 +1,6 @@
 export interface IService {
   id?: string
   totalValue: number
-  date: string
+  date: Date
   customerId: string
 }
