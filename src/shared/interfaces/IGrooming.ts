@@ -2,7 +2,7 @@ export interface IGrooming {
   id?: string
   type: string
   price: number
-  date: string
+  date: Date
   petId: string
   updatedAt?: string
   createdAt?: string

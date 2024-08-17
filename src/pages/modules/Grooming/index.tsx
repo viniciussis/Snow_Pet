@@ -3,29 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { usePetsQuery, useGroomingsQuery } from '@/api/queries'
-import { formatBrl, formatBoolean, formatDate } from '@/utils'
-import { IColumn, IGrooming, IPet } from '@/shared/interfaces'
 import { usePets, useGroomings } from '@/hooks/stores'
+import { GROOMING_COLUMNS } from '@/shared/constants'
 import SearchBar from '@/components/SearchBar'
 import TableFlex from '@/components/TableFlex'
 import Loading from '@/components/Loading'
 import Button from '@/components/Button'
 import './Grooming.scss'
 import api from '@/api'
-
-const groomingColumns: IColumn<IGrooming & IPet>[] = [
-  { id: 'name', label: 'Nome do Pet', align: 'center', minWidth: 50 },
-  { id: 'type', label: 'Tipo', align: 'center', minWidth: 75 },
-  { id: 'price', label: 'Preço', minWidth: 50, align: 'center', formatBrl },
-  {
-    id: 'combo',
-    label: 'É Pacote?',
-    align: 'center',
-    minWidth: 50,
-    formatBoolean,
-  },
-  { id: 'date', label: 'Data', align: 'center', minWidth: 75, formatDate },
-]
 
 const Grooming = () => {
   const navigate = useNavigate()
@@ -107,7 +92,7 @@ const Grooming = () => {
           remove={deleteGrooming.mutate}
           update={updateGrooming}
           data={assemblingData()}
-          columns={groomingColumns}
+          columns={GROOMING_COLUMNS}
         />
       )}
       <div className="grooming__reports">
