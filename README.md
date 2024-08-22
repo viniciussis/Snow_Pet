@@ -1,104 +1,111 @@
 # Snow Pet - Pet Shop
 
-O **Snow Pet Shop** é uma aplicação desenvolvida em React com TypeScript, criada para para gerenciar as operações de um pet shop, incluindo serviços de banho e tosa e a venda de produtos para pets. A aplicação faz integração com sua própria API desenvolvida em NestJS e utiliza diversas bibliotecas para gerenciamento de estado, requisições HTTP, estilização e componentes de UI.
+The **Snow Pet Shop** is an application developed in React with TypeScript, designed to manage the operations of a pet shop, including grooming services and the sale of pet products. The application integrates with its own API developed in NestJS and utilizes various libraries for state management, HTTP requests, styling, and UI components.
 
-![Screenshot da Homepage](public/screenshot.png)
+![Homepage Screenshot](public/screenshot.png)
 
-## Tecnologias Utilizadas
+<p align="center">
+  <img src="https://img.shields.io/github/license/viniciussis/Snow_Pet" alt="GitHub license" />
+  <img src="https://img.shields.io/github/stars/viniciussis/Snow_Pet" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/forks/viniciussis/Snow_Pet" alt="GitHub forks" />
+</p>
 
-- **React**: Biblioteca para construção de interfaces de usuário.
-- **TypeScript**: Superset do JavaScript que adiciona tipos estáticos.
-- **Vite**: Ferramenta de build rápida para projetos modernos.
-- **Axios**: Cliente HTTP para realizar requisições.
-- **Tanstack Query**: Biblioteca para gerenciamento de estado assíncrono e caching de dados.
-- **Zustand**: Biblioteca para gerenciamento de estado no lado do cliente.
-- **React Hook Form**: Biblioteca para gerenciamento e validação de formulários.
-- **Zod**: Biblioteca para validação de esquemas e inferência de tipos.
-- **MUI (Material-UI)**: Biblioteca de componentes de interface de usuário.
-- **SASS**: Pré-processador CSS para estilização, utilizando mixins e variáveis.
+You can also check out the live demo of the project [here!](https://my-portfolio-rust-eight-80.vercel.app/)
 
-## Funcionalidades
+## Technologies Used
 
-- Gerenciamento de pets.
-- Gerenciamento de clientes.
-- Controle de estoque de produtos.
-- Registro de vendas e serviços de banho e tosa.
-- Interface amigável e responsiva.
+- **React**: Library for building user interfaces.
+- **TypeScript**: JavaScript superset that adds static types.
+- **Vite**: Fast build tool for modern projects.
+- **Axios**: HTTP client for making requests.
+- **Tanstack Query**: Library for asynchronous state management and data caching.
+- **Zustand**: State management library for the client side.
+- **React Hook Form**: Library for form management and validation.
+- **Zod**: Schema validation and type inference library.
+- **MUI (Material-UI)**: Library for UI components.
+- **SASS**: CSS preprocessor for styling, using mixins and variables.
+
+## Features
+
+- Pet management.
+- Client management.
+- Product inventory control.
+- Record of sales and grooming services.
+- User-friendly and responsive interface.
 
 ## Back-End
 
-- [Snow Pet API](github.com/viniciussis/snow_pet_api)
+- [Snow Pet API](https://github.com/viniciussis/snow_pet_api)
 
-## Pré-requisitos
+## Prerequisites
 
-Antes de rodar o projeto, certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
+Before running the project, make sure you have the following tools installed on your machine:
 
 - [Node.js](https://nodejs.org/en/download/)
-- npm (geralmente vem com o Node.js) ou [Yarn](https://classic.yarnpkg.com/en/docs/install/)
+- npm (usually comes with Node.js) or [Yarn](https://classic.yarnpkg.com/en/docs/install/)
 
-## Instalação
+## Installation
 
-1. **Clone o repositório:**
+1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/viniciussis/Snow_Pet.git
    cd Snow_Pet
    ```
 
-2. **Instale as dependências:**
+2. **Install the dependencies:**
 
    ```bash
    npm install
-   # ou
+   # or
    yarn install
    ```
 
-3. **Inicie o servidor de desenvolvimento:**
+3. **Start the development server:**
    ```bash
    npm run dev
-   # ou
+   # or
    yarn dev
    ```
 
-## Estrutura do Projeto
+## Project Structure
 
-A estrutura do projeto é a seguinte:
+The project structure is as follows:
 
 ```
 src/
-├── api/            # Serviços para chamadas de API
-├──── queries/      # Chamadas da API com React-Query
-├── assets/         # Arquivos estáticos (imagens, fontes, estilos, etc.)
-├──── styles/       # Arquivos SASS e mixins
-├── components/     # Componentes reutilizáveis
-├── hooks/          # Hooks personalizados
-├──── stores/       # Stores do Zustand
-├── pages/          # Páginas da aplicação
-├── shared/         # Tudo o que é compartilhado pela aplicação
-├──── constants/    # Constantes
+├── api/            # Services for API calls
+├──── queries/      # API calls with React-Query
+├── assets/         # Static files (images, fonts, styles, etc.)
+├──── styles/       # SASS files and mixins
+├── components/     # Reusable components
+├── hooks/          # Custom hooks
+├──── stores/       # Zustand stores
+├── pages/          # Application pages
+├── shared/         # Everything shared across the application
+├──── constants/    # Constants
 ├──── enums/        # Enums
 ├──── interfaces/   # Interfaces
 ├──── schemas/      # Zod Schemas
-├── utils/          # Funções utilitárias
-├── routes.tsx      # Roteamento da aplicação
-├── main.tsx        # Ponto de entrada da aplicação
-└── vite-env.d.ts   # Tipos do Vite
+├── utils/          # Utility functions
+├── routes.tsx      # Application routing
+└── main.tsx        # Application entry point
 ```
 
-## Uso
+## Usage
 
-Após iniciar o servidor de desenvolvimento, você pode acessar a aplicação no seu navegador em [http://localhost:5173](http://localhost:5173).
+After starting the development server, you can access the application in your browser at [http://localhost:5173](http://localhost:5173).
 
-## Contribuição
+## Contribution
 
-Se você deseja contribuir com o projeto, siga os passos abaixo:
+If you would like to contribute to the project, follow the steps below:
 
-1. **Fork o repositório**
-2. **Crie uma branch para a sua feature:** (`git checkout -b minha-feature`)
-3. **Commit suas mudanças:** (`git commit -m 'Adicionei minha feature'`)
-4. **Push para a branch:** (`git push origin minha-feature`)
-5. **Abra um Pull Request**
+1. **Fork the repository**
+2. **Create a branch for your feature:** (`git checkout -b my-feature`)
+3. **Commit your changes:** (`git commit -m 'Added my feature'`)
+4. **Push to the branch:** (`git push origin my-feature`)
+5. **Open a Pull Request**
 
-## Licença
+---
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+**Developed by Vinícius Silva Santos**
