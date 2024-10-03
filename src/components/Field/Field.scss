@@ -55,6 +55,13 @@
     }
   }
 
+  &--dark {
+    .field__input {
+      border: 2px solid variables.$blue-dark;
+      caret-color: variables.$blue-dark;
+    }
+  }
+
   @include mixins.for-size(tablet) {
     border-radius: 0.5rem;
     position: relative;

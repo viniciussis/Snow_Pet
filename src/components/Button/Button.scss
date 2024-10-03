@@ -38,6 +38,16 @@
     }
   }
 
+  &__dark {
+    background-color: variables.$blue-dark;
+    border: 2px solid variables.$blue-light;
+    color: variables.$blue-light;
+
+    &:hover {
+      outline: 1px solid variables.$blue-dark;
+    }
+  }
+
   &__disabled {
     background-color: gray;
     color: white;

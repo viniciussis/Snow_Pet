@@ -2,8 +2,9 @@ import { forwardRef, InputHTMLAttributes } from 'react'
 import './Field.scss'
 
 interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string
+  label?: string
   errors?: string
+  colorType?: 'dark'
 }
 
 const Field = forwardRef<HTMLInputElement, FieldProps>(
@@ -13,13 +14,14 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(
       type = 'text',
       label,
       errors,
+      colorType,
       autoComplete = 'off',
       ...rest
     },
     ref,
   ) => {
     return (
-      <label className="field">
+      <label className={`field ${colorType ? `field--${colorType}` : ''}`}>
         <input
           autoComplete={autoComplete}
           className="field__input"
@@ -29,7 +31,7 @@ const Field = forwardRef<HTMLInputElement, FieldProps>(
           ref={ref}
           {...rest}
         />
-        <span className="field__label">{label}</span>
+        {label && <span className="field__label">{label}</span>}
         {errors && <span className="field__error">{errors}</span>}
       </label>
     )

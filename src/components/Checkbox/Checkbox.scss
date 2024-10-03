@@ -1,0 +1,31 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &__input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  &__label {
+    font-size: 1rem;
+    color: variables.$blue-dark;
+  }
+
+  &__error {
+    color: red;
+    font-size: 12px;
+  }
+
+  &--dark {
+    .checkbox__label {
+      color: #333;
+    }
+
+    .checkbox__input {
+      border-color: #333;
+    }
+  }
+}
