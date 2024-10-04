@@ -7,6 +7,7 @@ import PetForm from '@/pages/modules/Pet/PetForm'
 import Grooming from '@/pages/modules/Grooming'
 import AdminLayout from '@/Layouts/AdminLayout'
 import Customer from '@/pages/modules/Customer'
+import NotFound from '@/pages/common/NotFound'
 import Product from '@/pages/modules/Product'
 import Service from '@/pages/modules/Service'
 import Stock from '@/pages/modules/Stock'
@@ -39,6 +40,7 @@ const AdminRoutes = () => {
         <Route path="produto/novo" element={<ProductForm />} />
         <Route path="produto/:id" element={<ProductForm />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

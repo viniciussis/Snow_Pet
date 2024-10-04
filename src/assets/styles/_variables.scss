@@ -1,3 +1,30 @@
+// fonts
+$font-title: 'Baloo 2';
+$font-text: 'Open Sans';
+$font-size: 18px;
+
+// colors
+$orange: #ff4800;
+$orange-light: hsl(27, 100%, 65%);
+$orange-dark: hsl(22, 85%, 43%);
+$blue-dark: #0a2057;
+$blue-light: #54c4cf;
+$white: white;
+$black: black;
+$red: red;
+$red-light: rgb(255, 134, 134);
+$green: rgb(0, 190, 0);
+$green-light: rgb(102, 216, 102);
+
+// devices breakpoints
+$breakpoint-tablet: 767px;
+$breakpoint-desktop: 1024px;
+$breakpoint-desktop-md: 1440px;
+$breakpoint-desktop-lg: 1880px;
+$mobile-width: 375px;
+$desktop-width: 1250px;
+
+// themes
 $--theme-primary: --theme-primary;
 $--theme-secondary: --theme-secondary;
 $--theme-surface: --theme-surface;
@@ -10,7 +37,6 @@ $--theme-smoke-up: --theme-smoke-up;
 $--theme-higher-contrast: --theme-higher-contrast;
 $--theme-background-opaque: --theme-background-opaque;
 
-// themes
 $theme-map-light: (
   $--theme-primary: #ff4800,
   $--theme-secondary: #54c4cf,
@@ -38,29 +64,3 @@ $theme-map-dark: (
   $--theme-smoke-up: #ffffff25,
   $--theme-higher-contrast: #000000,
 );
-
-// fonts
-$font-title: 'Baloo 2';
-$font-text: 'Open Sans';
-$font-size: 18px;
-
-// colors
-$orange: #ff4800;
-$orange-light: hsl(27, 100%, 65%);
-$orange-dark: hsl(22, 85%, 43%);
-$blue-dark: #0a2057;
-$blue-light: #54c4cf;
-$white: white;
-$black: black;
-$red: red;
-$red-light: rgb(255, 134, 134);
-$green: rgb(0, 190, 0);
-$green-light: rgb(102, 216, 102);
-
-// devices widths
-$breakpoint-tablet: 767px;
-$breakpoint-desktop: 1024px;
-$breakpoint-desktop-md: 1440px;
-$breakpoint-desktop-lg: 1880px;
-$mobile-width: 375px;
-$desktop-width: 1250px;

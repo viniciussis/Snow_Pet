@@ -8,13 +8,13 @@
 
 body {
   background-image: url('/images/background.png');
-  background-color: variables.$orange-light;
+  background-color: var(--theme-primary);
   background-repeat: repeat;
   background-size: contain;
   margin: 0;
 }
 
-#root {
+:root {
   flex-direction: column;
   min-height: 100vh;
   display: flex;
