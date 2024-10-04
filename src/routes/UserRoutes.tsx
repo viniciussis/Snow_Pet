@@ -1,4 +1,4 @@
-import NotFound from '@/pages/common/NotFound'
+import NotFound from '@/pages/error/NotFound'
 import UserLayout from '@/Layouts/UserLayout'
 
 import { Route, Routes } from 'react-router-dom'

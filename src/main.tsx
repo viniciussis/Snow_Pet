@@ -17,4 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>,
 )
 
+function setTheme(theme: 'light' | 'dark') {
+  document.documentElement.classList.remove('light', 'dark')
+  document.documentElement.classList.add(theme)
+}
+
+setTheme('light')
+
 // <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" />

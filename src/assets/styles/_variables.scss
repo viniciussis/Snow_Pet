@@ -28,6 +28,8 @@ $desktop-width: 1250px;
 $--theme-primary: --theme-primary;
 $--theme-secondary: --theme-secondary;
 $--theme-surface: --theme-surface;
+$--background-primary: --background-primary;
+$--background-secondary: --background-secondary;
 $--theme-background: --theme-background;
 $--theme-on-primary: --theme-on-primary;
 $--theme-on-secondary: --theme-on-secondary;
@@ -38,29 +40,33 @@ $--theme-higher-contrast: --theme-higher-contrast;
 $--theme-background-opaque: --theme-background-opaque;
 
 $theme-map-light: (
-  $--theme-primary: #ff4800,
-  $--theme-secondary: #54c4cf,
-  $--theme-surface: #f3f1ed,
-  $--theme-background: #ffffff,
-  $--theme-background-opaque: #f3f1edda,
-  $--theme-on-primary: #96c11f,
-  $--theme-on-secondary: #f8f8f8,
-  $--theme-on-surface: #1a1a1a,
-  $--theme-smoke-down: #0000004d,
-  $--theme-smoke-up: #ffffff,
-  $--theme-higher-contrast: #ffffff,
+  --background-primary: $orange-light,
+  --background-secondary: white,
+  --theme-primary: #ff4800,
+  --theme-secondary: #54c4cf,
+  --theme-surface: #f3f1ed,
+  --theme-background: #ffffff,
+  --theme-background-opaque: #f3f1edda,
+  --theme-on-primary: #96c11f,
+  --theme-on-secondary: #f8f8f8,
+  --theme-on-surface: #1a1a1a,
+  --theme-smoke-down: #0000004d,
+  --theme-smoke-up: #ffffff,
+  --theme-higher-contrast: #ffffff,
 );
 
 $theme-map-dark: (
-  $--theme-primary: #96c11f,
-  $--theme-secondary: #f8f8f8,
-  $--theme-surface: #1a1a1a,
-  $--theme-background: #000000,
-  $--theme-background-opaque: #1a1a1ad2,
-  $--theme-on-primary: #5d7715,
-  $--theme-on-secondary: #000000,
-  $--theme-on-surface: #f3f1ed,
-  $--theme-smoke-down: #000000,
-  $--theme-smoke-up: #ffffff25,
-  $--theme-higher-contrast: #000000,
+  --background-primary: orange,
+  --background-secondary: black,
+  --theme-primary: #96c11f,
+  --theme-secondary: #f8f8f8,
+  --theme-surface: #1a1a1a,
+  --theme-background: #000000,
+  --theme-background-opaque: #1a1a1ad2,
+  --theme-on-primary: #5d7715,
+  --theme-on-secondary: #000000,
+  --theme-on-surface: #f3f1ed,
+  --theme-smoke-down: #000000,
+  --theme-smoke-up: #ffffff25,
+  --theme-higher-contrast: #000000,
 );

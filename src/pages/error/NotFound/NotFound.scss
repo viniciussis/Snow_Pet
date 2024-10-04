@@ -1,0 +1,41 @@
+.notFound {
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+  flex-grow: 1;
+  gap: 2rem;
+
+  button {
+    display: none;
+  }
+
+  &__image {
+    align-self: center;
+    width: 100%;
+  }
+
+  @include mixins.for-size(tablet) {
+    align-items: unset;
+    padding: 6rem;
+
+    button {
+      display: unset;
+    }
+  }
+
+  @include mixins.for-size(desktop) {
+    max-height: 80vh;
+
+    &__image {
+      max-width: 80%;
+    }
+  }
+
+  @include mixins.for-size(desktop-lg) {
+    &__image {
+      max-width: 60%;
+    }
+  }
+}
