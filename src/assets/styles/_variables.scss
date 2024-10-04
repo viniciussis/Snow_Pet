@@ -25,14 +25,14 @@ $mobile-width: 375px;
 $desktop-width: 1250px;
 
 // themes
+$--background-primary: --background-primary;
+$--background-secondary: --background-secondary;
 $--theme-primary: --theme-primary;
 $--theme-secondary: --theme-secondary;
 $--theme-surface: --theme-surface;
-$--background-primary: --background-primary;
-$--background-secondary: --background-secondary;
 $--theme-background: --theme-background;
-$--theme-on-primary: --theme-on-primary;
-$--theme-on-secondary: --theme-on-secondary;
+$--theme-off-primary: --theme-off-primary;
+$--theme-off-secondary: --theme-off-secondary;
 $--theme-on-surface: --theme-on-surface;
 $--theme-smoke-down: --theme-smoke-down;
 $--theme-smoke-up: --theme-smoke-up;
@@ -42,13 +42,13 @@ $--theme-background-opaque: --theme-background-opaque;
 $theme-map-light: (
   --background-primary: $orange-light,
   --background-secondary: white,
-  --theme-primary: #ff4800,
-  --theme-secondary: #54c4cf,
+  --theme-primary: $orange,
+  --theme-secondary: $blue-dark,
+  --theme-off-primary: $orange-light,
+  --theme-off-secondary: $blue-light,
   --theme-surface: #f3f1ed,
   --theme-background: #ffffff,
   --theme-background-opaque: #f3f1edda,
-  --theme-on-primary: #96c11f,
-  --theme-on-secondary: #f8f8f8,
   --theme-on-surface: #1a1a1a,
   --theme-smoke-down: #0000004d,
   --theme-smoke-up: #ffffff,
@@ -60,11 +60,11 @@ $theme-map-dark: (
   --background-secondary: black,
   --theme-primary: #96c11f,
   --theme-secondary: #f8f8f8,
+  --theme-off-primary: #96c11f,
+  --theme-off-secondary: #f8f8f8,
   --theme-surface: #1a1a1a,
   --theme-background: #000000,
   --theme-background-opaque: #1a1a1ad2,
-  --theme-on-primary: #5d7715,
-  --theme-on-secondary: #000000,
   --theme-on-surface: #f3f1ed,
   --theme-smoke-down: #000000,
   --theme-smoke-up: #ffffff25,

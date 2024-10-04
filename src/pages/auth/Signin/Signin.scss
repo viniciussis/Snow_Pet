@@ -1,51 +1,166 @@
 .signIn {
-  color: white;
+  background-color: var(--background-secondary);
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  margin: 8rem 0.5rem;
+  padding: 1.5rem;
   display: flex;
+  flex-grow: 1;
+  gap: 1.5rem;
 
-  &__container {
-    border-right: 1px solid variables.$orange-dark;
-    justify-content: space-between;
-    background-color: white;
-    flex-direction: column;
-    align-items: center;
-    padding: 2.5rem;
+  &__logo {
+    font-family: variables.$font-title;
+    color: var(--theme-secondary);
+    font-size: 2.25rem;
+    font-weight: 600;
     display: flex;
-    width: 50%;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  &__content {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.12);
+    color: var(--theme-secondary);
+    flex-direction: column;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+
+    &__title {
+      font-family: variables.$font-title;
+      text-align: center;
+      font-weight: 600;
+      font-size: 2rem;
+    }
+
+    &__sub {
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    &__form {
+      flex-direction: column;
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+
+      &__options {
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        gap: 1.25rem;
+
+        a {
+          font-size: 1rem;
+          color: variables.$blue-dark;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  footer {
+    color: var(--theme-secondary);
+
+    a {
+      color: var(--theme-primary);
+
+      &:hover {
+        color: variables.$orange;
+      }
+    }
+  }
+
+  @include mixins.for-size(tablet) {
+    margin: 6rem 1rem;
+    padding: 2rem;
+
+    &__logo {
+      gap: 1rem;
+    }
 
     &__content {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.12);
-      border-radius: 1rem;
-      color: variables.$blue-dark;
-      flex-direction: column;
-      padding: 4rem;
+      padding: 3rem;
+
+      &__title {
+        font-size: 2.25rem;
+      }
+
+      &__sub {
+        font-size: 1.15rem;
+      }
+
+      &__form {
+        gap: 1.5rem;
+
+        &__options {
+          gap: 6rem;
+        }
+      }
+    }
+
+    footer {
+      a {
+        font-size: 1.15rem;
+      }
+    }
+  }
+
+  @include mixins.for-size(desktop) {
+    border-radius: unset;
+    padding: 2.5rem;
+    margin: unset;
+    width: 50%;
+
+    &__logo {
+      font-size: 2.25rem;
+      font-weight: 600;
       display: flex;
-      width: 70%;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    &__content {
+      flex-direction: column;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
       gap: 1rem;
 
       &__title {
-        font-family: variables.$font-title;
-        font-weight: 700;
+        font-weight: 600;
         font-size: 2rem;
       }
 
       &__sub {
-        font-weight: 400;
+        text-align: center;
+        font-size: 1rem;
       }
 
       &__form {
         flex-direction: column;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         display: flex;
-        gap: 1.5rem;
+        gap: 1rem;
 
         &__options {
           justify-content: space-between;
           align-items: center;
           display: flex;
+          gap: 1.25rem;
 
           a {
             font-size: 1rem;
-            color: variables.$blue-dark;
 
             &:hover {
               text-decoration: underline;
@@ -59,27 +174,8 @@
       }
     }
 
-    &__logo {
-      width: 100%;
-      color: variables.$blue-dark;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-family: variables.$font-title;
-      font-size: 2.25rem;
-      font-weight: 500;
-    }
-
     footer {
-      width: 100%;
-      color: variables.$blue-light;
-
       a {
-        color: variables.$blue-dark;
-
-        &:hover {
-          color: variables.$orange;
-        }
       }
     }
   }

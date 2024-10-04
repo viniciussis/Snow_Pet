@@ -1,13 +1,14 @@
-import Field from '@/components/Field'
-import './Signin.scss'
-import Button from '@/components/Button'
 import Checkbox from '@/components/Checkbox'
+import Button from '@/components/Button'
+import Field from '@/components/Field'
+
+import './Signin.scss'
 
 const SignIn = () => {
   return (
-    <main className="signIn">
-      <div className="signIn__container">
-        <header className="signIn__container__logo">
+    <>
+      <main className="signIn">
+        <header className="signIn__logo">
           <svg
             fill="#0a2056"
             height="45px"
@@ -37,17 +38,15 @@ const SignIn = () => {
           </svg>
           <span>Snow Pet</span>
         </header>
-        <div className="signIn__container__content">
-          <h2 className="signIn__container__content__title">
-            Bem-vindo de volta!!
-          </h2>
-          <p className="signIn__container__content__sub">
+        <div className="signIn__content">
+          <h2 className="signIn__content__title">Bem-vindo de volta!!</h2>
+          <p className="signIn__content__sub">
             Faça login para acessar sua conta...
           </p>
-          <form className="signIn__container__content__form">
+          <form className="signIn__content__form">
             <Field label="Endereço de Email" colorType="dark" />
             <Field label="Senha" colorType="dark" />
-            <div className="signIn__container__content__form__options">
+            <div className="signIn__content__form__options">
               <Checkbox label="Lembrar-me" />
               <a href="">Esqueci minha senha...</a>
             </div>
@@ -57,8 +56,8 @@ const SignIn = () => {
         <footer>
           Ainda não tem uma conta? <a href="">Crie uma!</a>
         </footer>
-      </div>
-    </main>
+      </main>
+    </>
   )
 }
 
