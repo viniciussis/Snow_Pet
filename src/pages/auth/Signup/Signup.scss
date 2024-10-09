@@ -1,10 +1,9 @@
-.signIn {
+.signUp {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.12);
   color: var(--theme-secondary);
   flex-direction: column;
   border-radius: 1rem;
   padding: 1.5rem;
-  min-width: 70%;
   display: flex;
   gap: 1rem;
 
@@ -25,6 +24,12 @@
     margin-top: 1.5rem;
     display: flex;
     gap: 1rem;
+
+    &__row {
+      flex-wrap: wrap;
+      display: flex;
+      gap: 1rem;
+    }
 
     &__options {
       justify-content: space-between;
@@ -71,6 +76,11 @@
     padding: 2rem;
 
     &__form {
+      &__row {
+        display: flex;
+        gap: 1rem;
+      }
+
       &__options {
         gap: 1.25rem;
       }

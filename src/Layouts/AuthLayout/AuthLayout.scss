@@ -1,0 +1,57 @@
+.authLayout {
+  background-color: var(--background-secondary);
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-grow: 1;
+  gap: 1.5rem;
+
+  &__logo {
+    font-family: variables.$font-title;
+    color: var(--theme-secondary);
+    font-size: 2.25rem;
+    font-weight: 600;
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  footer {
+    color: var(--theme-secondary);
+
+    a {
+      color: var(--theme-primary);
+
+      &:hover {
+        color: variables.$orange;
+      }
+    }
+  }
+
+  @include mixins.for-size(tablet) {
+    margin: 15% 1rem;
+    padding: 2rem;
+
+    &__logo {
+      gap: 1rem;
+    }
+
+    footer {
+      a {
+        font-size: 1.15rem;
+      }
+    }
+  }
+
+  @include mixins.for-size(desktop) {
+    border-radius: unset;
+    padding: 2.5rem;
+    margin: unset;
+    width: 60%;
+    gap: 2rem;
+  }
+}

@@ -1,6 +1,7 @@
 .field {
   border-radius: 0.5rem;
   position: relative;
+  min-width: 250px;
   flex-grow: 1;
 
   &__input {
