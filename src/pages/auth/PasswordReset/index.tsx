@@ -5,6 +5,7 @@ import './PasswordReset.scss'
 import { Link } from 'react-router-dom'
 
 const PasswordReset = () => {
+
   return (
     <>
       <div className="passwordReset">
@@ -16,8 +17,8 @@ const PasswordReset = () => {
         <p className="passwordReset__sub">
           Por motivos de segurança, <strong>NÃO</strong> armazenamos sua senha.
           Portanto, fique tranquilo(a), pois nunca enviaremos sua senha por
-          e-mail.{' '}
-        </p>w
+          e-mail.
+        </p>
         <form className="passwordReset__form">
           <Field label="Email*" colorType="dark" />
           <Button text="Trocar senha" colorType="dark" />
