@@ -83,7 +83,7 @@ const Product = () => {
   return (
     <div className="product">
       <div className="product__management">
-        <Button text="< Voltar" onClick={() => navigate('/')} />
+        <Button text="< Voltar" onClick={() => navigate(-1)} />
         <h1 className="product__management__title">
           Gerenciamento de Produtos
         </h1>
