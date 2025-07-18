@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { BrowserRouter } from 'react-router-dom'
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ReactDOM from 'react-dom/client'
 import AppRoutes from './routes.tsx'
 import React from 'react'
@@ -11,6 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
         <AppRoutes />
       </BrowserRouter>
     </QueryClientProvider>
@@ -24,4 +25,4 @@ function setTheme(theme: 'light' | 'dark') {
 
 setTheme('light')
 
-// <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" />
+// <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />

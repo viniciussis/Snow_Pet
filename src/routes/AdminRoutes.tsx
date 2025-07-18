@@ -14,12 +14,13 @@ import Stock from '@/pages/modules/Stock'
 import Home from '@/pages/common/Home'
 import Pet from '@/pages/modules/Pet'
 
+import { ProtectedRoute } from './ProtectedRoute'
 import { Route, Routes } from 'react-router-dom'
 
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route element={<AdminLayout />}>
+      <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
         <Route path="home" element={<Home />} />
         <Route path="atendimento" element={<Service />} />
         <Route path="atendimento/novo" element={<ServiceForm />} />
