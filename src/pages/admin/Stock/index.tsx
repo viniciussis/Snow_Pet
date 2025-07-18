@@ -80,7 +80,7 @@ const Stock = () => {
   return (
     <div className="stock">
       <div className="stock__management">
-        <Button text="< Voltar" onClick={() => navigate('/')} />
+        <Button text="< Voltar" onClick={() => navigate(-1)} />
         <h1 className="stock__management__title">Estoque de Produtos</h1>
       </div>
       <div className="stock__actions">

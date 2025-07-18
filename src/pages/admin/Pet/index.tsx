@@ -61,7 +61,7 @@ const Pet = () => {
   return (
     <div className="pet">
       <div className="pet__management">
-        <Button text="< Voltar" onClick={() => navigate('/')} />
+        <Button text="< Voltar" onClick={() => navigate(-1)} />
         <h1 className="pet__management__title">Gerenciamento de Pets</h1>
       </div>
       <div className="pet__actions">

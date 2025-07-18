@@ -57,7 +57,7 @@ const Customer = () => {
   return (
     <div className="customer">
       <div className="customer__management">
-        <Button onClick={() => navigate('/')} text="< Voltar" />
+        <Button onClick={() => navigate(-1)} text="< Voltar" />
         <h1 className="customer__management__title">
           Gerenciamento de Clientes
         </h1>

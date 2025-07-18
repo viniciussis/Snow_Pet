@@ -70,7 +70,7 @@ const Grooming = () => {
   return (
     <div className="grooming">
       <div className="grooming__management">
-        <Button text="< Voltar" onClick={() => navigate('/')} />
+        <Button text="< Voltar" onClick={() => navigate(-1)} />
         <h1 className="grooming__management__title">
           Gerenciamento de Banhos e Tosas
         </h1>
