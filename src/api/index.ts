@@ -1,8 +1,12 @@
 import { useAuthStore } from '@/hooks/stores/useAuth'
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
 
-const api = axios.create({
-  baseURL: 'http://localhost:3000/v1/',
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+const api: AxiosInstance = axios.create({
+  baseURL: apiUrl,
+  headers: { "Content-Type": "application/json" },
+  withCredentials: true
 })
 
 api.interceptors.request.use((config) => {
