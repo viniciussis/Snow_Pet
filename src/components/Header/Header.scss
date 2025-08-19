@@ -1,7 +1,10 @@
 .header {
   background-color: white;
+  padding: 1rem 1.5rem;
+  justify-content: end;
   position: relative;
   min-height: 10vh;
+  display: flex;
   width: 100%;
 
   &__logo {
