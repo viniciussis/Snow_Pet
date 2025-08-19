@@ -1,11 +1,9 @@
-import { useAuthStore } from '@/hooks/stores'
 import Checkbox from '@/components/Checkbox'
 import Button from '@/components/Button'
 import { useAuth } from '@/api/queries'
 import Field from '@/components/Field'
 import './Signin.scss'
 
-import { Navigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -14,17 +12,12 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
 
-  const token = useAuthStore((s) => s.token)
   const signin = useAuth()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     signin.mutate({ email, password })
   }
-
-  console.log(token)
-
-  if (token) return <Navigate to="/admin/home" />
 
   return (
     <>
